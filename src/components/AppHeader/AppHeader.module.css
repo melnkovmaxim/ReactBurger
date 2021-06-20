@@ -1,4 +1,11 @@
-.header {
+.nav {
     display: flex;
-    justify-content: space-around;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.flexible {
+    flex: 1;
 }
