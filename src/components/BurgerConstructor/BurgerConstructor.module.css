@@ -1,0 +1,14 @@
+.element {
+	width: 620px;
+}
+
+.bottomMenuWrapper {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.bottomMenuWrapper > svg {
+    width: 33px;
+    height: 33px;
+}

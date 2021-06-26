@@ -1,10 +1,15 @@
 import Ingredient from "../Ingredient/Ingredient";
-import listStyle from "./IngredientList.module.css";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const IngredientList = (props) => {
   const name = props.name;
   const ingredients = props.ingredients;
+
+  const scrollToIngredients = (type) => {
+    document.getElementById(type).scrollIntoView({
+      behavior: "smooth", // smooth scroll
+      block: "start",
+    });
+  };
 
   return (
     <div id={props.type}>

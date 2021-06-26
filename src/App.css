@@ -2,6 +2,23 @@
   text-align: center;
 }
 
+.content {
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.header {
+  composes: content;
+}
+
+.body {
+  composes: content;
+  width: 1280px;
+  display: flex;
+  align-items: center;
+  margin: 0 auto;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

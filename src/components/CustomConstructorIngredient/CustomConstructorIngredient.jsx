@@ -1,13 +1,26 @@
+import React from "react";
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import constStyle from "./CustomConstructorIngredient.module.css";
 const CustomConstructorIngredient = (props) => {
+  const constructorElement = React.useRef(null);
+
+  React.useEffect(() => {
+    console.log(constructorElement.current);
+  }, []);
+
   return (
     <div
-      className={props.children ?? "mr-4"}
-      style={{ display: "flex", alignItems: "center" }}
+      style={{
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        overflowX: "hidden",
+      }}
     >
-      <div>{props.children ?? <div className="ml-8"></div>}</div>
-      <ConstructorElement {...props} />
+      <span>{props.children ?? <div className="ml-8"></div>}</span>
+      <div className={constStyle.parent}>
+        <ConstructorElement ref={constructorElement} {...props} />
+      </div>
     </div>
   );
 };

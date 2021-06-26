@@ -1,10 +1,22 @@
-.list::-webkit-scrollbar {
+.element {
+}
+.ingredientWrapper {
+	display: flex;
+	align-items: center;
+}
+.ingredientList {
+	display: flex;
+	overflow-y: auto;
+	flex-direction: column;
+	max-height: 465px;
+}
+.ingredientList::-webkit-scrollbar {
 	width: 12px;
 }
-.list::-webkit-scrollbar-track {
+.ingredientList::-webkit-scrollbar-track {
 	background: #2F2F37;
 }
-.list::-webkit-scrollbar-thumb {
+.ingredientList::-webkit-scrollbar-thumb {
 	border: 3px solid #2F2F37;
 	border-radius: 6px;
 	background: #8585AD;

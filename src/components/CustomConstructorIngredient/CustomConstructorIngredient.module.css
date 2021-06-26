@@ -1,0 +1,12 @@
+.parent {
+    width: 100%;
+    margin-right: 40px;
+}
+
+.parent > div {
+    width: 100%;
+}
+
+.parent > img > span {
+    flex-grow: 1;
+}
