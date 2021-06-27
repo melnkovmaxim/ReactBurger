@@ -13,7 +13,7 @@ const BurgerIngredients = (props) => {
   const typeDescriptions = new Map();
   typeDescriptions.set("bun", "Булки");
   typeDescriptions.set("sauce", "Соусы");
-  typeDescriptions.set("main", "Начинка");
+  typeDescriptions.set("main", "Начинки");
 
   const scrollToIngredients = (type) => {
     setcurrentTabType(type);
@@ -22,7 +22,7 @@ const BurgerIngredients = (props) => {
 
     return (
       <div className={componentStyles.container} >
-        <h1 className="mt-10">Соберите бургер</h1>
+        <h1 className="mt-10 text text_type_main-large">Соберите бургер</h1>
         <div className={`mt-5 ${componentStyles.tabList}`}>
           {uniqueIngridientTypes.map((type) => ( typeDescriptions.get(type) && 
             <Tab value={type} active={currentTabType === type} onClick={scrollToIngredients} >
@@ -31,7 +31,7 @@ const BurgerIngredients = (props) => {
           ))}
         </div>
         <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
-          {uniqueIngridientTypes.map((type) => ( typeDescriptions.get(type) && 
+          {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
             <IngredientList name={typeDescriptions.get(type)} type={type} 
               ingredients={props.ingredients.filter((item) => item.type === type)} 
             />

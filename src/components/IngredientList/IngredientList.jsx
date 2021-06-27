@@ -6,15 +6,16 @@ const IngredientList = (props) => {
   const ingredients = props.ingredients;
 
   return (
-    <div id={props.type}>
-      <h1>{name}</h1>
-      <div className={componentStyles.ingredientWrapper}>
-        {ingredients.map((i) => (
+    <div id={props.type} className="mt-10">
+      <h1 className="text text_type_main-medium">{name}</h1>
+      <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
+        {ingredients.map((item, index) => (
           <Ingredient
-            id={i._id}
-            name={i.name}
-            price={i.price}
-            image={i.image}
+            id={item._id}
+            name={item.name}
+            price={item.price}
+            image={item.image}
+            count={ index === 0 ? 1 : 0 }
           />
         ))}
       </div>

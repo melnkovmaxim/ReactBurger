@@ -6,7 +6,10 @@ const HeaderButton = (props) => {
     <Button {...props}>
       <div className={componentStyles.buttonChild}>
         {props.children}
-        <p className="ml-2">{props.text}</p>
+        <p className={`ml-2 text text_type_main-default ${props.inactive 
+          ? "text_color_inactive" 
+          : componentStyles.active}`}
+        >{props.text}</p>
       </div>
     </Button>
   );

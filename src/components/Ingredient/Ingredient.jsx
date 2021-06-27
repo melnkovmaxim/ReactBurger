@@ -5,12 +5,15 @@ const Ingredient = (props) => {
   return (
     <div id={props._id} className={componentStyles.container} >
       <img src={props.image} className="pl-4 pr-4" />
-      <span className={`mt-1 mb-1 ${componentStyles.price}`}>
+      <span className={`mt-1 mb-1 text text_type_digits-default ${componentStyles.price}`}>
         <p className="pr-1">{props.price}</p>
         <CurrencyIcon type="primary" />
       </span>
-      <p className={componentStyles.name}>{props.name}</p>
-      <Counter count="1" size="default" />
+      <p className={`text text_type_main-default ${componentStyles.name}`}>{props.name}</p>
+      {props.count > 0 
+        ? <Counter count="1" size="default" />
+        : null
+      }
     </div>
   );
 };
