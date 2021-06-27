@@ -1,7 +1,7 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
-import componentStyles from "./CustomConstructorIngredient.module.css";
+import componentStyles from "./ConstructorIngredient.module.css";
 
-const CustomConstructorIngredient = (props) => {
+const ConstructorIngredient = (props) => {
   return (
     <div className={componentStyles.container}>
       <div>{props.children ?? <div className="ml-8"></div>}</div>
@@ -12,4 +12,4 @@ const CustomConstructorIngredient = (props) => {
   );
 };
 
-export default CustomConstructorIngredient;
+export default ConstructorIngredient;

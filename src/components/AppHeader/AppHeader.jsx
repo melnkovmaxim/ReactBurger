@@ -1,14 +1,14 @@
 import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import HeaderButton from "../HeaderButton/HeaderButton";
-import headerStyles from "./AppHeader.module.css";
+import componentStyles from "./AppHeader.module.css";
 
 const AppHeader = (props) => {
   return (
     <>
-      <div className={`pt-4 pb-4 ${headerStyles.headerBackground}`}/>
-      <header className={`pt-4 pb-4 ${headerStyles.header}`}>
-          <nav className={headerStyles.stretchedFlexItem}>
-            <HeaderButton className={headerStyles.link} type="secondary" size="medium" text="Конструктор">
+      <div className={`pt-4 pb-4 ${componentStyles.headerBackground}`}/>
+      <header className={`pt-4 pb-4 ${componentStyles.header}`}>
+          <nav className={componentStyles.stretchedFlexItem}>
+            <HeaderButton className={componentStyles.link} type="secondary" size="medium" text="Конструктор">
               <BurgerIcon />
             </HeaderButton>
             <HeaderButton type="secondary" size="medium" text="Лента заказов" inactive="1" >
@@ -17,8 +17,8 @@ const AppHeader = (props) => {
           </nav>
 
         <Logo />
-        <div className={headerStyles.stretchedFlexItem}>
-          <div className={headerStyles.buttonWrapper}>
+        <div className={componentStyles.stretchedFlexItem}>
+          <div className={componentStyles.buttonWrapper}>
             <HeaderButton type="secondary" size="medium" text="Личный кабинет" inactive="1" >
               <ProfileIcon type="secondary" />
             </HeaderButton>
