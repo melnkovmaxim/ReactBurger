@@ -5,18 +5,16 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 
 const BurgerConstructor = (props) => {
-  const [ingredients, setIngredients] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
 
   useEffect(() => {
-    setIngredients(props.ingredients);
     setTotalPrice(props.ingredients.reduce((total, current) => (total += current.price), 0))
-  });
+  }, [props.ingredients]);
 
   return (
     <div className={`pt-25 ${componentStyles.container}`}>
       <div className="ml-8">
-        <ConstructorIngredientList ingredients={ingredients} />
+        <ConstructorIngredientList ingredients={props.ingredients} />
         <div className={`mt-10 mr-4 ${componentStyles.flexContainer}`}>
           <span className={`mr-10 ${componentStyles.bottomMenuWrapper}`}>
             <p className="mr-4 text text_type_digits-medium">{totalPrice}</p>
