@@ -1,5 +1,6 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./HeaderButton.module.css";
+import PropTypes from 'prop-types';
 
 const HeaderButton = (props) => {
   return (
@@ -13,6 +14,14 @@ const HeaderButton = (props) => {
       </div>
     </Button>
   );
+};
+
+
+HeaderButton.propTypes = {
+  type: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  inactive: PropTypes.bool
 };
 
 export default HeaderButton;

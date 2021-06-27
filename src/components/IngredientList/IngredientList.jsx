@@ -1,5 +1,6 @@
 import Ingredient from "../Ingredient/Ingredient";
 import componentStyles from './IngredientList.module.css';
+import PropTypes from 'prop-types';
 
 const IngredientList = (props) => {
   const name = props.name;
@@ -11,7 +12,7 @@ const IngredientList = (props) => {
       <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
         {ingredients.map((item, index) => (
           <Ingredient
-            id={item._id}
+            key={item._id}
             name={item.name}
             price={item.price}
             image={item.image}
@@ -21,6 +22,17 @@ const IngredientList = (props) => {
       </div>
     </div>
   );
+};
+
+const IngredientPropTypes = PropTypes.shape({
+  _id: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+});
+
+IngredientList.propTypes = {
+  ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired
 };
 
 export default IngredientList;

@@ -2,7 +2,7 @@ import { BurgerIcon, ListIcon, Logo, ProfileIcon } from "@ya.praktikum/react-dev
 import HeaderButton from "../HeaderButton/HeaderButton";
 import componentStyles from "./AppHeader.module.css";
 
-const AppHeader = (props) => {
+const AppHeader = () => {
   return (
     <>
       <div className={`pt-4 pb-4 ${componentStyles.headerBackground}`}/>

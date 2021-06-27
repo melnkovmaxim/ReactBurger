@@ -1,5 +1,6 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./ConstructorIngredient.module.css";
+import PropTypes from 'prop-types';
 
 const ConstructorIngredient = (props) => {
   return (
@@ -10,6 +11,17 @@ const ConstructorIngredient = (props) => {
       </div>
     </div>
   );
+};
+
+const IngredientPropTypes = PropTypes.shape({
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+});
+
+ConstructorIngredient.propTypes = {
+  ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired
 };
 
 export default ConstructorIngredient;

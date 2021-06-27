@@ -5,7 +5,7 @@ import BurgerConstructor from "./components/BurgerConstructor/BurgerConstructor"
 import BurgerIngredients from "./components/BurgerIngredients/BurgerIngredients";
 
 function App() {
-  const [ingredients, setIngredients] = React.useState(null);
+  const [ingredients, setIngredients] = React.useState([]);
   const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
