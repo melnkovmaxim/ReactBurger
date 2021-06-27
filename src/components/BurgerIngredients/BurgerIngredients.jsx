@@ -8,6 +8,7 @@ const BurgerIngredients = (props) => {
   const [currentTabType, setcurrentTabType] = React.useState('bun');
   const ingridientTypes = props.ingredients.map((item) => item.type);
   const uniqueIngridientTypes = [...new Set(ingridientTypes)];
+
   // т.к. в исходном массиве нет данных о русских названиях
   const typeDescriptions = new Map();
   typeDescriptions.set("bun", "Булки");
@@ -20,19 +21,19 @@ const BurgerIngredients = (props) => {
   };
 
     return (
-      <div className={componentStyles.component} >
+      <div className={componentStyles.container} >
         <h1 className="mt-10">Соберите бургер</h1>
         <div className={`mt-5 ${componentStyles.tabList}`}>
-          {uniqueIngridientTypes.map((type) => (
-            typeDescriptions.get(type) && <Tab value={type} active={currentTabType === type}onClick={scrollToIngredients} >
-              { typeDescriptions.get(type) }
+          {uniqueIngridientTypes.map((type) => ( typeDescriptions.get(type) && 
+            <Tab value={type} active={currentTabType === type} onClick={scrollToIngredients} >
+              { typeDescriptions.get(type) } 
             </Tab>
           ))}
         </div>
         <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
-          {uniqueIngridientTypes.map((type) => (
-            typeDescriptions.get(type) && <IngredientList name={typeDescriptions.get(type)} type={type}
-              ingredients={props.ingredients.filter((item) => item.type === type)}
+          {uniqueIngridientTypes.map((type) => ( typeDescriptions.get(type) && 
+            <IngredientList name={typeDescriptions.get(type)} type={type} 
+              ingredients={props.ingredients.filter((item) => item.type === type)} 
             />
           ))}
         </div>

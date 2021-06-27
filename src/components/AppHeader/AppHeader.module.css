@@ -19,6 +19,10 @@
     justify-content: space-between;
 }
 
-.flexible {
+.stretchedFlexItem {
     flex: 1;
+}
+
+.buttonWrapper {
+    float: right;
 }

@@ -1,28 +1,15 @@
-import React from "react";
-import {
-  Counter,
-  CurrencyIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Counter, CurrencyIcon, } from "@ya.praktikum/react-developer-burger-ui-components";
+import componentStyles from './Ingredient.module.css';
 
 const Ingredient = (props) => {
   return (
-    <div
-      id={props._id}
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        position: "relative",
-        maxWidth: "272px",
-      }}
-    >
+    <div id={props._id} className={componentStyles.container} >
       <img src={props.image} className="pl-4 pr-4" />
-      <div className="mt-1 mb-1" style={{ display: "flex" }}>
-        <span className="pr-1">{props.price}</span>
+      <span className={`mt-1 mb-1 ${componentStyles.price}`}>
+        <p className="pr-1">{props.price}</p>
         <CurrencyIcon type="primary" />
-      </div>
-      <span style={{ height: "48px" }}>{props.name}</span>
+      </span>
+      <p className={componentStyles.name}>{props.name}</p>
       <Counter count="1" size="default" />
     </div>
   );

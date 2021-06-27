@@ -1,5 +1,9 @@
-.element {
+.container {
 	width: 620px;
+}
+
+.flexContainer {
+    display: flex;
 }
 
 .bottomMenuWrapper {

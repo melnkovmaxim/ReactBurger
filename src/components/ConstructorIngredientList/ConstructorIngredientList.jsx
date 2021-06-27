@@ -6,7 +6,7 @@ import CustomConstructorIngredient from "../CustomConstructorIngredient/CustomCo
 const ConstructorIngredientList = (props) => {
   const bun = props.ingredients.filter((x) => x.type === "bun")[0];
   return (
-    <div className={elementStyles.element}>
+    <div>
       <div className="mb-4">
         <CustomConstructorIngredient
           type="top"
