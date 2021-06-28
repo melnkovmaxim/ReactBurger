@@ -13,15 +13,12 @@ const ConstructorIngredient = (props) => {
   );
 };
 
-const IngredientPropTypes = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-});
-
 ConstructorIngredient.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired
+  text: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  isLocked: PropTypes.bool
 };
 
 export default ConstructorIngredient;

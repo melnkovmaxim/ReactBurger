@@ -25,15 +25,15 @@ const BurgerIngredients = (props) => {
     <div className={componentStyles.container} >
       <h1 className="mt-10 text text_type_main-large">Соберите бургер</h1>
       <div className={`mt-5 ${componentStyles.tabList}`}>
-        {uniqueIngridientTypes.map((type) => ( typeDescriptions.get(type) && 
-          <Tab value={type} active={currentTabType === type} onClick={scrollToIngredients} >
+        {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
+          <Tab key={index} value={type} active={currentTabType === type} onClick={scrollToIngredients} >
             { typeDescriptions.get(type) } 
           </Tab>
         ))}
       </div>
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
-        {uniqueIngridientTypes.map((type) => ( typeDescriptions.get(type) && 
-          <IngredientList name={typeDescriptions.get(type)} type={type} 
+        {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
+          <IngredientList key={index} name={typeDescriptions.get(type)} type={type} 
             ingredients={props.ingredients.filter((item) => item.type === type)} 
           />
         ))}
@@ -43,9 +43,9 @@ const BurgerIngredients = (props) => {
 }
 
 const IngredientPropTypes = PropTypes.shape({
-  _id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
 });
 

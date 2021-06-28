@@ -25,9 +25,9 @@ const IngredientList = (props) => {
 };
 
 const IngredientPropTypes = PropTypes.shape({
-  _id: PropTypes.number.isRequired,
+  _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
 });
 
