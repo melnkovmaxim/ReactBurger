@@ -26,16 +26,15 @@ const BurgerIngredients = (props) => {
       <h1 className="mt-10 text text_type_main-large">Соберите бургер</h1>
       <div className={`mt-5 ${componentStyles.tabList}`}>
         {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
-          <Tab key={index} value={type} active={currentTabType === type} onClick={scrollToIngredients} >
+          (<Tab key={index} value={type} active={currentTabType === type} onClick={scrollToIngredients} >
             { typeDescriptions.get(type) } 
-          </Tab>
+          </Tab>)
         ))}
       </div>
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
         {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
-          <IngredientList key={index} name={typeDescriptions.get(type)} type={type} 
-            ingredients={props.ingredients.filter((item) => item.type === type)} 
-          />
+          (<IngredientList key={index} name={typeDescriptions.get(type)} type={type} 
+            ingredients={props.ingredients.filter((item) => item.type === type)} />)
         ))}
       </div>
     </div>

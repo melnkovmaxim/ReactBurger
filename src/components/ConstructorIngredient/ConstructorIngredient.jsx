@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const ConstructorIngredient = (props) => {
   return (
     <div className={componentStyles.container}>
-      <div>{props.children ?? <div className="ml-8"></div>}</div>
+      <div>{props.children ?? (<div className="ml-8"></div>)}</div>
       <div className={componentStyles.ingredientWrapper}>
         <ConstructorElement {...props} />
       </div>

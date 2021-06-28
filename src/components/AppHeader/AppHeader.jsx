@@ -15,7 +15,6 @@ const AppHeader = () => {
               <ListIcon type="secondary" />
             </HeaderButton>
           </nav>
-
         <Logo />
         <div className={componentStyles.stretchedFlexItem}>
           <div className={componentStyles.buttonWrapper}>
