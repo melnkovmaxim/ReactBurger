@@ -1,10 +1,8 @@
 import React from "react";
 import componentStyles from "./App.module.css";
-import data from "../../utils/data";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import OrderDetails from "../OrderDetails/OrderDetails";
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
@@ -17,24 +15,24 @@ function App() {
           .catch(error => setError(error));
   }, []);
 
-  return (  
-    <OrderDetails />  
-    // <>
-    //   {ingredients
-    //     ? (
-    //       <div className={componentStyles.content}>
-    //         <div className={componentStyles.header}>
-    //           <AppHeader />
-    //         </div>
-    //         <div className={componentStyles.body}>
-    //           <BurgerIngredients ingredients={ingredients} />
-    //           <div className="ml-5 mr-5" />
-    //           <BurgerConstructor ingredients={ingredients} />
-    //         </div>
-    //       </div>
-    //     )
-    //     : (<div>{error}</div>)
-    //   }
+  return (   
+    <>
+      {ingredients
+        ? (
+          <div className={componentStyles.content}>
+            <div className={componentStyles.header}>
+              <AppHeader />
+            </div>
+            <div className={componentStyles.body}>
+              <BurgerIngredients ingredients={ingredients} />
+              <div className="ml-5 mr-5" />
+              <BurgerConstructor ingredients={ingredients} />
+            </div>
+          </div>
+        )
+        : (<div>{error}</div>)
+      }
+    </>
   );
 }
 
