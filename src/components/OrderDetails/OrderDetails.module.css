@@ -1,16 +1,52 @@
+.overlay {
+    height: 100vh;
+    background-color: violet;
+    overflow: hidden;
+}
+
 .container {
+    background-color: wheat;
     width: 720px;
     height: 718px;
     border-radius: 40px;
+    position: relative;
+    display: block;
+    margin: 0 auto;
 }
 
 .innerContainer {
+    background-color: green;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.borderDotted {
+    border: 1px dashed #4C4CFF;
+}
+
 .closeButton {
+    composes: borderDotted;
     position: absolute;
-    float: right;
+    right: 0;
+}
+
+.orderNumber {
+    composes: borderDotted;
+}
+
+.orderIdentifier {
+    composes: borderDotted;
+}
+
+.orderIcon {
+    composes: borderDotted;
+}
+
+.orderInfo {
+    composes: borderDotted;
+}
+
+.orderDescription {
+    composes: borderDotted;
 }
