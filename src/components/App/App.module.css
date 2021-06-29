@@ -1,4 +1,7 @@
 .App {
+  box-sizing: border-box;
+  max-height: 100vh;
+  padding: 0;
   text-align: center;
 }
 

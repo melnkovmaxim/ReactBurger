@@ -11,15 +11,14 @@ const AppHeader = () => {
             <HeaderButton className={componentStyles.link} type="secondary" size="medium" text="Конструктор">
               <BurgerIcon />
             </HeaderButton>
-            <HeaderButton type="secondary" size="medium" text="Лента заказов" inactive="1" >
+            <HeaderButton type="secondary" size="medium" text="Лента заказов" inactive={true} >
               <ListIcon type="secondary" />
             </HeaderButton>
           </nav>
-
         <Logo />
         <div className={componentStyles.stretchedFlexItem}>
           <div className={componentStyles.buttonWrapper}>
-            <HeaderButton type="secondary" size="medium" text="Личный кабинет" inactive="1" >
+            <HeaderButton type="secondary" size="medium" text="Личный кабинет" inactive={true} >
               <ProfileIcon type="secondary" />
             </HeaderButton>
           </div>

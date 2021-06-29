@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 const ConstructorIngredient = (props) => {
   return (
     <div className={componentStyles.container}>
-      <div>{props.children ?? <div className="ml-8"></div>}</div>
+      <div>{props.children ?? (<div className="ml-8"></div>)}</div>
       <div className={componentStyles.ingredientWrapper}>
         <ConstructorElement {...props} />
       </div>
@@ -13,15 +13,12 @@ const ConstructorIngredient = (props) => {
   );
 };
 
-const IngredientPropTypes = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired,
-});
-
 ConstructorIngredient.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired
+  text: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  isLocked: PropTypes.bool
 };
 
 export default ConstructorIngredient;
