@@ -9,7 +9,7 @@ const ConstructorIngredientList = (props) => {
 
   return (
     <div>
-      {bun &&(
+      {bun && (
       <div className="mb-4">
         <ConstructorIngredient
           type="top"
