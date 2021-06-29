@@ -9,8 +9,8 @@ const ConstructorIngredientList = (props) => {
 
   return (
     <div>
-      {bun &&
-      (<div className="mb-4">
+      {bun &&(
+      <div className="mb-4">
         <ConstructorIngredient
           type="top"
           isLocked={true}
@@ -18,7 +18,8 @@ const ConstructorIngredientList = (props) => {
           text={bun.name.concat(" (верх)")}
           price={bun.price}
         />
-      </div>)}
+      </div>
+      )}
       <div className={ (clsx(componentStyles.ingredientList), componentStyles.ingredientList) }>
         {props.ingredients.filter(item => item.type !== 'bun').map((item, index) => (
           <div key={item._id} className={`${index !== 0 ? "mt-4" : ""} ${componentStyles.ingredientWrapper}`} >
@@ -30,8 +31,8 @@ const ConstructorIngredientList = (props) => {
           </div>
         ))}
       </div>
-      {bun && 
-      (<div className="mt-4">
+      {bun && (
+      <div className="mt-4">
         <ConstructorIngredient
           type="bottom"
           thumbnail={bun.image}
@@ -39,7 +40,8 @@ const ConstructorIngredientList = (props) => {
           text={bun.name.concat(" (низ)")}
           price={bun.price}
         />
-      </div>)}
+      </div>
+      )}
     </div>
   );
 };
