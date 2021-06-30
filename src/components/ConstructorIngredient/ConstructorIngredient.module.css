@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.ingredientWrapper {
+    width: 100%;
+    margin-right: 40px;
+}
+
+.ingredientWrapper > div {
+    width: 100%;
+}
+
+.ingredientWrapper img + span {
+  flex-grow: 1;
+}

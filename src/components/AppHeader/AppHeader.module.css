@@ -1,0 +1,28 @@
+.headerHeight {
+    height: 56px;
+}
+
+.headerBackground {
+    composes: headerHeight;
+    background-color: #1C1C21;
+    width: 100%; 
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.header {
+    composes: headerHeight;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stretchedFlexItem {
+    flex: 1;
+}
+
+.buttonWrapper {
+    float: right;
+}

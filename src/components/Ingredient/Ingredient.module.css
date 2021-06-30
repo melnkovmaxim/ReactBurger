@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    max-width: 272px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
+}
+
+.name {
+    height: 48px;
+    margin: 0;
+    padding: 0;
+}

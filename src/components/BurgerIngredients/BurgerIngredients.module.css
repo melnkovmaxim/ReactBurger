@@ -1,0 +1,27 @@
+.container {
+	height: 861px;
+	width: 620px;
+	min-width: 620px;
+	overflow: hidden;
+	display: flex;
+	flex-flow: column;
+}
+.tabList {
+	display: flex;
+}
+.ingredientListWrapper {
+	overflow-y: auto;
+	height: 100%;
+	width: 100%;
+}
+.ingredientListWrapper::-webkit-scrollbar {
+	width: 12px;
+}
+.ingredientListWrapper::-webkit-scrollbar-track {
+	background: #2F2F37;
+}
+.ingredientListWrapper::-webkit-scrollbar-thumb {
+	border: 3px solid #2F2F37;
+	border-radius: 6px;
+	background: #8585AD;
+}
