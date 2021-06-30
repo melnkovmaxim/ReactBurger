@@ -23,7 +23,7 @@ const IngredientDetails = forwardRef((props, ref) => {
                             </div>
                             <div className={componentStyles.content}>
                                 <img className={componentStyles.ingredientImage} src={state.image} alt={state.name} />
-                                <p className="mt-4 text text_type_main-medium">{state.name}</p>
+                                <p className={`mt-4 text text_type_main-medium ${componentStyles.textCenter}`}>{state.name}</p>
                                 <div className={`mt-8 ${componentStyles.ingredientInfo}`}>
                                     <div>
                                         <p className={`text text_type_main-default text_color_inactive ${componentStyles.textCenter}`}>
