@@ -3,6 +3,7 @@ import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-co
 import componentStyles from "./BurgerConstructor.module.css";
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from "react";
+import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 const BurgerConstructor = (props) => {
@@ -19,7 +20,9 @@ const BurgerConstructor = (props) => {
 
   return (
     <>
-      <OrderDetails ref={orderDetailsRef} />
+      <ModalOverlay ref={orderDetailsRef} >
+        <OrderDetails />
+      </ModalOverlay>
       <div className={`pt-25 ${componentStyles.container}`}>
         <div className="ml-8">
           <ConstructorIngredientList ingredients={props.ingredients} />
