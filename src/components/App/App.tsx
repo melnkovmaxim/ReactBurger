@@ -5,14 +5,19 @@ import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 
 function App() {
+  const url = "https://norma.nomoreparties.space/api/ingredients";
   const [ingredients, setIngredients] = React.useState([]);
   const [error, setError] = React.useState(null);
 
   React.useEffect(() => {
-    fetch('https://norma.nomoreparties.space/api/ingredients')
-          .then(response => response.json())
-          .then(json => setIngredients(json.data))
-          .catch(error => setError(error));
+    fetch(url)
+      .then(response => { if (response.ok) {
+                            return response.json();
+                          }
+                          return Promise.reject(`Ошибка ${response.status}`);
+                        })
+      .then(json => setIngredients(json.data))
+      .catch(error => setError(error));
   }, []);
 
   return (   
