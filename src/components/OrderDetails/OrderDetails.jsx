@@ -13,20 +13,25 @@ const OrderDetails = forwardRef((props, ref) => {
   }));
 
   return (
-    <div ref={props.ref} className={`${componentStyles.overlay} ${isVisible ? null : componentStyles.invisible} `}>
-      <div className={componentStyles.container}>
-            <div className={`mr-10 mt-15 ${componentStyles.closeButton}`} >
-              <CloseIcon type="primary" onClick={() => setVisible(false)} />
-            </div>
-            <div className={`pt-30 pb-30 ${componentStyles.innerContainer}`}>
-              <p className={`text text_type_digits-large ${componentStyles.orderNumber}`}>034536</p>
-              <p className={`mt-8 text text_type_main-medium ${componentStyles.orderIdentifier}`}>идентификатор заказа</p>
-              <img src={accessIcon} alt="Заказ готов" className={`mt-15 ${componentStyles.orderIcon}`}></img>
-              <p className={`mt-15 text text_type_main-default ${componentStyles.orderInfo}`}>Ваш заказ начали готовить</p>
-              <p className={`mt-2 text text_type_main-default text_color_inactive ${componentStyles.orderDescription}`}>Дождитесь готовности на орбитальной станции</p>
-            </div>
-        </div>
-    </div>
+    <>
+      { isVisible
+        ? ( <div ref={props.ref} className={componentStyles.overlay}>
+              <div className={componentStyles.container}>
+                    <div className={`mr-10 mt-15 ${componentStyles.closeButton}`} >
+                      <CloseIcon type="primary" onClick={() => setVisible(false)} />
+                    </div>
+                    <div className={`pt-30 pb-30 ${componentStyles.innerContainer}`}>
+                      <p className={`text text_type_digits-large ${componentStyles.orderNumber}`}>034536</p>
+                      <p className={`mt-8 text text_type_main-medium ${componentStyles.orderIdentifier}`}>идентификатор заказа</p>
+                      <img src={accessIcon} alt="Заказ готов" className="mt-15"></img>
+                      <p className="mt-15 text text_type_main-default">Ваш заказ начали готовить</p>
+                      <p className="mt-2 text text_type_main-default text_color_inactive">Дождитесь готовности на орбитальной станции</p>
+                    </div>
+                </div>
+            </div>)
+        : null
+      }
+    </>
   );
 });
 

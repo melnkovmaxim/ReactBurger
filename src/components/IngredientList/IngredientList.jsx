@@ -9,8 +9,8 @@ const IngredientList = (props) => {
   const ingredients = props.ingredients;
   const ingredientDetailsRef = useRef(null);
 
-  const showIngredientDetails = () => {
-    ingredientDetailsRef.current.show();
+  const showIngredientDetails = (ingredient) => {
+    ingredientDetailsRef.current.show(ingredient);
   };
 
   return (
@@ -26,7 +26,7 @@ const IngredientList = (props) => {
               price={item.price}
               image={item.image}
               count={index === 0 ? 1 : 0 }
-              onClick={showIngredientDetails}
+              onClick={() => showIngredientDetails(item)}
             />
           ))}
         </div>

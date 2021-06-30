@@ -1,7 +1,3 @@
-.invisible {
-    visibility: hidden;
-}
-
 .overlay {
     position: fixed;
     height: 100%;
@@ -21,17 +17,50 @@
     border-radius: 40px;
     position: relative;
     display: block;
-    margin: auto;
+    margin: 0 auto;
     background-color: #1C1C21;
+}
+
+.innerContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .closeButton {
     position: absolute;
     right: 0;
-    width: 24px;
+    cursor: pointer;
     height: 24px;
+    width: 24px;
 }
 
 .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 520px;
+}
+
+.ingredientImage {
+    width: 480px;
+    height: 240px;
+    margin: 0 auto;
+}
+
+.ingredientInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.textCenter {
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    height: 64px;
+    width: 100%;
 }
