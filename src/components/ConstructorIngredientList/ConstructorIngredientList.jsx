@@ -46,7 +46,7 @@ const ConstructorIngredientList = (props) => {
   );
 };
 
-const IngredientListPropTypes = PropTypes.shape({
+const ingredientListPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -55,7 +55,7 @@ const IngredientListPropTypes = PropTypes.shape({
 });
 
 ConstructorIngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientListPropTypes.isRequired).isRequired
+  ingredients: PropTypes.arrayOf(ingredientListPropTypes.isRequired).isRequired
 };
 
 export default ConstructorIngredientList;

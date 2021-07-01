@@ -18,9 +18,9 @@ const IngredientList = (props) => {
   return (
     <>
       <ModalOverlay ref={ingredientDetailsRef} header="Детали ингредиента" >
-        { selectedIngredient && <IngredientDetails ingredient={selectedIngredient}/> } 
+        { selectedIngredient && <IngredientDetails {...selectedIngredient} /> } 
       </ModalOverlay>
-      <div id={props.type} className="mt-10">
+      <div className="mt-10">
         <h1 className="text text_type_main-medium">{name}</h1>
         <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
           {ingredients.map((item, index) => (
@@ -42,7 +42,7 @@ const IngredientList = (props) => {
   );
 };
 
-const IngredientPropTypes = PropTypes.shape({
+const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -55,7 +55,7 @@ const IngredientPropTypes = PropTypes.shape({
 });
 
 IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 };
 
 export default IngredientList;

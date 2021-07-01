@@ -14,7 +14,7 @@ const Modal = (props) => {
                                 <div className={`mr-10 ${componentStyles.closeButton}`}><CloseIcon type="primary" onClick={props.onClose} /></div>
                             </div>
                         </div>)
-                    : <div className={`mt-15 mr-10 ${componentStyles.closeButton}`}><CloseIcon type="primary" onClick={props.onClose} /></div>
+                    : (<div className={`mt-15 mr-10 ${componentStyles.closeButton}`}><CloseIcon type="primary" onClick={props.onClose} /></div>)
                 }
             <div>{props.children}</div>    
         </div>

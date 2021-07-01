@@ -41,7 +41,7 @@ const BurgerIngredients = (props) => {
   );
 }
 
-const IngredientPropTypes = PropTypes.shape({
+const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
@@ -54,7 +54,7 @@ const IngredientPropTypes = PropTypes.shape({
 });
 
 IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 };
 
 export default BurgerIngredients;
