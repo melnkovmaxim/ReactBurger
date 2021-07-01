@@ -1,15 +1,3 @@
-.overlay {
-    position: fixed;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .4);
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    width: 100%;
-    left: 0;
-    top: 0;
-}
-
 .container {
     max-width: 520px;
     display: flex;
@@ -21,12 +9,6 @@
 .fullWidth {
     width: 100%;
     text-align: center;
-}
-
-.closeButton {
-    position: absolute;
-    right: 0;
-    cursor: pointer;
 }
 
 .orderNumber {

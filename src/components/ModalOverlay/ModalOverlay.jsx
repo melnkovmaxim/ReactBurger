@@ -39,7 +39,7 @@ const ModalOverlay = forwardRef((props, ref) => {
         (<div>
             { 
                 isVisible && (
-                    <div ref={props.ref} className={componentStyles.overlay} onClick={setInvisibleOnClick}>
+                    <div className={componentStyles.overlay} onClick={setInvisibleOnClick}>
                                 <Modal header={props.header} onClose={() => setIsVisible(false)}>{props.children}</Modal>
                     </div>
                 )

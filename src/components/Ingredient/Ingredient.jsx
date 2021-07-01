@@ -12,7 +12,7 @@ const Ingredient = (props) => {
       </span>
       <p className={`text text_type_main-default ${componentStyles.name}`}>{props.name}</p>
         {
-          props.count && props.count > 0 &&
+          props.count > 0 &&
           (<Counter count="1" size="default" />)
         }
     </div>
@@ -23,7 +23,7 @@ Ingredient.propTypes = {
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
-  count: PropTypes.number
+  count: PropTypes.number.isRequired
 };
 
 export default Ingredient;

@@ -44,7 +44,7 @@ const IngredientDetails = (props) => {
     );
 };
 
-const ingredientPropType = PropTypes.shape({
+const ingredientPropTypes = PropTypes.shape({
     name: PropTypes.string.isRequired,
     image_large: PropTypes.string.isRequired,
     calories: PropTypes.number.isRequired,
@@ -54,7 +54,7 @@ const ingredientPropType = PropTypes.shape({
 });
 
 IngredientDetails.propTypes = {
-    ingredient: PropTypes.objectOf(ingredientPropType.isRequired).isRequired
+    ingredient: PropTypes.objectOf(ingredientPropTypes.isRequired).isRequired
 };
 
 export default IngredientDetails;
