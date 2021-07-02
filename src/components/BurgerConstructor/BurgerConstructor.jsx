@@ -3,16 +3,24 @@ import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-co
 import componentStyles from "./BurgerConstructor.module.css";
 import PropTypes from 'prop-types';
 import { useEffect, useRef, useState } from "react";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 const BurgerConstructor = (props) => {
   const orderDetailsRef = useRef(null);
   const [totalPrice, setTotalPrice] = useState();
+  const bun = props.ingredients.filter((item) => item.type === "bun")[0];
 
   useEffect(() => {
-    setTotalPrice(props.ingredients.reduce((total, current) => (total += current.price), 0))
-  }, [props.ingredients]);
+    const bunPrice = bun ? bun.price * 2 : 0;
+    const fillingPrice = props.ingredients.reduce((total, current) => {
+      if (current.type === "bun") return 0;
+      
+      return total += current.price
+    }, 0);
+
+    setTotalPrice(bunPrice + fillingPrice);
+  }, [bun, props.ingredients]);
 
   const onClick = () => {
     orderDetailsRef.current.show();
@@ -20,12 +28,12 @@ const BurgerConstructor = (props) => {
 
   return (
     <>
-      <ModalOverlay ref={orderDetailsRef} >
+      <Modal ref={orderDetailsRef} >
         <OrderDetails />
-      </ModalOverlay>
+      </Modal>
       <div className={`pt-25 ${componentStyles.container}`}>
         <div className="ml-8">
-          <ConstructorIngredientList ingredients={props.ingredients} />
+          <ConstructorIngredientList bun={bun} ingredients={props.ingredients} />
           <div className={`mt-10 mr-4 ${componentStyles.flexContainer}`}>
             <span className={`mr-10 ${componentStyles.bottomMenuWrapper}`}>
               <p className="mr-4 text text_type_digits-medium">{totalPrice}</p>

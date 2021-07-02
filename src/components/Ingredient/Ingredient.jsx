@@ -13,7 +13,7 @@ const Ingredient = (props) => {
       <p className={`text text_type_main-default ${componentStyles.name}`}>{props.name}</p>
         {
           props.count > 0 &&
-          (<Counter count="1" size="default" />)
+          (<Counter count={props.count} size="default" />)
         }
     </div>
   );

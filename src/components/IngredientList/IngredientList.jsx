@@ -3,7 +3,7 @@ import componentStyles from './IngredientList.module.css';
 import PropTypes from 'prop-types';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useRef, useState } from 'react';
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
+import Modal from "../Modal/Modal";
 
 const IngredientList = (props) => {
   const name = props.name;
@@ -17,25 +17,28 @@ const IngredientList = (props) => {
 
   return (
     <div id={props.type}>
-      <ModalOverlay ref={ingredientDetailsRef} header="Детали ингредиента" >
+      <Modal ref={ingredientDetailsRef} header="Детали ингредиента" >
         { selectedIngredient && <IngredientDetails {...selectedIngredient} /> } 
-      </ModalOverlay>
+      </Modal>
       <div className="mt-10">
         <h1 className="text text_type_main-medium">{name}</h1>
         <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
-          {ingredients.map((item, index) => (
-            <Ingredient
+          {ingredients.map((item, index) => {
+            const defaultCount = index === 0 ? 1 : 0;
+            const bunCount = item._id === props.bunId ? 2 : defaultCount;
+
+            return (<Ingredient
               key={item._id}
               name={item.name}
               price={item.price}
               image={item.image}
-              count={index === 0 ? 1 : 0 }
+              count={bunCount}
               onClick={() => { 
                 setSelectedIngredient(item); 
                 showIngredientDetails(); 
               }}
-            />
-          ))}
+            />)
+          })}
         </div>
       </div>
     </div>
