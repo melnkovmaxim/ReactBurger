@@ -2,13 +2,13 @@ import ConstructorIngredientList from "../ConstructorIngredientList/ConstructorI
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./BurgerConstructor.module.css";
 import PropTypes from 'prop-types';
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 
 const BurgerConstructor = (props) => {
-  const orderDetailsRef = useRef(null);
   const [totalPrice, setTotalPrice] = useState();
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
   const bun = props.ingredients.filter((item) => item.type === "bun")[0];
 
   useEffect(() => {
@@ -23,14 +23,20 @@ const BurgerConstructor = (props) => {
   }, [bun, props.ingredients]);
 
   const onClick = () => {
-    orderDetailsRef.current.show();
+    setIsDetailsModalOpen(true);
+  };
+
+  const onClose = () => {
+    setIsDetailsModalOpen(false);
   };
 
   return (
     <>
-      <Modal ref={orderDetailsRef} >
-        <OrderDetails />
-      </Modal>
+      { isDetailsModalOpen && (
+        <Modal onClose={onClose}>
+          <OrderDetails />
+        </Modal>
+      )}
       <div className={`pt-25 ${componentStyles.container}`}>
         <div className="ml-8">
           <ConstructorIngredientList bun={bun} ingredients={props.ingredients} />
@@ -39,7 +45,7 @@ const BurgerConstructor = (props) => {
               <p className="mr-4 text text_type_digits-medium">{totalPrice}</p>
               <CurrencyIcon type="primary" />
             </span>
-            <Button type="primary" size="large" onClick={onClick}>
+            <Button type="primary" size="large" onClick={() => onClick()}>
               Оформить заказ
             </Button>
           </div>
