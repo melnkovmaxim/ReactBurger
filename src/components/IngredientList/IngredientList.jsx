@@ -16,7 +16,7 @@ const IngredientList = (props) => {
   };
 
   return (
-    <>
+    <div id={props.type}>
       <ModalOverlay ref={ingredientDetailsRef} header="Детали ингредиента" >
         { selectedIngredient && <IngredientDetails {...selectedIngredient} /> } 
       </ModalOverlay>
@@ -38,13 +38,14 @@ const IngredientList = (props) => {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
 const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
   image_large: PropTypes.string.isRequired,
