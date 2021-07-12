@@ -9,6 +9,8 @@ const BurgerIngredients = (props) => {
   const [currentTabType, setcurrentTabType] = React.useState('bun');
   const ingridientTypes = props.ingredients.map((item) => item.type);
   const uniqueIngridientTypes = [...new Set(ingridientTypes)];
+  // пока так, т.к. были проблемы с TypeScript в App и PropTypes, не компилилось
+  const bun = props.ingredients.filter((item) => item.type === "bun")[0];
 
   // т.к. в исходном массиве нет данных о русских названиях
   const typeDescriptions = new Map();
@@ -33,7 +35,7 @@ const BurgerIngredients = (props) => {
       </div>
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
         {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
-          (<IngredientList key={index} name={typeDescriptions.get(type)} type={type} 
+          (<IngredientList key={index} name={typeDescriptions.get(type)} type={type} bunId={type === "bun" ? bun._id : null}  
             ingredients={props.ingredients.filter((item) => item.type === type)} />)
         ))}
       </div>
@@ -41,15 +43,20 @@ const BurgerIngredients = (props) => {
   );
 }
 
-const IngredientPropTypes = PropTypes.shape({
+const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
+  image_large: PropTypes.string.isRequired,
+  calories: PropTypes.number.isRequired,
+  proteins: PropTypes.number.isRequired,
+  fat: PropTypes.number.isRequired,
+  carbohydrates: PropTypes.number.isRequired
 });
 
 IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientPropTypes.isRequired).isRequired
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 };
 
 export default BurgerIngredients;

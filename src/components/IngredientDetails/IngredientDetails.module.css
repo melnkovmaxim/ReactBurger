@@ -1,0 +1,35 @@
+.overlay {
+    position: fixed;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .4);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 100;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 520px;
+}
+
+.ingredientImage {
+    width: 480px;
+    height: 240px;
+    margin: 0 auto;
+}
+
+.ingredientInfo {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.textCenter {
+    text-align: center;
+}

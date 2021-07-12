@@ -5,18 +5,17 @@ import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredien
 import PropTypes from 'prop-types';
 
 const ConstructorIngredientList = (props) => {
-  const bun = props.ingredients.filter((item) => item.type === "bun")[0];
 
   return (
     <div>
-      {bun && (
+      {props.bun && (
       <div className="mb-4">
         <ConstructorIngredient
           type="top"
           isLocked={true}
-          thumbnail={bun.image}
-          text={bun.name.concat(" (верх)")}
-          price={bun.price}
+          thumbnail={props.bun.image}
+          text={props.bun.name.concat(" (верх)")}
+          price={props.bun.price}
         />
       </div>
       )}
@@ -31,14 +30,14 @@ const ConstructorIngredientList = (props) => {
           </div>
         ))}
       </div>
-      {bun && (
+      {props.bun && (
       <div className="mt-4">
         <ConstructorIngredient
           type="bottom"
-          thumbnail={bun.image}
+          thumbnail={props.bun.image}
           isLocked={true}
-          text={bun.name.concat(" (низ)")}
-          price={bun.price}
+          text={props.bun.name.concat(" (низ)")}
+          price={props.bun.price}
         />
       </div>
       )}
@@ -46,7 +45,7 @@ const ConstructorIngredientList = (props) => {
   );
 };
 
-const IngredientListPropTypes = PropTypes.shape({
+const ingredientListPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
@@ -54,8 +53,9 @@ const IngredientListPropTypes = PropTypes.shape({
   image: PropTypes.string.isRequired,
 });
 
-ConstructorIngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(IngredientListPropTypes.isRequired).isRequired
-};
+ConstructorIngredientList.propTypes = PropTypes.shape({
+  bun: PropTypes.objectOf(ingredientListPropTypes.isRequired).isRequired,
+  ingredients: PropTypes.arrayOf(ingredientListPropTypes.isRequired).isRequired
+}).isRequired;
 
 export default ConstructorIngredientList;
