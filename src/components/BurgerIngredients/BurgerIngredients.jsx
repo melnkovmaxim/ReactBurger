@@ -4,13 +4,23 @@ import IngredientList from "../IngredientList/IngredientList";
 import componentStyles from "./BurgerIngredients.module.css";
 import clsx from "clsx";
 import PropTypes from 'prop-types';
+import { useEffect } from "react";
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredients } from "../../services/actions/IngredientActions";
 
-const BurgerIngredients = (props) => {
+const BurgerIngredients = () => {
+  const dispatch = useDispatch();
+  const ingredients = useSelector(store => store.ingredients.items);
+
+  useEffect(() => {
+      dispatch(getIngredients());
+  },[dispatch]);
+
   const [currentTabType, setcurrentTabType] = React.useState('bun');
-  const ingridientTypes = props.ingredients.map((item) => item.type);
+  const ingridientTypes = ingredients.map((item) => item.type);
   const uniqueIngridientTypes = [...new Set(ingridientTypes)];
   // пока так, т.к. были проблемы с TypeScript в App и PropTypes, не компилилось
-  const bun = props.ingredients.filter((item) => item.type === "bun")[0];
+  const bun = ingredients.filter((item) => item.type === "bun")[0];
 
   // т.к. в исходном массиве нет данных о русских названиях
   const typeDescriptions = new Map();
@@ -36,7 +46,7 @@ const BurgerIngredients = (props) => {
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
         {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
           (<IngredientList key={index} name={typeDescriptions.get(type)} type={type} bunId={type === "bun" ? bun._id : null}  
-            ingredients={props.ingredients.filter((item) => item.type === type)} />)
+            ingredients={ingredients.filter((item) => item.type === type)} />)
         ))}
       </div>
     </div>
