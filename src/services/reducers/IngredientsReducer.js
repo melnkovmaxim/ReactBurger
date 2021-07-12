@@ -2,6 +2,8 @@ import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
     GET_INGREDIENTS_FAILED,
+    SELECT_INGREDIENT,
+    VIEW_INGREDIENT,
 } from '../actions/IngredientActions';
 
 const initialState = {
@@ -9,6 +11,14 @@ const initialState = {
     itemsRequestPending: false,
     itemsRequestFailed: false,
     itemsRequestError: '',
+
+    selectedItems: [],
+
+    viewedItem: {},
+
+    order: {
+        totalPrice: 0,
+    }
 }
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -32,6 +42,18 @@ export const ingredientsReducer = (state = initialState, action) => {
                 ...state,
                 itemsRequestFailed: true,
                 error: action.error,
+            }
+        }
+        case SELECT_INGREDIENT: {
+            return {
+                ...state,
+                selectedItems: [...state.selectedItems, action.item],
+            }
+        }
+        case VIEW_INGREDIENT: {
+            return {
+                ...state,
+                viewedItem: action.item,
             }
         }
         default: {

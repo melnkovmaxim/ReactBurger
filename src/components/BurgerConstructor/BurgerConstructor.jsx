@@ -5,25 +5,35 @@ import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
+import { useDispatch, useSelector } from "react-redux";
+import { createOrder } from "../../services/actions/OrderActions";
 
-const BurgerConstructor = (props) => {
+const BurgerConstructor = () => {
+  const dispatch = useDispatch();
+  const isCreatedOrder = useSelector(store => store.order.isCreated);
   const [totalPrice, setTotalPrice] = useState();
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
-  const bun = props.ingredients.filter((item) => item.type === "bun")[0];
+  const ingredients = useSelector(store => store.ingredients.selectedItems);
+  console.log(ingredients);
+  const bun = ingredients.filter((item) => item.type === "bun")[0];
 
   useEffect(() => {
     const bunPrice = bun ? bun.price * 2 : 0;
-    const fillingPrice = props.ingredients.reduce((total, current) => {
+    const fillingPrice = ingredients.reduce((total, current) => {
       if (current.type === "bun") return 0;
       
       return total += current.price
     }, 0);
 
     setTotalPrice(bunPrice + fillingPrice);
-  }, [bun, props.ingredients]);
+  }, [bun, ingredients]);
 
   const onClick = () => {
-    setIsDetailsModalOpen(true);
+    dispatch(createOrder(bun, ingredients));
+    
+    if (isCreatedOrder) {
+      setIsDetailsModalOpen(true);
+    }
   };
 
   const onClose = () => {
@@ -39,7 +49,7 @@ const BurgerConstructor = (props) => {
       )}
       <div className={`pt-25 ${componentStyles.container}`}>
         <div className="ml-8">
-          <ConstructorIngredientList bun={bun} ingredients={props.ingredients} />
+          <ConstructorIngredientList bun={bun} ingredients={ingredients} />
           <div className={`mt-10 mr-4 ${componentStyles.flexContainer}`}>
             <span className={`mr-10 ${componentStyles.bottomMenuWrapper}`}>
               <p className="mr-4 text text_type_digits-medium">{totalPrice}</p>

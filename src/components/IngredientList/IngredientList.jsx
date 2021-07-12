@@ -4,12 +4,15 @@ import PropTypes from 'prop-types';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useState } from 'react';
 import Modal from "../Modal/Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { VIEW_INGREDIENT, SELECT_INGREDIENT } from "../../services/actions/IngredientActions";
 
 const IngredientList = (props) => {
   const name = props.name;
+  const dispatch = useDispatch();
   const ingredients = props.ingredients;
-  const [selectedIngredient, setSelectedIngredient] = useState();
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
+  const viewedIngredient = useSelector(store => store.ingredients.viewedItem);
 
   const showIngredientDetails = () => {
     setIsDetailsModalOpen(true);
@@ -23,7 +26,7 @@ const IngredientList = (props) => {
     <div id={props.type}>
       { isDetailsModalOpen && (
         <Modal onClose={onClose} header="Детали ингредиента" >
-          { selectedIngredient && <IngredientDetails {...selectedIngredient} /> } 
+          { viewedIngredient && <IngredientDetails {...viewedIngredient} /> } 
         </Modal>
       )}
       <div className="mt-10">
@@ -40,7 +43,8 @@ const IngredientList = (props) => {
               image={item.image}
               count={bunCount}
               onClick={() => { 
-                setSelectedIngredient(item); 
+                dispatch({ type: VIEW_INGREDIENT, item: item });
+                dispatch({ type: SELECT_INGREDIENT, item: item });
                 showIngredientDetails(); 
               }}
             />)
