@@ -30,10 +30,7 @@ const BurgerConstructor = () => {
 
   const onClick = () => {
     dispatch(createOrder(bun, ingredients));
-    
-    if (isCreatedOrder) {
-      setIsDetailsModalOpen(true);
-    }
+    setIsDetailsModalOpen(true);
   };
 
   const onClose = () => {

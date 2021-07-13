@@ -15,10 +15,6 @@ const initialState = {
     selectedItems: [],
 
     viewedItem: {},
-
-    order: {
-        totalPrice: 0,
-    }
 }
 
 export const ingredientsReducer = (state = initialState, action) => {

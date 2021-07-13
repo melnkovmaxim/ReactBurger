@@ -6,8 +6,9 @@ import { useState } from 'react';
 import Modal from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { VIEW_INGREDIENT, SELECT_INGREDIENT } from "../../services/actions/IngredientActions";
+import { useEffect, forwardRef } from "react";
 
-const IngredientList = (props) => {
+const IngredientList = forwardRef((props, ref) => {
   const name = props.name;
   const dispatch = useDispatch();
   const ingredients = props.ingredients;
@@ -19,11 +20,11 @@ const IngredientList = (props) => {
   };
 
   const onClose = () => {
-    setIsDetailsModalOpen(false);
+    setIsDetailsModalOpen(false); console.log(ref);
   };
 
   return (
-    <div id={props.type}>
+    <div ref={ref} id={props.type}>
       { isDetailsModalOpen && (
         <Modal onClose={onClose} header="Детали ингредиента" >
           { viewedIngredient && <IngredientDetails {...viewedIngredient} /> } 
@@ -53,7 +54,7 @@ const IngredientList = (props) => {
       </div>
     </div>
   );
-};
+});
 
 const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
