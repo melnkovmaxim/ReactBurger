@@ -20,7 +20,7 @@ const IngredientList = forwardRef((props, ref) => {
   };
 
   const onClose = () => {
-    setIsDetailsModalOpen(false); console.log(ref);
+    setIsDetailsModalOpen(false);
   };
 
   return (
@@ -39,13 +39,14 @@ const IngredientList = forwardRef((props, ref) => {
 
             return (<Ingredient
               key={item._id}
+              id={item._id}
               name={item.name}
               price={item.price}
               image={item.image}
               count={bunCount}
               onClick={() => { 
                 dispatch({ type: VIEW_INGREDIENT, item: item });
-                dispatch({ type: SELECT_INGREDIENT, item: item });
+                dispatch({ type: SELECT_INGREDIENT, itemId: item._id });
                 showIngredientDetails(); 
               }}
             />)

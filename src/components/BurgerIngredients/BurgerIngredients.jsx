@@ -29,7 +29,6 @@ const BurgerIngredients = () => {
     const firstEntryWithMaxRatio = entriesWithMaxRatio[0];
     if (firstEntryWithMaxRatio) {
       setcurrentTabType(firstEntryWithMaxRatio.target.id);
-      console.log(maxRatio);
     }
   }
 
