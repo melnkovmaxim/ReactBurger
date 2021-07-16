@@ -28,6 +28,8 @@ export const orderReducer = (state = initialState, action) => {
         case CREATE_ORDER_REQUEST_FAILED: {
             return {
                 ...state,
+                orderNubmer: '',
+                burgerName: '',
                 createOrderRequestFailed: true,
                 createOrderRequestError: action.error,
             }
