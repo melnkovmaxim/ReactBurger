@@ -17,7 +17,7 @@ const BurgerConstructor = () => {
   useEffect(() => {
     const bunsPrice = bun ? bun.price * 2 : 0;
     const ingredientsPrice = ingredients.reduce((total, current) => {
-      if (current.type === "bun") return 0;
+      if (current.type === "bun") return total;
       
       return total += current.price
     }, 0);

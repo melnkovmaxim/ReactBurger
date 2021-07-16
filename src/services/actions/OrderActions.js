@@ -20,7 +20,7 @@ export function createOrder(bunId, ingredientIdList) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ ingredients: allIngredients }),
-    })
+      })
       .then(async (response) => {
         const json = await response.json();
 
