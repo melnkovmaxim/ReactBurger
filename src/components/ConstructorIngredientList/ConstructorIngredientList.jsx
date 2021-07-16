@@ -21,6 +21,7 @@ const ConstructorIngredientList = (props) => {
       {props.bun && (
       <div className="mb-4">
         <ConstructorIngredient
+          constructorIngredientId={props.bun.constructorItemId}
           type="top"
           isLocked={true}
           thumbnail={props.bun.image}
@@ -43,6 +44,7 @@ const ConstructorIngredientList = (props) => {
       {props.bun && (
       <div className="mt-4">
         <ConstructorIngredient
+          constructorIngredientId={props.bun.constructorItemId}
           type="bottom"
           thumbnail={props.bun.image}
           isLocked={true}

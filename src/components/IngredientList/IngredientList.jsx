@@ -14,7 +14,7 @@ const IngredientList = forwardRef((props, ref) => {
   const dispatch = useDispatch();
   const ingredients = props.ingredients;
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
-  const viewedIngredient = useSelector(store => store.ingredients.viewedItem);
+  const { constructorItems, viewedItem } = useSelector(store => store.ingredients);
 
   const showIngredientDetails = () => {
     setIsDetailsModalOpen(true);
@@ -29,15 +29,15 @@ const IngredientList = forwardRef((props, ref) => {
       <InView onChange={props.handleScroll(props.type)} threshold={[0, 0.25, 0.5, 0.75, 1]}>
         { isDetailsModalOpen && (
           <Modal onClose={onClose} header="Детали ингредиента" >
-            { viewedIngredient && <IngredientDetails {...viewedIngredient} /> } 
+            { viewedItem && <IngredientDetails {...viewedItem} /> } 
           </Modal>
         )}
         <div className="mt-10">
           <h1 className="text text_type_main-medium">{name}</h1>
           <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
             {ingredients.map((item, index) => {
-              const defaultCount = index === 0 ? 1 : 0;
-              const bunCount = item._id === props.bunId ? 2 : defaultCount;
+              const constructorIngredientCount = constructorItems.filter(constructorItem => constructorItem._id === item._id).length;
+              const extraCount = item.type === "bun" && constructorIngredientCount > 0 ? 1 : 0;
 
               return (<Ingredient
                 key={item._id}
@@ -45,7 +45,7 @@ const IngredientList = forwardRef((props, ref) => {
                 name={item.name}
                 price={item.price}
                 image={item.image}
-                count={bunCount}
+                count={constructorIngredientCount + extraCount}
                 onClick={() => { 
                   dispatch({ type: VIEW_INGREDIENT, item: item });
                   dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, itemId: item._id });

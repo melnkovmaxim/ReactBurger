@@ -46,16 +46,23 @@ export const ingredientsReducer = (state = initialState, action) => {
         }
         case ADD_CONSTRUCTOR_INGREDIENT: {
             const item = state.items.find(item => item._id === action.itemId);
+            const constructorItems = item.type === "bun"
+                                        ? state.constructorItems.filter(item => item.type !== "bun")
+                                        : [...state.constructorItems];
 
             return {
                 ...state,
-                constructorItems: [ ...state.constructorItems, { constructorItemId: uuid(), ...item } ],
+                constructorItems: [ { constructorItemId: uuid(), ...item }, ...constructorItems ],
             }
         }
         case REMOVE_CONSTRUCTOR_INGREDIENT: {
+            const removedIngredient = state.constructorItems.find(item => item.constructorItemId === action.constructorItemId);
+
             return {
                 ...state,
-                constructorItems: [ ...state.constructorItems.filter(item => item.constructorItemId !== action.constructorItemId) ],
+                constructorItems: removedIngredient.type === "bun" 
+                                    ? [ ...state.constructorItems.filter(item => item._id !== removedIngredient._id) ]
+                                    : [ ...state.constructorItems.filter(item => item.constructorItemId !== action.constructorItemId) ],
             }
         }
         case VIEW_INGREDIENT: {
@@ -73,8 +80,6 @@ export const ingredientsReducer = (state = initialState, action) => {
             const selectedItemsWithoutDragged = [...state.constructorItems];
             selectedItemsWithoutDragged.splice(draggedItemIndex, 1);
             selectedItemsWithoutDragged.splice(action.targetItemIndex ?? targetItemIndex, 0, draggedItem);
-
-            console.log(action.targetItemIndex);
             
             return {
                 ...state,

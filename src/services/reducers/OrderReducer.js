@@ -1,27 +1,35 @@
-import { CREATE_ORDER, ADD_INGREDIENT } from "../actions/OrderActions";
+import { CREATE_ORDER_REQUEST, CREATE_ORDER_REQUEST_SUCCESS, CREATE_ORDER_REQUEST_FAILED } from "../actions/OrderActions";
 
 const initialState = {
-    bun: {},
-    ingredients: [],
-    totalPrice: 0,
-    isCreated: false,
+    orderNumber: '',
+    burgerName: '',
+    createOrderRequestPending: false,
+    createOrderRequestFailed: false,
+    createOrderRequestError: '',
 }
 
 export const orderReducer = (state = initialState, action) => {
     switch (action.type) {
-        case CREATE_ORDER: {
+        case CREATE_ORDER_REQUEST: {
             return {
                 ...state,
-                bun: action.bun,
-                ingredients: action.ingredients,
-                totalPrice: action.ingredients.reduce((total, currentItem) => total + currentItem.price) + action.bun.price * 2,
-                isCreated: true,
+                createOrderRequestPending: true,
             }
         }
-        case ADD_INGREDIENT: {
+        case CREATE_ORDER_REQUEST_SUCCESS: {
             return {
                 ...state,
-                selectedItems: [...state.selectedItems, ...state.items.filter(item => item._id === action.itemId)],
+                orderNumber: action.orderNumber,
+                burgerName: action.burgerName,
+                createOrderRequestPending: false,
+                createOrderRequestFailed: false,
+            }
+        }
+        case CREATE_ORDER_REQUEST_FAILED: {
+            return {
+                ...state,
+                createOrderRequestFailed: true,
+                createOrderRequestError: action.error,
             }
         }
         default: {
