@@ -8,7 +8,6 @@ const URL_CREATE_ORDER = 'https://norma.nomoreparties.space/api/orders';
 export function createOrder(bunId, ingredientIdList) {
     return function(dispatch) {
         if (bunId && ingredientIdList && ingredientIdList.length > 0) {
-            console.log(JSON.stringify([ ...ingredientIdList, bunId, bunId ]) );
             dispatch({
                 type: CREATE_ORDER_REQUEST
             });
@@ -26,13 +25,14 @@ export function createOrder(bunId, ingredientIdList) {
                     }
                     return Promise.reject(`Ошибка ${response.status}`);
                 })
+                .catch(error => { console.log(error); dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: error })})
                 .then(json => { 
                     if (!json.success) {
                         return Promise.reject(json.message);
                     }
                     dispatch({ type: CREATE_ORDER_REQUEST_SUCCESS, orderNumber: json.order.number, burgerName: json.name })
                 })
-                .catch(error => dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: error }));
+                .catch(error => { console.log(error); dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: error })});
         }
     }
 }

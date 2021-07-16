@@ -5,14 +5,12 @@ import IngredientDetails from '../IngredientDetails/IngredientDetails';
 import { useState } from 'react';
 import Modal from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
-import { ADD_CONSTRUCTOR_INGREDIENT, VIEW_INGREDIENT } from "../../services/actions/IngredientActions";
+import { VIEW_INGREDIENT } from "../../services/actions/IngredientActions";
 import { forwardRef } from "react";
 import { InView } from "react-intersection-observer";
-
-const IngredientList = forwardRef((props, ref) => {
-  const name = props.name;
+ 
+const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, ref) => {
   const dispatch = useDispatch();
-  const ingredients = props.ingredients;
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
   const { constructorItems, viewedItem } = useSelector(store => store.ingredients);
 
@@ -25,8 +23,8 @@ const IngredientList = forwardRef((props, ref) => {
   };
 
   return (
-    <div ref={ref} id={props.type}>
-      <InView onChange={props.handleScroll(props.type)} threshold={[0, 0.25, 0.5, 0.75, 1]}>
+    <div ref={ref} id={type}>
+      <InView onChange={handleScroll(type)} threshold={[0, 0.25, 0.5, 0.75, 1]}>
         { isDetailsModalOpen && (
           <Modal onClose={onClose} header="Детали ингредиента" >
             { viewedItem && <IngredientDetails {...viewedItem} /> } 
@@ -48,7 +46,6 @@ const IngredientList = forwardRef((props, ref) => {
                 count={constructorIngredientCount + extraCount}
                 onClick={() => { 
                   dispatch({ type: VIEW_INGREDIENT, item: item });
-                  dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, itemId: item._id });
                   showIngredientDetails(); 
                 }}
               />)
@@ -74,7 +71,10 @@ const ingredientPropTypes = PropTypes.shape({
 });
 
 IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  handleScroll: PropTypes.func.isRequired,
 };
 
 export default IngredientList;

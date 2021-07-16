@@ -1,7 +1,6 @@
 import ConstructorIngredientList from "../ConstructorIngredientList/ConstructorIngredientList";
 import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./BurgerConstructor.module.css";
-import PropTypes from 'prop-types';
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
@@ -13,17 +12,17 @@ const BurgerConstructor = () => {
   const [totalPrice, setTotalPrice] = useState();
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
   const ingredients = useSelector(store => store.ingredients.constructorItems);
-  const bun = ingredients.filter((item) => item.type === "bun")[0];
+  const bun = ingredients.find((item) => item.type === "bun");
 
   useEffect(() => {
-    const bunPrice = bun ? bun.price * 2 : 0;
-    const fillingPrice = ingredients.reduce((total, current) => {
+    const bunsPrice = bun ? bun.price * 2 : 0;
+    const ingredientsPrice = ingredients.reduce((total, current) => {
       if (current.type === "bun") return 0;
       
       return total += current.price
     }, 0);
 
-    setTotalPrice(bunPrice + fillingPrice);
+    setTotalPrice(bunsPrice + ingredientsPrice);
   }, [bun, ingredients]);
 
   const onClick = () => {
@@ -58,18 +57,6 @@ const BurgerConstructor = () => {
       </div>
     </>
   );
-};
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-});
-
-BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
 };
 
 export default BurgerConstructor;

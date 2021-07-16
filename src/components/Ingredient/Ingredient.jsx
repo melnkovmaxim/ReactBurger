@@ -2,34 +2,44 @@ import { Counter, CurrencyIcon, } from "@ya.praktikum/react-developer-burger-ui-
 import componentStyles from './Ingredient.module.css';
 import PropTypes from 'prop-types';
 import { useDrag } from "react-dnd";
+import { useDispatch } from "react-redux";
+import { DRAG, DROP } from "../../services/actions/IngredientActions";
 
-const Ingredient = (props) => {
+const Ingredient = ({ id, name, image, price, count, onClick, }) => {
+  const dispatch = useDispatch();
+
   const [, dragRef] = useDrag({
     type: 'ingredient',
-    item: { id: props.id }
+    item: { id: id },
+    canDrag: (item) => {
+      dispatch({ type: DRAG });
+      return true;
+    },
+    end: (item, monitor) => {
+      dispatch({ type: DROP });
+    }
   });
 
   return (
-    <div ref={dragRef} className={componentStyles.container} onClick={props.onClick} >
-      <img src={props.image} alt={props.name} className="pl-4 pr-4" />
+    <div ref={dragRef} className={componentStyles.container} onClick={onClick} >
+      <img src={image} alt={name} className="pl-4 pr-4" />
       <span className={`mt-1 mb-1 text text_type_digits-default ${componentStyles.price}`}>
-        <p className="pr-1">{props.price}</p>
+        <p className="pr-1">{price}</p>
         <CurrencyIcon type="primary" />
       </span>
-      <p className={`text text_type_main-default ${componentStyles.name}`}>{props.name}</p>
-        {
-          props.count > 0 &&
-          (<Counter count={props.count} size="default" />)
-        }
+      <p className={`text text_type_main-default ${componentStyles.name}`}>{name}</p>
+        { count > 0 && (<Counter count={count} size="default" />) }
     </div>
   );
 };
 
 Ingredient.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
-  count: PropTypes.number.isRequired
+  price: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default Ingredient;

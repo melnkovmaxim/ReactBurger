@@ -6,32 +6,34 @@ import PropTypes from 'prop-types';
 import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { ADD_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
+import { useSelector } from 'react-redux';
 
-const ConstructorIngredientList = (props) => {
+const ConstructorIngredientList = ({ bun, ingredients }) => {
+  const isDragging = useSelector(store => store.ingredients.isDragging);
   const dispatch = useDispatch();
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
-      dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, itemId: item.id })
+      dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, itemId: item.id });
     },
   });
 
   return (
-    <div ref={dropTarget} className={componentStyles.container}>
-      {props.bun && (
+    <div ref={dropTarget} className={`${componentStyles.container} ${isDragging && componentStyles.border}`}>
+      {bun && (
       <div className="mb-4">
         <ConstructorIngredient
-          constructorIngredientId={props.bun.constructorItemId}
+          constructorIngredientId={bun.constructorItemId}
           type="top"
           isLocked={true}
-          thumbnail={props.bun.image}
-          text={props.bun.name.concat(" (верх)")}
-          price={props.bun.price}
+          thumbnail={bun.image}
+          text={bun.name.concat(" (верх)")}
+          price={bun.price}
         />
       </div>
       )}
       <div className={ (clsx(componentStyles.ingredientList), componentStyles.ingredientList) }>
-        {props.ingredients.filter(item => item.type !== 'bun').map((item, index) => (
+        {ingredients.filter(item => item.type !== 'bun').map((item, index) => (
           <div key={item.constructorItemId} className={`${index !== 0 ? "mt-4" : ""} ${componentStyles.ingredientWrapper}`} >
             <ConstructorIngredient constructorIngredientId={item.constructorItemId} id={item._id} text={item.name} price={item.price} thumbnail={item.image} index={index}  >
               <div className="mr-2">
@@ -41,15 +43,15 @@ const ConstructorIngredientList = (props) => {
           </div>
         ))}
       </div>
-      {props.bun && (
+      {bun && (
       <div className="mt-4">
         <ConstructorIngredient
-          constructorIngredientId={props.bun.constructorItemId}
+          constructorIngredientId={bun.constructorItemId}
           type="bottom"
-          thumbnail={props.bun.image}
+          thumbnail={bun.image}
           isLocked={true}
-          text={props.bun.name.concat(" (низ)")}
-          price={props.bun.price}
+          text={bun.name.concat(" (низ)")}
+          price={bun.price}
         />
       </div>
       )}

@@ -5,13 +5,12 @@ import { useDrag, useDrop } from "react-dnd";
 import { MOVE_CONSTRUCTOR_INGREDIENT, REMOVE_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
 import { useDispatch } from "react-redux";
 
-const ConstructorIngredient = ({ id, type, constructorIngredientId, index, children, text, price, thumbnail }) => {
+const ConstructorIngredient = ({ id, constructorIngredientId, index, type, text, price, thumbnail, children }) => {
   const dispatch = useDispatch();
   const [ { isDragging }, dragRef] = useDrag(() => ({ 
     type: "constructorIngredient", 
     item: { draggedItemId: constructorIngredientId, originalIndex: index },
     canDrag: !type,
-
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
@@ -21,13 +20,13 @@ const ConstructorIngredient = ({ id, type, constructorIngredientId, index, child
         dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemIndex: item.originalIndex });
       }
     },
-  }), [id]);
+  }), [id, index]);
   
   const [, dropRef] = useDrop(() => ({
     accept: "constructorIngredient",
     canDrop: (item) => !type,
-    hover(item) {
-      if (item.draggedItemId !== constructorIngredientId) {
+    hover(item, monitor) {
+      if (monitor.canDrop() && item.draggedItemId !== constructorIngredientId) {
         dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemId: constructorIngredientId });
       }
     },
@@ -53,11 +52,13 @@ const ConstructorIngredient = ({ id, type, constructorIngredientId, index, child
 };
 
 ConstructorIngredient.propTypes = {
+  constructorIngredientId: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
+  id: PropTypes.string,
+  index: PropTypes.number,
   type: PropTypes.string,
-  isLocked: PropTypes.bool
 };
 
 export default ConstructorIngredient;

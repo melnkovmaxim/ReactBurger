@@ -16,7 +16,7 @@ function App() {
       <DndProvider backend={HTML5Backend}>
         <BurgerIngredients />
         <div className="ml-5 mr-5" />
-        <BurgerConstructor ingredients={[]} />
+        <BurgerConstructor />
       </DndProvider>
     </div>
   </div>

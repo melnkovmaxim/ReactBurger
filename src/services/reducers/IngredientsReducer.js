@@ -6,6 +6,8 @@ import {
     VIEW_INGREDIENT,
     MOVE_CONSTRUCTOR_INGREDIENT,
     REMOVE_CONSTRUCTOR_INGREDIENT,
+    DRAG,
+    DROP
 } from '../actions/IngredientActions';
 import uuid from 'react-uuid'
 
@@ -14,6 +16,8 @@ const initialState = {
     itemsRequestPending: false,
     itemsRequestFailed: false,
     itemsRequestError: '',
+
+    isDragging: false,
 
     constructorItems: [],
     constructorTotalPrice: 0,
@@ -84,6 +88,18 @@ export const ingredientsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 constructorItems: selectedItemsWithoutDragged
+            }
+        }
+        case DRAG: {
+            return {
+                ...state,
+                isDragging: true,
+            }
+        }
+        case DROP: {
+            return {
+                ...state,
+                isDragging: false,
             }
         }
         default: {

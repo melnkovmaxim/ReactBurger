@@ -6,6 +6,9 @@ export const ADD_CONSTRUCTOR_INGREDIENT = 'SELECT_INGREDIENT';
 export const REMOVE_CONSTRUCTOR_INGREDIENT = 'REMOVE_CONSTRUCTOR_INGREDIENT';
 export const MOVE_CONSTRUCTOR_INGREDIENT = 'MOVE_CONSTRUCTOR_INGREDIENT';
 
+export const DRAG = 'DRAG';
+export const DROP = 'DROP';
+
 export const VIEW_INGREDIENT = 'VIEW_INGREDIENT';
 
 const URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients";

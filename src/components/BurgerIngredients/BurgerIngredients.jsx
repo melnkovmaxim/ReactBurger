@@ -3,7 +3,6 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientList from "../IngredientList/IngredientList";
 import componentStyles from "./BurgerIngredients.module.css";
 import clsx from "clsx";
-import PropTypes from 'prop-types';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from "../../services/actions/IngredientActions";
@@ -33,10 +32,7 @@ const BurgerIngredients = () => {
       dispatch(getIngredients());
   },[dispatch]);
 
-  // пока так, т.к. были проблемы с TypeScript в App и PropTypes, не компилилось
-  const bun = ingredients.filter((item) => item.type === "bun")[0];
-
-  // т.к. в исходном массиве нет данных о русских названиях
+  const bun = ingredients.find((item) => item.type === "bun");
   const typeDescriptions = new Map();
   typeDescriptions.set("bun", "Булки");
   typeDescriptions.set("sauce", "Соусы");
@@ -66,21 +62,5 @@ const BurgerIngredients = () => {
     </div>
   );
 }
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  image_large: PropTypes.string.isRequired,
-  calories: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired
-});
-
-IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-};
 
 export default BurgerIngredients;
