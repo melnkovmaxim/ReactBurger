@@ -1,13 +1,13 @@
-import { updateSourceFile } from 'typescript';
 import {
     GET_INGREDIENTS_REQUEST,
     GET_INGREDIENTS_SUCCESS,
     GET_INGREDIENTS_FAILED,
-    SELECT_INGREDIENT,
+    ADD_CONSTRUCTOR_INGREDIENT,
     VIEW_INGREDIENT,
     MOVE_CONSTRUCTOR_INGREDIENT,
+    REMOVE_CONSTRUCTOR_INGREDIENT,
 } from '../actions/IngredientActions';
-import update from "immutability-helper";
+import uuid from 'react-uuid'
 
 const initialState = {
     items: [],
@@ -15,7 +15,8 @@ const initialState = {
     itemsRequestFailed: false,
     itemsRequestError: '',
 
-    selectedItems: [],
+    constructorItems: [],
+    constructorTotalPrice: 0,
 
     viewedItem: {},
 }
@@ -43,10 +44,18 @@ export const ingredientsReducer = (state = initialState, action) => {
                 error: action.error,
             }
         }
-        case SELECT_INGREDIENT: {
+        case ADD_CONSTRUCTOR_INGREDIENT: {
+            const item = state.items.find(item => item._id === action.itemId);
+
             return {
                 ...state,
-                selectedItems: [...state.selectedItems, ...state.items.filter(item => item._id === action.itemId)],
+                constructorItems: [ ...state.constructorItems, { constructorItemId: uuid(), ...item } ],
+            }
+        }
+        case REMOVE_CONSTRUCTOR_INGREDIENT: {
+            return {
+                ...state,
+                constructorItems: [ ...state.constructorItems.filter(item => item.constructorItemId !== action.constructorItemId) ],
             }
         }
         case VIEW_INGREDIENT: {
@@ -56,18 +65,20 @@ export const ingredientsReducer = (state = initialState, action) => {
             }
         }
         case MOVE_CONSTRUCTOR_INGREDIENT: {
-            const draggedItem = state.selectedItems.find(item => item._id === action.draggedItemId);
-            const draggedItemIndex = state.selectedItems.indexOf(draggedItem);
-            const targetItem = state.selectedItems.find(item => item._id === action.targetItemId);
-            const targetItemIndex = state.selectedItems.indexOf(targetItem);
+            const draggedItem = state.constructorItems.find(item => item.constructorItemId === action.draggedItemId);
+            const draggedItemIndex = state.constructorItems.indexOf(draggedItem);
+            const targetItem = state.constructorItems.find(item => item.constructorItemId === action.targetItemId);
+            const targetItemIndex = state.constructorItems.indexOf(targetItem);
 
-            const selectedItemsWithoutDragged = [...state.selectedItems];
+            const selectedItemsWithoutDragged = [...state.constructorItems];
             selectedItemsWithoutDragged.splice(draggedItemIndex, 1);
-            selectedItemsWithoutDragged.splice(targetItemIndex, 0, draggedItem)
+            selectedItemsWithoutDragged.splice(action.targetItemIndex ?? targetItemIndex, 0, draggedItem);
+
+            console.log(action.targetItemIndex);
             
             return {
                 ...state,
-                selectedItems: selectedItemsWithoutDragged
+                constructorItems: selectedItemsWithoutDragged
             }
         }
         default: {

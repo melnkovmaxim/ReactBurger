@@ -10,11 +10,9 @@ import { createOrder } from "../../services/actions/OrderActions";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
-  const isCreatedOrder = useSelector(store => store.order.isCreated);
   const [totalPrice, setTotalPrice] = useState();
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
-  const ingredients = useSelector(store => store.ingredients.selectedItems);
-  console.log(ingredients);
+  const ingredients = useSelector(store => store.ingredients.constructorItems);
   const bun = ingredients.filter((item) => item.type === "bun")[0];
 
   useEffect(() => {

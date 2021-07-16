@@ -1,4 +1,5 @@
 export const CREATE_ORDER = 'CREATE_ORDER';
+export const ADD_INGREDIENT = 'ADD_INGREDIENT';
 
 export function createOrder(bun, ingredients) {
     return function(dispatch) {

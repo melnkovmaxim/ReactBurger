@@ -1,4 +1,4 @@
-import { CREATE_ORDER } from "../actions/OrderActions";
+import { CREATE_ORDER, ADD_INGREDIENT } from "../actions/OrderActions";
 
 const initialState = {
     bun: {},
@@ -16,6 +16,12 @@ export const orderReducer = (state = initialState, action) => {
                 ingredients: action.ingredients,
                 totalPrice: action.ingredients.reduce((total, currentItem) => total + currentItem.price) + action.bun.price * 2,
                 isCreated: true,
+            }
+        }
+        case ADD_INGREDIENT: {
+            return {
+                ...state,
+                selectedItems: [...state.selectedItems, ...state.items.filter(item => item._id === action.itemId)],
             }
         }
         default: {

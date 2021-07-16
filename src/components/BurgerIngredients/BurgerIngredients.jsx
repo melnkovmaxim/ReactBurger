@@ -4,59 +4,34 @@ import IngredientList from "../IngredientList/IngredientList";
 import componentStyles from "./BurgerIngredients.module.css";
 import clsx from "clsx";
 import PropTypes from 'prop-types';
-import { useEffect, createRef, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from "../../services/actions/IngredientActions";
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients.items);
-  const [currentTabType, setcurrentTabType] = React.useState('bun');
-  const [elRefs, setElRefs] = React.useState([]);
   const ingridientTypes = ingredients.map((item) => item.type);
   const uniqueIngridientTypes = [...new Set(ingridientTypes)];
+  const [currentTabType, setcurrentTabType] = React.useState("bun");
+  const currentViewsRatio = React.useRef({});
+  
+  const handleScroll = (type) => {
+    return (inView, entry) => {
+      currentViewsRatio.current[type] = entry.intersectionRatio;
+      
+      const ingredientListTypes = Object.keys(currentViewsRatio.current);
+      const allRatio = ingredientListTypes.map(currentType => currentViewsRatio.current[currentType]);
+      const maxRatio = Math.max(...allRatio);
+      const typeWithMaxRatio = ingredientListTypes.find(currentType => currentViewsRatio.current[currentType] === maxRatio);
 
-  React.useEffect(() => {
-    // add or remove refs
-    setElRefs(elRefs => (
-      Array(3).fill().map((_, i) => elRefs[i] || createRef())
-    ));
-  }, []);
-
-  const onIntersection = (entries) => {
-    const maxRatio = Math.max(...entries.map(entry => parseFloat(entry.intersectionRatio)));
-    const entriesWithMaxRatio = entries.filter(entry => entry.intersectionRatio === maxRatio);
-    const firstEntryWithMaxRatio = entriesWithMaxRatio[0];
-    if (firstEntryWithMaxRatio) {
-      setcurrentTabType(firstEntryWithMaxRatio.target.id);
-    }
-  }
+      setcurrentTabType(typeWithMaxRatio);
+    };
+  };
 
   useEffect(() => {
       dispatch(getIngredients());
   },[dispatch]);
-  
-  const options = {
-    root: null,
-    rootMargin: "0px",
-    threshold: [0.1, 0.2, 0.3, 0.4]
-  }
-
-  useEffect(() => {
-
-    const observer = new IntersectionObserver(onIntersection, options);
-    for (let i = 0; i < elRefs.length; i ++) {
-      const refka = elRefs[i];
-      if (refka.current) observer.observe(refka.current);
-    };
-
-    return () => {
-      for (let i = 0; i < elRefs.length; i ++) {
-        const refka = elRefs[i];
-        if (refka.current) observer.unobserve(refka.current);
-      };
-    };
-  }, [elRefs, options])
 
   // пока так, т.к. были проблемы с TypeScript в App и PropTypes, не компилилось
   const bun = ingredients.filter((item) => item.type === "bun")[0];
@@ -84,7 +59,7 @@ const BurgerIngredients = () => {
       </div>
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
         {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
-          (<IngredientList ref={elRefs[index]} key={index} name={typeDescriptions.get(type)} type={type} bunId={type === "bun" ? bun._id : null}  
+          (<IngredientList key={index} handleScroll={handleScroll} index={index} name={typeDescriptions.get(type)} type={type} bunId={type === "bun" ? bun._id : null}  
             ingredients={ingredients.filter((item) => item.type === type)} />)
         ))}
       </div>

@@ -5,33 +5,22 @@ import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredien
 import PropTypes from 'prop-types';
 import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
-import { SELECT_INGREDIENT } from '../../services/actions/IngredientActions';
-import { useCallback } from "react";
+import { ADD_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
 
 const ConstructorIngredientList = (props) => {
   const dispatch = useDispatch();
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {
-      dispatch({ type: SELECT_INGREDIENT, itemId: item.id })
+      dispatch({ type: ADD_CONSTRUCTOR_INGREDIENT, itemId: item.id })
     },
   });
-
-  const getIngredientData = (id) => {
-    const ingredient = props.ingredients.filter(item => item._id === id)[0];
-    const ingredientIndex = props.ingredients.indexOf(ingredient);
-    return {
-      ingredient,
-      ingredientIndex
-    };
-  };
 
   return (
     <div ref={dropTarget} className={componentStyles.container}>
       {props.bun && (
       <div className="mb-4">
         <ConstructorIngredient
-          getIngredientData={getIngredientData}
           type="top"
           isLocked={true}
           thumbnail={props.bun.image}
@@ -42,8 +31,8 @@ const ConstructorIngredientList = (props) => {
       )}
       <div className={ (clsx(componentStyles.ingredientList), componentStyles.ingredientList) }>
         {props.ingredients.filter(item => item.type !== 'bun').map((item, index) => (
-          <div key={item._id} className={`${index !== 0 ? "mt-4" : ""} ${componentStyles.ingredientWrapper}`} >
-            <ConstructorIngredient id={item._id} text={item.name} price={item.price} thumbnail={item.image} getIngredientData={getIngredientData}  >
+          <div key={item.constructorItemId} className={`${index !== 0 ? "mt-4" : ""} ${componentStyles.ingredientWrapper}`} >
+            <ConstructorIngredient constructorIngredientId={item.constructorItemId} id={item._id} text={item.name} price={item.price} thumbnail={item.image} index={index}  >
               <div className="mr-2">
                 <DragIcon type="primary" />
               </div>
@@ -54,7 +43,6 @@ const ConstructorIngredientList = (props) => {
       {props.bun && (
       <div className="mt-4">
         <ConstructorIngredient
-           getIngredientData={getIngredientData}
           type="bottom"
           thumbnail={props.bun.image}
           isLocked={true}

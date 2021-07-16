@@ -2,45 +2,43 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import componentStyles from "./ConstructorIngredient.module.css";
 import PropTypes from 'prop-types';
 import { useDrag, useDrop } from "react-dnd";
-import { useEffect } from "react";
 import { MOVE_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
 import { useDispatch } from "react-redux";
 
-const ConstructorIngredient = (props) => {
+const ConstructorIngredient = ({ id, constructorIngredientId, index, children, text, price, thumbnail }) => {
   const dispatch = useDispatch();
   const [ { isDragging }, dragRef] = useDrag(() => ({ 
-    type: "selectedIngredient", 
-    item: { draggedItemId: props.id, originalIndex: props.index },
+    type: "constructorIngredient", 
+    item: { draggedItemId: constructorIngredientId, originalIndex: index },
     collect: (monitor) => ({
       isDragging: monitor.isDragging(),
     }),
-    
     end: (item, monitor) => {
       const didDrop = monitor.didDrop();
       if (!didDrop) {
-        dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemId: item.originalIndex });
+        dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemIndex: item.originalIndex });
       }
     },
-  }), [props.id]);
+  }), [id]);
   const [, dropRef] = useDrop(() => ({
-    accept: "selectedIngredient",
+    accept: "constructorIngredient",
     hover(item) {
-      if (item.draggedItemId !== props.id) {
-        dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemId: props.id });
+      if (item.draggedItemId !== constructorIngredientId) {
+        dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemId: constructorIngredientId });
       }
     },
     drop(item) {
-      if (item.draggedItemId !== props.id) {
-        dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemId: props.id, isDrop: true });
+      if (item.draggedItemId !== constructorIngredientId) {
+        dispatch({ type: MOVE_CONSTRUCTOR_INGREDIENT, draggedItemId: item.draggedItemId, targetItemId: constructorIngredientId });
       }
     }
   }))
   
   return (
     <div ref={(node) => dragRef(dropRef(node))} className={componentStyles.container} style={{ opacity: isDragging ? 0 : 1 }}>
-      <div>{props.children ?? (<div className="ml-8"></div>)}</div>
+      <div>{children ?? (<div className="ml-8"></div>)}</div>
       <div className={componentStyles.ingredientWrapper}>
-        <ConstructorElement {...props} />
+        <ConstructorElement text={text} price={price} thumbnail={thumbnail} />
       </div>
     </div>
   );
