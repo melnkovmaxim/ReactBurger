@@ -33,7 +33,7 @@ const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, re
         <div className="mt-10">
           <h1 className="text text_type_main-medium">{name}</h1>
           <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
-            {ingredients.map((item, index) => {
+            {ingredients.map((item) => {
               const constructorIngredientCount = constructorItems.filter(constructorItem => constructorItem._id === item._id).length;
               const extraCount = item.type === "bun" && constructorIngredientCount > 0 ? 1 : 0;
 

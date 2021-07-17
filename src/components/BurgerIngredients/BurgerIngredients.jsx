@@ -47,15 +47,15 @@ const BurgerIngredients = () => {
     <div className={componentStyles.container} >
       <h1 className="mt-10 text text_type_main-large">Соберите бургер</h1>
       <div className={`mt-5 ${componentStyles.tabList}`}>
-        {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
-          (<Tab key={index} value={type} active={currentTabType === type} onClick={scrollToIngredients} >
+        {uniqueIngridientTypes.map((type) => ( typeDescriptions.get(type) && 
+          (<Tab key={type} value={type} active={currentTabType === type} onClick={scrollToIngredients} >
             { typeDescriptions.get(type) } 
           </Tab>)
         ))}
       </div>
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) } >
         {uniqueIngridientTypes.map((type, index) => ( typeDescriptions.get(type) && 
-          (<IngredientList key={index} handleScroll={handleScroll} index={index} name={typeDescriptions.get(type)} type={type} bunId={type === "bun" ? bun._id : null}  
+          (<IngredientList key={type} handleScroll={handleScroll} index={index} name={typeDescriptions.get(type)} type={type} bunId={type === "bun" ? bun._id : null}  
             ingredients={ingredients.filter((item) => item.type === type)} />)
         ))}
       </div>
