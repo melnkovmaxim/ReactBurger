@@ -7,6 +7,16 @@ const URL_CREATE_ORDER = "https://norma.nomoreparties.space/api/orders";
 
 export function createOrder(bunId, ingredientIdList) {
   return function (dispatch) {
+    if (!bunId) {
+      dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер без булок' });
+      return
+    }
+
+    if (!ingredientIdList || ingredientIdList.length === 0) {
+      dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер без ингредиентов, только с булками' });
+      return;
+    }
+
     dispatch({
       type: CREATE_ORDER_REQUEST,
     });
