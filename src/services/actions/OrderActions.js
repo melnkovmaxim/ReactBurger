@@ -13,7 +13,7 @@ export function createOrder(bunId, ingredientIdList) {
     }
 
     if (!ingredientIdList || ingredientIdList.length === 0) {
-      dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер без ингредиентов, только с булками' });
+      dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер только с булками, без ингредиентов' });
       return;
     }
 
@@ -37,7 +37,7 @@ export function createOrder(bunId, ingredientIdList) {
         if (response.ok) {
           return json;
         }
-
+        
         if (json && json.message) {
           return Promise.reject(json.message);
         }

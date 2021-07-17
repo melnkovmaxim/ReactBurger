@@ -26,7 +26,10 @@ const BurgerConstructor = () => {
   }, [bun, ingredients]);
 
   const onClick = () => {
-    dispatch(createOrder(bun ? bun._id : '', ingredients.map(ingredient => ingredient._id)));
+    const bunId = bun ? bun._id : '';
+    dispatch(createOrder(bunId, ingredients.filter(ingredient => ingredient._id !== bunId)
+                                           .map(ingredient => ingredient._id)
+    ));
     setIsDetailsModalOpen(true);
   };
 
