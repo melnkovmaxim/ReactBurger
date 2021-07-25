@@ -2,14 +2,17 @@ import Ingredient from "../Ingredient/Ingredient";
 import componentStyles from './IngredientList.module.css';
 import PropTypes from 'prop-types';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Modal from "../Modal/Modal";
-
-const IngredientList = (props) => {
-  const name = props.name;
-  const ingredients = props.ingredients;
-  const [selectedIngredient, setSelectedIngredient] = useState();
+import { useDispatch, useSelector } from "react-redux";
+import { VIEW_INGREDIENT } from "../../services/actions/IngredientActions";
+import { forwardRef } from "react";
+import { InView } from "react-intersection-observer";
+ 
+const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, ref) => {
+  const dispatch = useDispatch();
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
+  const viewedItem = useSelector(store => store.ingredients.viewedItem);
 
   const showIngredientDetails = () => {
     setIsDetailsModalOpen(true);
@@ -19,37 +22,38 @@ const IngredientList = (props) => {
     setIsDetailsModalOpen(false);
   };
 
-  return (
-    <div id={props.type}>
-      { isDetailsModalOpen && (
-        <Modal onClose={onClose} header="Детали ингредиента" >
-          { selectedIngredient && <IngredientDetails {...selectedIngredient} /> } 
-        </Modal>
-      )}
-      <div className="mt-10">
-        <h1 className="text text_type_main-medium">{name}</h1>
-        <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
-          {ingredients.map((item, index) => {
-            const defaultCount = index === 0 ? 1 : 0;
-            const bunCount = item._id === props.bunId ? 2 : defaultCount;
+  const onClick = useCallback((ingredientId) => {
+    dispatch({ type: VIEW_INGREDIENT, itemId: ingredientId });
+    showIngredientDetails(); 
+  }, [dispatch]);
 
-            return (<Ingredient
-              key={item._id}
-              name={item.name}
-              price={item.price}
-              image={item.image}
-              count={bunCount}
-              onClick={() => { 
-                setSelectedIngredient(item); 
-                showIngredientDetails(); 
-              }}
-            />)
-          })}
+  return (
+    <div ref={ref} id={type}>
+      <InView onChange={handleScroll(type)} threshold={[0, 0.25, 0.5, 0.75, 1]}>
+        { isDetailsModalOpen && (
+          <Modal onClose={onClose} header="Детали ингредиента" >
+            { viewedItem && <IngredientDetails {...viewedItem} /> } 
+          </Modal>
+        )}
+        <div className="mt-10">
+          <h1 className="text text_type_main-medium">{name}</h1>
+          <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
+            {ingredients.map((item) => {
+              return (<Ingredient
+                key={item._id}
+                id={item._id}
+                name={item.name}
+                price={item.price}
+                image={item.image}
+                showIngredientDetails={onClick}
+              />)
+            })}
+          </div>
         </div>
-      </div>
+      </InView>
     </div>
   );
-};
+});
 
 const ingredientPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
@@ -65,7 +69,10 @@ const ingredientPropTypes = PropTypes.shape({
 });
 
 IngredientList.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  handleScroll: PropTypes.func.isRequired,
 };
 
 export default IngredientList;

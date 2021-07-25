@@ -4,21 +4,21 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 
-const Modal = (props) => {
+const Modal = ({ children, header, onClose }) => {
   const root = document.getElementById("root");
   const keyCodeEsc = 27;
 
   const setInvisibleOnClick = (e) => {
     if (e.target.className === componentStyles.overlay) {
-      props.onClose();
+      onClose();
     }
   };
 
   const setInvisibleOnPress = useCallback((e) => {
     if (e.keyCode === keyCodeEsc) {
-      props.onClose();
+      onClose();
     }
-  }, [props]);
+  }, [onClose]);
 
   useEffect(() => {
     document.addEventListener("keydown", setInvisibleOnPress);
@@ -30,8 +30,8 @@ const Modal = (props) => {
 
   return ReactDOM.createPortal(
     <div className={componentStyles.overlay} onClick={setInvisibleOnClick}>
-      <ModalOverlay header={props.header} onClose={props.onClose}>
-        {props.children}
+      <ModalOverlay header={header} onClose={onClose}>
+        {children}
       </ModalOverlay>
     </div>,
     root

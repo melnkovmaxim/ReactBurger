@@ -1,3 +1,9 @@
+.container {
+	height: 656px;
+}
+.border {
+	box-shadow: 0 0 40px 5px #2f2f37; 
+}
 .ingredientWrapper {
 	display: flex;
 	align-items: center;
