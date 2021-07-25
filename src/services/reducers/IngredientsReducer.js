@@ -70,9 +70,11 @@ export const ingredientsReducer = (state = initialState, action) => {
             }
         }
         case VIEW_INGREDIENT: {
+            const viewedItem = state.items.find(item => item._id === action.itemId);
+
             return {
                 ...state,
-                viewedItem: action.item,
+                viewedItem: viewedItem,
             }
         }
         case MOVE_CONSTRUCTOR_INGREDIENT: {

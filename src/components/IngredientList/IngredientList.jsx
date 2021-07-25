@@ -2,7 +2,7 @@ import Ingredient from "../Ingredient/Ingredient";
 import componentStyles from './IngredientList.module.css';
 import PropTypes from 'prop-types';
 import IngredientDetails from '../IngredientDetails/IngredientDetails';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Modal from "../Modal/Modal";
 import { useDispatch, useSelector } from "react-redux";
 import { VIEW_INGREDIENT } from "../../services/actions/IngredientActions";
@@ -21,6 +21,11 @@ const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, re
   const onClose = () => {
     setIsDetailsModalOpen(false);
   };
+
+  const onClick = useCallback((ingredientId) => {
+    dispatch({ type: VIEW_INGREDIENT, itemId: ingredientId });
+    showIngredientDetails(); 
+  }, [dispatch]);
 
   return (
     <div ref={ref} id={type}>
@@ -44,10 +49,7 @@ const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, re
                 price={item.price}
                 image={item.image}
                 count={constructorIngredientCount + extraCount}
-                onClick={() => { 
-                  dispatch({ type: VIEW_INGREDIENT, item: item });
-                  showIngredientDetails(); 
-                }}
+                onClick={onClick}
               />)
             })}
           </div>

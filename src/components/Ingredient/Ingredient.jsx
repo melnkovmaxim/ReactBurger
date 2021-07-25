@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { DRAG, DROP } from "../../services/actions/IngredientActions";
+import { memo } from "react";
 
-const Ingredient = ({ id, name, image, price, count, onClick, }) => {
+const Ingredient = memo(({ id, name, image, price, count, onClick }) => {
   const dispatch = useDispatch();
 
   const [, dragRef] = useDrag({
@@ -21,7 +22,7 @@ const Ingredient = ({ id, name, image, price, count, onClick, }) => {
   });
 
   return (
-    <div ref={dragRef} className={componentStyles.container} onClick={onClick} >
+    <div ref={dragRef} className={componentStyles.container} onClick={() => onClick(id)} >
       <img src={image} alt={name} className="pl-4 pr-4" />
       <span className={`mt-1 mb-1 text text_type_digits-default ${componentStyles.price}`}>
         <p className="pr-1">{price}</p>
@@ -31,7 +32,7 @@ const Ingredient = ({ id, name, image, price, count, onClick, }) => {
         { count > 0 && (<Counter count={count} size="default" />) }
     </div>
   );
-};
+});
 
 Ingredient.propTypes = {
   id: PropTypes.string.isRequired,
