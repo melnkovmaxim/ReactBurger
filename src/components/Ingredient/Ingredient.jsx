@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { DRAG, DROP } from "../../services/actions/IngredientActions";
 import { memo } from "react";
 
-const Ingredient = memo(({ id, name, image, price, count, onClick }) => {
+const Ingredient = memo(({ id, name, image, price, count, showIngredientDetails }) => {
   const dispatch = useDispatch();
 
   const [, dragRef] = useDrag({
@@ -22,7 +22,7 @@ const Ingredient = memo(({ id, name, image, price, count, onClick }) => {
   });
 
   return (
-    <div ref={dragRef} className={componentStyles.container} onClick={() => onClick(id)} >
+    <div ref={dragRef} className={componentStyles.container} onClick={() => showIngredientDetails(id)} >
       <img src={image} alt={name} className="pl-4 pr-4" />
       <span className={`mt-1 mb-1 text text_type_digits-default ${componentStyles.price}`}>
         <p className="pr-1">{price}</p>
@@ -40,7 +40,7 @@ Ingredient.propTypes = {
   image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
+  showIngredientDetails: PropTypes.func.isRequired,
 };
 
 export default Ingredient;

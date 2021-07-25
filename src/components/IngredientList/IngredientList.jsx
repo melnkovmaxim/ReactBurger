@@ -49,7 +49,7 @@ const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, re
                 price={item.price}
                 image={item.image}
                 count={constructorIngredientCount + extraCount}
-                onClick={onClick}
+                showIngredientDetails={onClick}
               />)
             })}
           </div>
