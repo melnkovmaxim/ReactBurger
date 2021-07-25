@@ -12,7 +12,7 @@ import { InView } from "react-intersection-observer";
 const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, ref) => {
   const dispatch = useDispatch();
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
-  const { constructorItems, viewedItem } = useSelector(store => store.ingredients);
+  const viewedItem = useSelector(store => store.ingredients.viewedItem);
 
   const showIngredientDetails = () => {
     setIsDetailsModalOpen(true);
@@ -39,16 +39,12 @@ const IngredientList = forwardRef(({ ingredients, name, type, handleScroll }, re
           <h1 className="text text_type_main-medium">{name}</h1>
           <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
             {ingredients.map((item) => {
-              const constructorIngredientCount = constructorItems.filter(constructorItem => constructorItem._id === item._id).length;
-              const extraCount = item.type === "bun" && constructorIngredientCount > 0 ? 1 : 0;
-
               return (<Ingredient
                 key={item._id}
                 id={item._id}
                 name={item.name}
                 price={item.price}
                 image={item.image}
-                count={constructorIngredientCount + extraCount}
                 showIngredientDetails={onClick}
               />)
             })}

@@ -20,6 +20,8 @@ const initialState = {
     isDragging: false,
 
     constructorItems: [],
+    constructorItemCounts: new Map(),
+    constructorBunId: '',
     constructorTotalPrice: 0,
 
     viewedItem: {},
@@ -49,24 +51,42 @@ export const ingredientsReducer = (state = initialState, action) => {
             }
         }
         case ADD_CONSTRUCTOR_INGREDIENT: {
-            const item = state.items.find(item => item._id === action.itemId);
-            const constructorItems = item.type === "bun"
+            const addedItem = state.items.find(item => item._id === action.itemId);
+            const addedCount = 1;
+            const isBun = addedItem.type === "bun";
+            const constructorItems = isBun
                                         ? state.constructorItems.filter(item => item.type !== "bun")
                                         : [...state.constructorItems];
+            const constructorItemCounts = new Map(state.constructorItemCounts);
+            let constructorItemCount = state.constructorItems.filter(item => item._id === addedItem._id).length + addedCount;
+            
+            if (isBun) {
+                constructorItemCounts.delete(state.constructorBunId);
+                constructorItemCount = 2;
+            }
+            
+            constructorItemCounts.set(addedItem._id, constructorItemCount);
 
             return {
                 ...state,
-                constructorItems: [ { constructorItemId: uuid(), ...item }, ...constructorItems ],
+                constructorItems: [ { constructorItemId: uuid(), ...addedItem }, ...constructorItems ],
+                constructorItemCounts: constructorItemCounts,
+                constructorBunId: isBun ? addedItem._id : state.constructorBunId
             }
         }
         case REMOVE_CONSTRUCTOR_INGREDIENT: {
             const removedIngredient = state.constructorItems.find(item => item.constructorItemId === action.constructorItemId);
-
+            const removedCount = 1;
+            const constructorItemCounts = new Map(state.constructorItemCounts);
+            constructorItemCounts.set(removedIngredient._id, removedIngredient.type === "bun" 
+                                                ? 0 
+                                                : state.constructorItems.filter(item => item._id === action.itemId).length - removedCount);
             return {
                 ...state,
                 constructorItems: removedIngredient.type === "bun" 
                                     ? [ ...state.constructorItems.filter(item => item._id !== removedIngredient._id) ]
                                     : [ ...state.constructorItems.filter(item => item.constructorItemId !== action.constructorItemId) ],
+                constructorItemCounts: constructorItemCounts                      
             }
         }
         case VIEW_INGREDIENT: {

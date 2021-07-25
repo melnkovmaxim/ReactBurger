@@ -2,12 +2,13 @@ import { Counter, CurrencyIcon, } from "@ya.praktikum/react-developer-burger-ui-
 import componentStyles from './Ingredient.module.css';
 import PropTypes from 'prop-types';
 import { useDrag } from "react-dnd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { DRAG, DROP } from "../../services/actions/IngredientActions";
 import { memo } from "react";
 
-const Ingredient = memo(({ id, name, image, price, count, showIngredientDetails }) => {
+const Ingredient = memo(({ id, name, image, price, showIngredientDetails }) => {
   const dispatch = useDispatch();
+  const count = useSelector(store => store.ingredients.constructorItemCounts.get(id));
 
   const [, dragRef] = useDrag({
     type: 'ingredient',
@@ -39,7 +40,6 @@ Ingredient.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-  count: PropTypes.number.isRequired,
   showIngredientDetails: PropTypes.func.isRequired,
 };
 
