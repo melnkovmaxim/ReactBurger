@@ -5,7 +5,7 @@ import { useDrag, useDrop } from "react-dnd";
 import { MOVE_CONSTRUCTOR_INGREDIENT, REMOVE_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
 import { useDispatch } from "react-redux";
 
-const ConstructorIngredient = ({ id, constructorIngredientId, index, type, text, price, thumbnail, children }) => {
+const ConstructorIngredient = ({ id, constructorIngredientId, index, type, text, price, thumbnail, children, isLocked }) => {
   const dispatch = useDispatch();
   const [ { isDragging }, dragRef] = useDrag(() => ({ 
     type: "constructorIngredient", 
@@ -45,7 +45,7 @@ const ConstructorIngredient = ({ id, constructorIngredientId, index, type, text,
     <div ref={(node) => dragRef(dropRef(node))} className={componentStyles.container} style={{ opacity: isDragging ? 0 : 1 }}>
       <div>{children ?? (<div className="ml-8"></div>)}</div>
       <div className={componentStyles.ingredientWrapper}>
-        <ConstructorElement type={type} text={text} price={price} thumbnail={thumbnail} handleClose={onDelete} />
+        <ConstructorElement type={type} text={text} price={price} thumbnail={thumbnail} handleClose={onDelete} isLocked={isLocked} />
       </div>
     </div>
   );
@@ -59,6 +59,7 @@ ConstructorIngredient.propTypes = {
   id: PropTypes.string,
   index: PropTypes.number,
   type: PropTypes.string,
+  isLocked: PropTypes.bool,
 };
 
 export default ConstructorIngredient;

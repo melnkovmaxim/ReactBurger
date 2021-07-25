@@ -47,7 +47,7 @@ const ConstructorIngredientList = ({ bun, ingredients }) => {
       <div className="mt-4">
         <ConstructorIngredient
           constructorIngredientId={bun.constructorItemId}
-          type="bottom"
+          elementType="bottom"
           thumbnail={bun.image}
           isLocked={true}
           text={bun.name.concat(" (низ)")}
