@@ -80,7 +80,7 @@ export const ingredientsReducer = (state = initialState, action) => {
             const constructorItemCounts = new Map(state.constructorItemCounts);
             constructorItemCounts.set(removedIngredient._id, removedIngredient.type === "bun" 
                                                 ? 0 
-                                                : state.constructorItems.filter(item => item._id === action.itemId).length - removedCount);
+                                                : state.constructorItems.filter(item => item._id === removedIngredient._id).length - removedCount);
             return {
                 ...state,
                 constructorItems: removedIngredient.type === "bun" 
