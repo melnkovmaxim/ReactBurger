@@ -7,13 +7,11 @@ import { DndProvider } from "react-dnd";
 
 const Home = () => {
   return (   
-    <div className={componentStyles.body}>
       <DndProvider backend={HTML5Backend}>
         <BurgerIngredients />
         <div className="ml-5 mr-5" />
         <BurgerConstructor />
       </DndProvider>
-    </div>
   );
 }
 

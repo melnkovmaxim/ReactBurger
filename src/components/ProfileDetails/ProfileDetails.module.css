@@ -1,0 +1,15 @@
+.container {
+    width: 480px;
+}
+
+.inputWrapper {
+    width: 100%;
+}
+
+.inputWrapper > div {
+    width: 100%;
+}
+
+.inputWrapper > div > div {
+    width: 100%;
+}

@@ -57,3 +57,9 @@
     }
   }
   
+  .profileContainer {
+    display: flex;
+    align-items: center;
+    align-items: flex-start;
+    margin: 15vh 0 0 0;
+  }
