@@ -1,75 +1,70 @@
 import {
-  REGISTER_REQUEST,
-  REGISTER_REQUEST_SUCCESS,
-  REGISTER_REQUEST_FAILED,
-  LOGIN_REQUEST,
-  LOGIN_REQUEST_SUCCESS,
-  LOGIN_REQUEST_FAILED,
+  USER_INFO_REQUEST,
+  USER_INFO_REQUEST_SUCCESS,
+  USER_INFO_REQUEST_FAILED,
+  UPDATE_USER_INFO_REQUEST,
+  UPDATE_USER_INFO_REQUEST_SUCCESS,
+  UPDATE_USER_INFO_REQUEST_FAILED,
 } from "../actions/ProfileActions";
 
 const initialState = {
-  username: "",
-  email: "",
-  token: "",
-  registerRequestPending: false,
-  registerRequestFailed: false,
-  registerRequestError: "",
-  loginRequestPending: false,
-  loginRequestFailed: false,
-  loginRequestError: "",
+  user: {},
+
+  userInfoRequestPending: false,
+  userInfoRequestFailed: false,
+  userInfoRequestError: "",
+
+  updateUserInfoRequestPending: false,
+  updateUserInfoRequestFailed: false,
+  updateUserInfoRequestError: "",
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case REGISTER_REQUEST: {
+    case USER_INFO_REQUEST: {
       return {
         ...state,
-        registerRequestPending: true,
+        userInfoRequestPending: true,
       };
     }
-    case REGISTER_REQUEST_SUCCESS: {
+    case USER_INFO_REQUEST_SUCCESS: {
       return {
         ...state,
-        registerRequestPending: false,
-        registerRequestFailed: false,
-        username: action.name,
-        email: action.email,
+        userInfoRequestPending: false,
+        userInfoRequestFailed: false,
+        userInfoRequestError: '',
+        user: action.user,
       };
     }
-    case REGISTER_REQUEST_FAILED: {
+    case USER_INFO_REQUEST_FAILED: {
       return {
         ...state,
-        registerRequestPending: false,
-        registerRequestFailed: true,
-        username: "",
-        email: "",
-        token: "",
+        userInfoRequestPending: false,
+        userInfoRequestFailed: true,
+        userInfoRequestError: action.error,
       };
     }
-    case LOGIN_REQUEST: {
-      return {
-        ...state,
-        loginRequestPending: true,
-      };
+    case UPDATE_USER_INFO_REQUEST: {
+        return {
+            ...state,
+            updateUserInfoRequestPending: true,
+        }
     }
-    case LOGIN_REQUEST_SUCCESS: {
-      return {
-        ...state,
-        loginRequestPending: false,
-        loginRequestFailed: false,
-        username: action.name,
-        email: action.email,
-      };
+    case UPDATE_USER_INFO_REQUEST_SUCCESS: {
+        return {
+            ...state,
+            updateUserInfoRequestPending: false,
+            updateUserInfoRequestFailed: false,
+            updateUserInfoRequestError: '',
+        }
     }
-    case LOGIN_REQUEST_FAILED: {
-      return {
-        ...state,
-        loginRequestPending: false,
-        loginRequestFailed: true,
-        username: "",
-        email: "",
-        token: "",
-      };
+    case UPDATE_USER_INFO_REQUEST_FAILED: {
+        return {
+            ...state,
+            updateUserInfoRequestPending: false,
+            updateUserInfoRequestFailed: true,
+            updateUserInfoRequestError: action.error,
+        }
     }
     default: {
       return {

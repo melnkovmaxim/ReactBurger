@@ -10,6 +10,7 @@ import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import Profile from "./pages/Profile/Profile";
 import IngredientDetails from "./pages/IngredientDetails/IngredientDetails";
 import NotFound from "./pages/NotFound/NotFound";
+import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 
 const App = () => {
   return (
@@ -36,9 +37,9 @@ const App = () => {
               <Route path="/reset-password" exact={true}>
                 <PasswordReset />
               </Route>
-              <Route path="/profile">
+              <ProtectedRoute path="/profile">
                 <Profile />
-              </Route>
+              </ProtectedRoute>
               <Route path="/ingredients/:id">
                 <IngredientDetails />
               </Route>

@@ -4,15 +4,26 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
+import { useDispatch, useStore } from "react-redux";
+import { login } from "../../services/actions/AuthActions";
+import { getCookie } from "../../services/utils/Cookie";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [state, setState] = useState({});
+  const token = getCookie("token");
+  const dispatch = useDispatch();
+  const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
+  const onClick = () => {
+    dispatch(login(state.email, state.password));
+  };
 
-  const onChangeEmail = (e) => setEmail(e.target.value);
-  const onChangePassword = (e) => setPassword(e.target.value);
+  if (token) {
+    return (
+      <Redirect to={{ pathname: '/' }} />
+    );
+  }
 
   return (
     <div className={componentStyles.container}>
@@ -21,20 +32,21 @@ const Login = () => {
         <Input
           type={"text"}
           placeholder={"E-mail"}
-          onChange={onChangeEmail}
+          onChange={onChange}
           size={"default"}
-          value={email}
+          name={"email"}
+          value={state.email}
         />
       </div>
       <div className={`mt-6 ${componentStyles.inputWrapper}`}>
         <PasswordInput
-          onChange={onChangePassword}
-          value={password}
+          onChange={onChange}
+          value={state.password}
           name={"password"}
         />
       </div>
       <div className="mt-6">
-        <Button type="primary" size="medium">
+        <Button type="primary" size="medium" onClick={onClick}>
           Войти
         </Button>
       </div>
