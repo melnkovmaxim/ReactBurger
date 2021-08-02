@@ -32,6 +32,6 @@ export function setCookie(name, value, props) {
   document.cookie = updatedCookie;
 }
 
-export function deleteCookie(name) {
+export function removeCookie(name) {
   setCookie(name, null, { expires: -1 });
 }

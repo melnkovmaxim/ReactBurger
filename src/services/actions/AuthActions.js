@@ -3,12 +3,14 @@ import {
   LOGIN_REQUEST_URL,
   REGISTER_REQUEST_METHOD,
   REGISTER_REQUEST_URL,
+  LOGOUT_REQUEST_URL,
+  LOGOUT_REQUEST_METHOD,
 } from "../../resources/Request";
 import {
   SET_USER_INFO
 } from "./ProfileActions";
 import { fetchByAction } from "../Api";
-import { setCookie } from "../utils/Cookie";
+import { getCookie, removeCookie, setCookie } from "../utils/Cookie";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_REQUEST_SUCCESS = "LOGIN_REQUEST_SUCCESS";
@@ -36,7 +38,6 @@ export function register(email, login, password) {
       name: login,
     });
     const onSuccess = (json) => {
-      setCookie('token', 'Bearer ' + json.accessToken, { expires: 1000 });
       dispatch({
         type: REGISTER_REQUEST_SUCCESS,
         accessToken: json.accessToken,
@@ -67,7 +68,6 @@ export function login(email, password) {
       password: password,
     });
     const onSuccess = (json) => {
-      setCookie('token', 'Bearer ' + json.accessToken, { expires: 1000 });
       dispatch({
         type: LOGIN_REQUEST_SUCCESS,
         accessToken: json.accessToken,
@@ -82,6 +82,30 @@ export function login(email, password) {
     fetchByAction(
       LOGIN_REQUEST_URL,
       LOGIN_REQUEST_METHOD,
+      onSuccess,
+      onFailed,
+      body
+    );
+  };
+}
+
+export function logout(refreshToken) {
+  return function (dispatch) {
+    dispatch({ type: LOGOUT_REQUEST });
+
+    const body = JSON.stringify({
+      token: refreshToken,
+    });
+    const onSuccess = () => {
+      dispatch({ type: LOGOUT_REQUEST_SUCCESS });
+    };
+    const onFailed = (error) => {
+      dispatch({ type: LOGOUT_REQUEST_FAILED, error: error });
+    };
+
+    fetchByAction(
+      LOGOUT_REQUEST_URL,
+      LOGOUT_REQUEST_METHOD,
       onSuccess,
       onFailed,
       body

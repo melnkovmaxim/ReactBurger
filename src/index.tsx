@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './services/reducers/RootReducer';
 import thunk from 'redux-thunk';
+import { setCookie } from './services/utils/Cookie';
 
 declare global {
   interface Window {
@@ -15,10 +16,12 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
 const enhancer = composeEnhancers(applyMiddleware(thunk));
-
 const store = createStore(rootReducer, enhancer);
+store.subscribe(() => {
+  setCookie('ACCESS_TOKEN', store.getState().auth.accessToken);
+  localStorage.setItem('REFRESH_TOKEN', store.getState().auth.accessToken);
+});
 
 ReactDOM.render(
   <React.StrictMode>

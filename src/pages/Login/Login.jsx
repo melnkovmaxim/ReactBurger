@@ -6,20 +6,19 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch, useStore } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
-import { getCookie } from "../../services/utils/Cookie";
 
 const Login = () => {
   const [state, setState] = useState({});
-  const token = getCookie("token");
+  const accessToken = useSelector(store => store.auth.accessToken);
   const dispatch = useDispatch();
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const onClick = () => {
     dispatch(login(state.email, state.password));
   };
-
-  if (token) {
+  
+  if (accessToken) {
     return (
       <Redirect to={{ pathname: '/' }} />
     );

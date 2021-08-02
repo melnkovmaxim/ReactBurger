@@ -5,9 +5,15 @@ import {
   LOGIN_REQUEST,
   LOGIN_REQUEST_SUCCESS,
   LOGIN_REQUEST_FAILED,
+  LOGOUT_REQUEST,
+  LOGOUT_REQUEST_SUCCESS,
+  LOGOUT_REQUEST_FAILED,
 } from "../actions/AuthActions";
 
 const initialState = {
+  accessToken: '',
+  refreshToken: '',
+
   registerRequestPending: false,
   registerRequestFailed: false,
   registerRequestError: "",
@@ -15,6 +21,10 @@ const initialState = {
   loginRequestPending: false,
   loginRequestFailed: false,
   loginRequestError: "",
+
+  logoutRequestPending: false,
+  logoutRequestFailed: false,
+  logoutRequestError: "",
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -53,6 +63,8 @@ export const authReducer = (state = initialState, action) => {
         loginRequestPending: false,
         loginRequestFailed: false,
         loginRequestError: '',
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken
       };
     }
     case LOGIN_REQUEST_FAILED: {
@@ -61,6 +73,30 @@ export const authReducer = (state = initialState, action) => {
         loginRequestPending: false,
         loginRequestFailed: true,
         loginRequestError: action.error,
+      };
+    }
+    case LOGOUT_REQUEST: {
+      return {
+        ...state,
+        logoutRequestPending: true,
+        accessToken: '',
+        refreshToken: ''
+      };
+    }
+    case LOGOUT_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        logoutRequestPending: false,
+        logoutRequestFailed: false,
+        logoutRequestError: '',
+      };
+    }
+    case LOGOUT_REQUEST_FAILED: {
+      return {
+        ...state,
+        logoutRequestPending: false,
+        logoutRequestFailed: true,
+        logoutRequestError: action.error,
       };
     }
     default: {

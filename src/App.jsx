@@ -11,6 +11,7 @@ import Profile from "./pages/Profile/Profile";
 import IngredientDetails from "./pages/IngredientDetails/IngredientDetails";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
+import Logout from "./pages/Logout/Logout";
 
 const App = () => {
   return (
@@ -31,6 +32,9 @@ const App = () => {
               <Route path="/register" exact={true}>
                 <Register />
               </Route>
+              <ProtectedRoute path="/logout" exact={true}>
+                <Logout />
+              </ProtectedRoute>
               <Route path="/forgot-password" exact={true}>
                 <PasswordForgot />
               </Route>
