@@ -5,11 +5,14 @@ import {
   REGISTER_REQUEST_URL,
   LOGOUT_REQUEST_URL,
   LOGOUT_REQUEST_METHOD,
+  REFRESH_TOKEN_REQUEST_URL,
+  REFRESH_TOKEN_REQUEST_METHOD,
 } from "../../resources/Request";
 import {
   SET_USER_INFO
 } from "./ProfileActions";
 import { fetchByAction } from "../Api";
+import { getTokenWithExpiresDate } from "../../utils/Token";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_REQUEST_SUCCESS = "LOGIN_REQUEST_SUCCESS";
@@ -90,6 +93,32 @@ export function login(email, password) {
   };
 }
 
+export function refreshToken(refreshToken) {
+  return function (dispatch) {
+    dispatch({ type: REFRESH_TOKEN_REQUEST });
+
+    const body = JSON.stringify({
+      token: refreshToken,
+    });
+    const onSuccess = (json) => {
+      dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS, 
+        accessToken: getTokenWithExpiresDate(json.accessToken), 
+        refreshToken: json.refreshToken });
+    };
+    const onFailed = (error) => {
+      dispatch({ type: REFRESH_TOKEN_REQUEST_FAILED, error: error });
+    };
+
+    fetchByAction(
+      REFRESH_TOKEN_REQUEST_URL,
+      REFRESH_TOKEN_REQUEST_METHOD,
+      onSuccess,
+      onFailed,
+      body
+    );
+  };
+}
+
 export function logout(refreshToken) {
   return function (dispatch) {
     dispatch({ type: LOGOUT_REQUEST });
@@ -97,7 +126,7 @@ export function logout(refreshToken) {
     const body = JSON.stringify({
       token: refreshToken,
     });
-    const onSuccess = () => {
+    const onSuccess = (json) => {
       dispatch({ type: LOGOUT_REQUEST_SUCCESS });
     };
     const onFailed = (error) => {
@@ -113,11 +142,3 @@ export function logout(refreshToken) {
     );
   };
 }
-
-const getTokenWithExpiresDate = (token) => {
-  const currentDate = new Date();
-  currentDate.setMinutes(currentDate.getMinutes() + 19);
-  const accessToken = { token: token, expires: currentDate.getTime() }
-
-  return accessToken;
-};

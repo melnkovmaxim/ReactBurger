@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useDispatch, useStore } from 'react-redux';
 import { register } from "../../services/actions/AuthActions";
 import { Redirect } from "react-router-dom";
+import { isAliveToken } from "../../utils/Token";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Register = () => {
     dispatch(register(state.email, state.name, state.password));
   };
 
-  if (accessToken) {
+  if (isAliveToken(accessToken)) {
     return (
       <Redirect to={{ pathname: '/' }} />
     );

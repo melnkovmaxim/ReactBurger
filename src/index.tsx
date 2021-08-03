@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './services/reducers/RootReducer';
 import thunk from 'redux-thunk';
+import { getLastAction, lastActionMiddleware } from './middlewares/LastActionMiddleware';
+import { LOGIN_REQUEST_SUCCESS, LOGOUT_REQUEST, REGISTER_REQUEST_SUCCESS, REFRESH_TOKEN_REQUEST_FAILED } from './services/actions/AuthActions';
 
 declare global {
   interface Window {
@@ -15,19 +17,31 @@ declare global {
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const enhancer = composeEnhancers(applyMiddleware(thunk));
+const enhancer = composeEnhancers(applyMiddleware(thunk, lastActionMiddleware));
 const store = createStore(rootReducer, enhancer);
 store.subscribe(() => {
-  const authState = store.getState().auth;
-  const accessTokenFromStorage = localStorage.getItem('access_token');
-  const refreshTokenFromStorage = localStorage.getItem('refresh_token');
-  
-  if (authState.accessToken !== accessTokenFromStorage) {
-    localStorage.setItem('access_token', authState.accessToken);
-  }
+  const action = getLastAction();
 
-  if (authState.refreshToken !== refreshTokenFromStorage) {
-    localStorage.setItem('refresh_token', authState.refreshToken);
+  switch(action.type) {
+    case LOGOUT_REQUEST:
+    case REFRESH_TOKEN_REQUEST_FAILED: {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      break;
+    }
+    case LOGIN_REQUEST_SUCCESS:
+    case REGISTER_REQUEST_SUCCESS: {
+      const accessTokenFromStorage = localStorage.getItem('access_token');
+      const refreshTokenFromStorage = localStorage.getItem('refresh_token');
+      
+      if (action.accessToken && action.accessToken !== accessTokenFromStorage) {
+        localStorage.setItem('access_token', action.accessToken);
+      }
+    
+      if (action.refreshToken && action.refreshToken !== refreshTokenFromStorage) {
+        localStorage.setItem('refresh_token', action.refreshToken);
+      }
+    }
   }
 });
 

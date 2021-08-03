@@ -19,8 +19,9 @@ import { SET_TOKENS } from './services/actions/AuthActions';
 const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch({ type: SET_TOKENS, accessToken: localStorage.getItem('token')
-                              , refreshToken: localStorage.getItem('refreshToken')})
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    dispatch({ type: SET_TOKENS, accessToken: accessToken, refreshToken: refreshToken})
   }, [dispatch]);
 
   return (

@@ -8,6 +8,8 @@ import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
+import { isAliveToken } from "../../utils/Token";
+import { useEffect } from "react";
 
 const Login = () => {
   const [state, setState] = useState({});
@@ -17,12 +19,14 @@ const Login = () => {
   const onClick = () => {
     dispatch(login(state.email, state.password));
   };
-  
-  if (accessToken) {
-    return (
-      <Redirect to={{ pathname: '/' }} />
-    );
-  }
+
+  useEffect(() => {
+    if (isAliveToken(accessToken)) {
+      return (
+        <Redirect to={{ pathname: '/' }} />
+      );
+    }
+  }, [accessToken])
 
   return (
     <div className={componentStyles.container}>

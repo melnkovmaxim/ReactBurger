@@ -4,6 +4,7 @@ import { combineReducers } from "redux";
 import { authReducer } from "./AuthReducer";
 import { profileReducer } from "./ProfileReducer";
 
+
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   order: orderReducer,

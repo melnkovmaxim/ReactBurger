@@ -9,6 +9,9 @@ import {
   LOGOUT_REQUEST_SUCCESS,
   LOGOUT_REQUEST_FAILED,
   SET_TOKENS,
+  REFRESH_TOKEN_REQUEST,
+  REFRESH_TOKEN_REQUEST_SUCCESS,
+  REFRESH_TOKEN_REQUEST_FAILED,
 } from "../actions/AuthActions";
 
 const initialState = {
@@ -26,6 +29,10 @@ const initialState = {
   logoutRequestPending: false,
   logoutRequestFailed: false,
   logoutRequestError: "",
+
+  refreshTokenRequestPending: false,
+  refreshTokenRequestFailed: false,
+  refreshTokenRequestError: '',
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -82,6 +89,34 @@ export const authReducer = (state = initialState, action) => {
         loginRequestFailed: true,
         loginRequestError: action.error,
       };
+    }
+    case REFRESH_TOKEN_REQUEST: {
+      return {
+        ...state,
+        refreshTokenRequestPending: false,
+        refreshTokenRequestFailed: true,
+        refreshTokenRequestError: action.error,
+      }
+    }
+    case REFRESH_TOKEN_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        refreshTokenRequestPending: false,
+        refreshTokenRequestFailed: false,
+        refreshTokenRequestError: '',
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken,
+      }
+    }
+    case REFRESH_TOKEN_REQUEST_FAILED: {
+      return {
+        ...state,
+        refreshTokenRequestPending: false,
+        refreshTokenRequestFailed: true,
+        refreshTokenRequestError: '',
+        accessToken: '',
+        refreshToken: '',
+      }
     }
     case LOGOUT_REQUEST: {
       return {
