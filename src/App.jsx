@@ -12,8 +12,17 @@ import IngredientDetails from "./pages/IngredientDetails/IngredientDetails";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Logout from "./pages/Logout/Logout";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { SET_TOKENS } from './services/actions/AuthActions';
 
 const App = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch({ type: SET_TOKENS, accessToken: localStorage.getItem('token')
+                              , refreshToken: localStorage.getItem('refreshToken')})
+  }, [dispatch]);
+
   return (
     <>
       <div className={componentStyles.content}>

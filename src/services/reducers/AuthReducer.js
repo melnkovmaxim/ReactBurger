@@ -8,6 +8,7 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_REQUEST_SUCCESS,
   LOGOUT_REQUEST_FAILED,
+  SET_TOKENS,
 } from "../actions/AuthActions";
 
 const initialState = {
@@ -29,6 +30,13 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_TOKENS: {
+      return {
+        ...state,
+        accessToken: action.accessToken,
+        refreshToken: action.refreshToken,
+      }
+    }
     case REGISTER_REQUEST: {
       return {
         ...state,

@@ -3,13 +3,12 @@ import { Route, Redirect } from "react-router-dom";
 
 const ProtectedRoute = ({ children, ...props }) => {
   const accessToken = useSelector(store => store.auth.accessToken);
-  console.log(accessToken);
 
   return (
     <Route
       {...props}
       render={({ location }) =>
-        accessToken && accessToken !== '' ? (
+        accessToken && JSON.parse(accessToken).expires > new Date().getTime() ? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />

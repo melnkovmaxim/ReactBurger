@@ -10,7 +10,6 @@ import {
   SET_USER_INFO
 } from "./ProfileActions";
 import { fetchByAction } from "../Api";
-import { getCookie, removeCookie, setCookie } from "../utils/Cookie";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_REQUEST_SUCCESS = "LOGIN_REQUEST_SUCCESS";
@@ -28,6 +27,8 @@ export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
 export const REFRESH_TOKEN_REQUEST_SUCCESS = "REFRESH_TOKEN_REQUEST_SUCCESS";
 export const REFRESH_TOKEN_REQUEST_FAILED = "REFRESH_TOKEN_REQUEST_FAILED";
 
+export const SET_TOKENS = "SET_TOKENS";
+
 export function register(email, login, password) {
   return function (dispatch) {
     dispatch({ type: REGISTER_REQUEST });
@@ -40,7 +41,7 @@ export function register(email, login, password) {
     const onSuccess = (json) => {
       dispatch({
         type: REGISTER_REQUEST_SUCCESS,
-        accessToken: json.accessToken,
+        accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)),
         refreshToken: json.refreshToken,
       });
       dispatch({ type: SET_USER_INFO, email: json.email, name: json.name })
@@ -70,7 +71,7 @@ export function login(email, password) {
     const onSuccess = (json) => {
       dispatch({
         type: LOGIN_REQUEST_SUCCESS,
-        accessToken: json.accessToken,
+        accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)),
         refreshToken: json.refreshToken,
       });
       dispatch({ type: SET_USER_INFO, email: json.email, name: json.name })
@@ -112,3 +113,11 @@ export function logout(refreshToken) {
     );
   };
 }
+
+const getTokenWithExpiresDate = (token) => {
+  const currentDate = new Date();
+  currentDate.setMinutes(currentDate.getMinutes() + 19);
+  const accessToken = { token: token, expires: currentDate.getTime() }
+
+  return accessToken;
+};

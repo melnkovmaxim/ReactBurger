@@ -7,7 +7,6 @@ import { Provider } from 'react-redux';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './services/reducers/RootReducer';
 import thunk from 'redux-thunk';
-import { setCookie } from './services/utils/Cookie';
 
 declare global {
   interface Window {
@@ -19,8 +18,17 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 const store = createStore(rootReducer, enhancer);
 store.subscribe(() => {
-  setCookie('ACCESS_TOKEN', store.getState().auth.accessToken);
-  localStorage.setItem('REFRESH_TOKEN', store.getState().auth.accessToken);
+  const authState = store.getState().auth;
+  const accessTokenFromStorage = localStorage.getItem('access_token');
+  const refreshTokenFromStorage = localStorage.getItem('refresh_token');
+  
+  if (authState.accessToken !== accessTokenFromStorage) {
+    localStorage.setItem('access_token', authState.accessToken);
+  }
+
+  if (authState.refreshToken !== refreshTokenFromStorage) {
+    localStorage.setItem('refresh_token', authState.refreshToken);
+  }
 });
 
 ReactDOM.render(
