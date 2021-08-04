@@ -1,9 +1,7 @@
 export function fetchByAction(url, method, onSuccess, onFailed, body = null, token = null) {
-  const authorization = token ? { "Authorization": token } : null;
-
   fetch(url, {
     method: method,
-    headers: { "Content-Type": "application/json", authorization },
+    headers: { "Content-Type": "application/json", "Authorization": token },
     body: body,
   })
     .then(async (response) => {

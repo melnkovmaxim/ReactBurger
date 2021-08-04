@@ -47,7 +47,6 @@ export function register(email, login, password) {
         accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)),
         refreshToken: json.refreshToken,
       });
-      dispatch({ type: SET_USER_INFO, email: json.email, name: json.name })
     };
     const onFailed = (error) => {
       dispatch({ type: LOGIN_REQUEST_FAILED, error: error });
@@ -77,7 +76,6 @@ export function login(email, password) {
         accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)),
         refreshToken: json.refreshToken,
       });
-      dispatch({ type: SET_USER_INFO, email: json.email, name: json.name })
     };
     const onFailed = (error) => {
       dispatch({ type: LOGIN_REQUEST_FAILED, error: error });
@@ -102,7 +100,7 @@ export function refreshToken(refreshToken) {
     });
     const onSuccess = (json) => {
       dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS, 
-        accessToken: getTokenWithExpiresDate(json.accessToken), 
+        accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)), 
         refreshToken: json.refreshToken });
     };
     const onFailed = (error) => {

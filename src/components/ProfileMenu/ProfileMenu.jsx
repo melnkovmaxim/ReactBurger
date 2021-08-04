@@ -1,13 +1,13 @@
 import componentStyles from './ProfileMenu.module.css';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ProfileMenu = () => {
   return (
     <div className={componentStyles.container}>
-      <Link to="/profile" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} >
+      <Link to="/profile" className={`text text_type_main-medium ${componentStyles.link}`} >
         Профиль
       </Link>
-      <Link to="/" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} >
+      <Link to="/profile" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} >
         История заказов
       </Link>
       <Link to="/logout" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} >

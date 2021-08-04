@@ -4,24 +4,25 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
 import { isAliveToken } from "../../utils/Token";
 
 const Login = () => {
-  const [state, setState] = useState({});
-  const accessToken = useSelector(store => store.auth.accessToken);
+  const [state, setState] = useState({ email: '', password: '' });
+  const { accessToken } = useSelector(store => store.auth);
   const dispatch = useDispatch();
+  const location = useLocation();
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const onClick = () => {
     dispatch(login(state.email, state.password));
   };
-
+  
   if (isAliveToken(accessToken)) {
     return (
-      <Redirect to={{ pathname: '/' }} />
+      <Redirect to={{ pathname: location.state ? location.state.from.pathname : '/' }} />
     );
   }
 

@@ -33,7 +33,7 @@ export const profileReducer = (state = initialState, action) => {
         userInfoRequestPending: false,
         userInfoRequestFailed: false,
         userInfoRequestError: '',
-        user: action.user,
+        user: { name: action.name, email: action.email },
       };
     }
     case USER_INFO_REQUEST_FAILED: {

@@ -93,9 +93,8 @@ export const authReducer = (state = initialState, action) => {
     case REFRESH_TOKEN_REQUEST: {
       return {
         ...state,
-        refreshTokenRequestPending: false,
-        refreshTokenRequestFailed: true,
-        refreshTokenRequestError: action.error,
+        refreshTokenRequestPending: true,
+        refreshTokenRequestFailed: false,
       }
     }
     case REFRESH_TOKEN_REQUEST_SUCCESS: {
@@ -113,7 +112,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         refreshTokenRequestPending: false,
         refreshTokenRequestFailed: true,
-        refreshTokenRequestError: '',
+        refreshTokenRequestError: action.error,
         accessToken: '',
         refreshToken: '',
       }

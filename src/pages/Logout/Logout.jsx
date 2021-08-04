@@ -8,6 +8,7 @@ const Logout = () => {
     const refreshToken = useSelector(store => store.auth.refreshToken);
 
     useEffect(() => {
+        console.log(refreshToken);
         dispatch(logout(refreshToken));
     }, [dispatch, refreshToken]);
 

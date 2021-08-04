@@ -1,15 +1,28 @@
 import componentStyles from "./ProfileDetails.module.css";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { getUserInfo, updateUserInfo } from "../../services/actions/ProfileActions";
 
 const ProfileDetails = () => {
-  const [name, setName] = useState("");
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+  const user = useSelector(store => store.profile.user);
+  const [state, setState] = useState({ name: '', email: '', password: '' } );
+  const accessToken = useSelector(store => store.auth.accessToken);
+  const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
 
-  const onChangeName = (e) => setName(e.target.value);
-  const onChangeLogin = (e) => setLogin(e.target.value);
-  const onChangePassword = (e) => setPassword(e.target.value);
+  useEffect(() => {
+    dispatch(getUserInfo(accessToken));
+  }, [dispatch, accessToken]);
+
+  useEffect(() => {
+    setState({ ...state, ...user });
+  }, [user]);
+
+  const onClick = () => {
+    dispatch(updateUserInfo(user));
+  };
 
   return (
     <div className={`ml-15 pl-6 pr-6 ${componentStyles.container}`}>
@@ -17,30 +30,33 @@ const ProfileDetails = () => {
         <Input
           type={"text"}
           placeholder={"Имя"}
-          onChange={onChangeName}
+          onChange={onChange}
           size={"default"}
           icon={"EditIcon"}
-          value={name}
+          name={"name"}
+          value={state.name}
         />
       </div>
       <div className={`mt-6 ${componentStyles.inputWrapper}`}>
         <Input
           type={"text"}
           placeholder={"Логин"}
-          onChange={onChangeLogin}
+          onChange={onChange}
           size={"default"}
           icon={"EditIcon"}
-          value={login}
+          name={"email"}
+          value={state.email}
         />
       </div>
       <div className={`mt-6 ${componentStyles.inputWrapper}`}>
         <Input
           type={"text"}
           placeholder={"Пароль"}
-          onChange={onChangePassword}
+          onChange={onChange}
           size={"default"}
           icon={"EditIcon"}
-          value={password}
+          name={"password"}
+          value={state.password}
         />
       </div>
     </div>

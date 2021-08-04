@@ -1,5 +1,4 @@
 import React from "react";
-import componentStyles from "./Home.module.css";
 import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstructor";
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import { HTML5Backend } from "react-dnd-html5-backend";

@@ -9,17 +9,16 @@ const ProtectedRoute = ({ children, ...props }) => {
   const { accessToken, refreshToken } = useSelector(store => store.auth);
 
   useEffect(() => {
-    // отправка запроса на рефреш отрабатывает, но не рендерится
     if (!isAliveToken(accessToken) && refreshToken) {
       dispatch(doRefreshToken(refreshToken));
     }
-  });
+  }, [accessToken, refreshToken, dispatch]);
 
   return (
     <Route
       {...props}
       render={({ location }) =>
-        isAliveToken(accessToken) ? (
+        refreshToken ? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />
