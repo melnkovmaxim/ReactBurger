@@ -6,14 +6,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch, useStore } from 'react-redux';
+import { useDispatch, useSelector, useStore } from 'react-redux';
 import { register } from "../../services/actions/AuthActions";
 import { Redirect } from "react-router-dom";
 import { isAliveToken } from "../../utils/Token";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const accessToken = useStore(store => store.auth.accessToken);
+  const accessToken = useSelector(store => store.auth.accessToken);
   const [state, setState] = useState({});
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const onClick = () => {

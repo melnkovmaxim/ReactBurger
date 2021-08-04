@@ -9,7 +9,6 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
 import { isAliveToken } from "../../utils/Token";
-import { useEffect } from "react";
 
 const Login = () => {
   const [state, setState] = useState({});
@@ -20,13 +19,11 @@ const Login = () => {
     dispatch(login(state.email, state.password));
   };
 
-  useEffect(() => {
-    if (isAliveToken(accessToken)) {
-      return (
-        <Redirect to={{ pathname: '/' }} />
-      );
-    }
-  }, [accessToken])
+  if (isAliveToken(accessToken)) {
+    return (
+      <Redirect to={{ pathname: '/' }} />
+    );
+  }
 
   return (
     <div className={componentStyles.container}>
