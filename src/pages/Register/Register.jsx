@@ -8,23 +8,15 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from "../../services/actions/AuthActions";
-import { Redirect } from "react-router-dom";
-import { isAliveToken } from "../../utils/Token";
 
 const Register = () => {
   const dispatch = useDispatch();
-  const accessToken = useSelector(store => store.auth.accessToken);
   const [state, setState] = useState({ name: '', email: '', password: '' });
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
+  const { registerRequestFailed , registerRequestError } = useSelector(store => store.auth);
   const onClick = () => {
     dispatch(register(state.email, state.name, state.password));
   };
-
-  if (isAliveToken(accessToken)) {
-    return (
-      <Redirect to={{ pathname: '/' }} />
-    );
-  }
 
   return (
     <div className={componentStyles.container}>
@@ -56,6 +48,7 @@ const Register = () => {
           name={"password"}
         />
       </div>
+      {registerRequestFailed && <p>{registerRequestError}</p>}
       <div className="mt-6">
         <Button type="primary" size="medium" onClick={onClick}>
           Войти

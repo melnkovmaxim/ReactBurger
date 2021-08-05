@@ -1,9 +1,9 @@
 import componentStyles from "./ProfileDetails.module.css";
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getUserInfo, updateUserInfo } from "../../services/actions/ProfileActions";
+import { getUserInfo } from "../../services/actions/ProfileActions";
 
 const ProfileDetails = () => {
   const dispatch = useDispatch();
@@ -18,11 +18,8 @@ const ProfileDetails = () => {
 
   useEffect(() => {
     setState({ ...state, ...user });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
-  const onClick = () => {
-    dispatch(updateUserInfo(user));
-  };
 
   return (
     <div className={`ml-15 pl-6 pr-6 ${componentStyles.container}`}>

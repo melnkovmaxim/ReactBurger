@@ -8,13 +8,15 @@ import Register from "./pages/Register/Register";
 import PasswordForgot from "./pages/PasswordForgot/PasswordForgot";
 import PasswordReset from "./pages/PasswordReset/PasswordReset";
 import Profile from "./pages/Profile/Profile";
-import IngredientDetails from "./pages/IngredientDetails/IngredientDetails";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Logout from "./pages/Logout/Logout";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_TOKENS } from './services/actions/AuthActions';
+import NonAuthRoute from "./components/NonAuthRoute/NonAuthRoute";
+import IngredientDetails from "./components/IngredientDetails/IngredientDetails";
+import ModalOverlay from "./components/ModalOverlay/ModalOverlay";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -23,9 +25,11 @@ const App = () => {
     const refreshToken = localStorage.getItem('refresh_token');
     dispatch({ type: SET_TOKENS, accessToken: accessToken, refreshToken: refreshToken})
   }, [dispatch]);
+  const ingredients = useSelector(store => store.ingredients);
+  const viewedItem = ingredients[0];
+
 
   return (
-    <>
       <div className={componentStyles.content}>
         <Router>
           <div className={componentStyles.header}>
@@ -36,26 +40,26 @@ const App = () => {
               <Route path="/" exact={true}>
                 <Home />
               </Route>
-              <Route path="/login" exact={true}>
+              <NonAuthRoute path="/login" exact={true}>
                 <Login />
-              </Route>
-              <Route path="/register" exact={true}>
+              </NonAuthRoute>
+              <NonAuthRoute path="/register" exact={true}>
                 <Register />
-              </Route>
+              </NonAuthRoute>
               <ProtectedRoute path="/logout" exact={true}>
                 <Logout />
               </ProtectedRoute>
-              <Route path="/forgot-password" exact={true}>
+              <NonAuthRoute path="/forgot-password" exact={true}>
                 <PasswordForgot />
-              </Route>
-              <Route path="/reset-password" exact={true}>
+              </NonAuthRoute>
+              <NonAuthRoute path="/reset-password" exact={true}>
                 <PasswordReset />
-              </Route>
+              </NonAuthRoute>
               <ProtectedRoute path="/profile">
                 <Profile />
               </ProtectedRoute>
               <Route path="/ingredients/:id">
-                <IngredientDetails />
+                <ModalOverlay header="Детали ингредиента"><IngredientDetails {...viewedItem} /></ModalOverlay>
               </Route>
               <Route>
                 <NotFound />
@@ -64,7 +68,6 @@ const App = () => {
           </div>
         </Router>
       </div>
-    </>
   );
 };
 

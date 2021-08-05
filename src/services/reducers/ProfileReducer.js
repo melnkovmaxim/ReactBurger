@@ -5,10 +5,20 @@ import {
   UPDATE_USER_INFO_REQUEST,
   UPDATE_USER_INFO_REQUEST_SUCCESS,
   UPDATE_USER_INFO_REQUEST_FAILED,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_REQUEST_SUCCESS,
+  RESET_PASSWORD_REQUEST_FAILED,
+  CONFIRM_RESET_PASSWORD_REQUEST,
+  CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS,
+  CONFIRM_RESET_PASSWORD_REQUEST_FAILED,
+  RESET_STATUS_EMAIL_SENDED,
+  RESET_STATUS_CONFIRM_EMAIL_SENDED,
 } from "../actions/ProfileActions";
 
 const initialState = {
   user: {},
+  isSendedResetPasswordEmail: false,
+  isSendedConfirmResetPasswordEmail: false,
 
   userInfoRequestPending: false,
   userInfoRequestFailed: false,
@@ -17,6 +27,14 @@ const initialState = {
   updateUserInfoRequestPending: false,
   updateUserInfoRequestFailed: false,
   updateUserInfoRequestError: "",
+
+  resetPasswordRequestPending: false,
+  resetPasswordRequestFailed: false,
+  resetPasswordRequestError: "",
+
+  confirmResetPasswordRequestPending: false,
+  confirmResetPasswordRequestFailed: false,
+  confirmResetPasswordRequestError: "",
 };
 
 export const profileReducer = (state = initialState, action) => {
@@ -65,6 +83,68 @@ export const profileReducer = (state = initialState, action) => {
             updateUserInfoRequestFailed: true,
             updateUserInfoRequestError: action.error,
         }
+    }
+    case RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        resetPasswordRequestPending: true,
+        resetPasswordRequestFailed: false,
+        resetPasswordRequestError: '',
+      }
+    }
+    case RESET_PASSWORD_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        isSendedResetPasswordEmail: true,
+        resetPasswordRequestPending: false,
+        resetPasswordRequestFailed: false,
+        resetPasswordRequestError: '',
+      }
+    }
+    case RESET_PASSWORD_REQUEST_FAILED: {
+      return {
+        ...state,
+        resetPasswordRequestPending: false,
+        resetPasswordRequestFailed: true,
+        resetPasswordRequestError: action.error,
+      }
+    }
+    case CONFIRM_RESET_PASSWORD_REQUEST: {
+      return {
+        ...state,
+        confirmResetPasswordRequestPending: true,
+        confirmResetPasswordRequestFailed: false,
+        confirmResetPasswordRequestError: '',
+      }
+    }
+    case CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS: {
+      return {
+        ...state,
+        isSendedConfirmResetPasswordEmail: true,
+        confirmResetPasswordRequestPending: false,
+        confirmResetPasswordRequestFailed: false,
+        confirmResetPasswordRequestError: '',
+      }
+    }
+    case CONFIRM_RESET_PASSWORD_REQUEST_FAILED: {
+      return {
+        ...state,
+        confirmResetPasswordRequestPending: false,
+        confirmResetPasswordRequestFailed: true,
+        confirmResetPasswordRequestError: action.error,
+      }
+    }
+    case RESET_STATUS_EMAIL_SENDED: {
+      return {
+        ...state,
+        isSendedResetPasswordEmail: false,
+      }
+    }
+    case RESET_STATUS_CONFIRM_EMAIL_SENDED: {
+      return {
+        ...state,
+        isSendedConfirmResetPasswordEmail: false,
+      }
     }
     default: {
       return {

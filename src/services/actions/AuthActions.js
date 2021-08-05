@@ -8,9 +8,6 @@ import {
   REFRESH_TOKEN_REQUEST_URL,
   REFRESH_TOKEN_REQUEST_METHOD,
 } from "../../resources/Request";
-import {
-  SET_USER_INFO
-} from "./ProfileActions";
 import { fetchByAction } from "../Api";
 import { getTokenWithExpiresDate } from "../../utils/Token";
 
@@ -49,7 +46,7 @@ export function register(email, login, password) {
       });
     };
     const onFailed = (error) => {
-      dispatch({ type: LOGIN_REQUEST_FAILED, error: error });
+      dispatch({ type: REGISTER_REQUEST_FAILED, error: error });
     };
 
     fetchByAction(

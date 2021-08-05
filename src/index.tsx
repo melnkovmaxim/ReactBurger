@@ -41,6 +41,7 @@ store.subscribe(() => {
       if (action.refreshToken && action.refreshToken !== refreshTokenFromStorage) {
         localStorage.setItem('refresh_token', action.refreshToken);
       }
+      break;
     }
   }
 });

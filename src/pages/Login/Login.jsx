@@ -4,29 +4,34 @@ import {
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
-import { isAliveToken } from "../../utils/Token";
+import { useEffect } from "react";
+import { RESET_STATUS_CONFIRM_EMAIL_SENDED } from "../../services/actions/ProfileActions";
 
 const Login = () => {
-  const [state, setState] = useState({ email: '', password: '' });
-  const { accessToken } = useSelector(store => store.auth);
   const dispatch = useDispatch();
-  const location = useLocation();
-  const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
+  const [state, setState] = useState({ email: "", password: "" });
+  const { loginRequestFailed, loginRequestError } = useSelector(store => store.auth);
+  const isConfirmResetEmailSended = useSelector(
+    (store) => store.profile.isSendedConfirmResetPasswordEmail
+  );
+  const onChange = (e) =>
+    setState({ ...state, [e.target.name]: e.target.value });
   const onClick = () => {
     dispatch(login(state.email, state.password));
   };
-  
-  if (isAliveToken(accessToken)) {
-    return (
-      <Redirect to={{ pathname: location.state ? location.state.from.pathname : '/' }} />
-    );
-  }
+
+  useEffect(() => {
+    if (isConfirmResetEmailSended) {
+      dispatch({ type: RESET_STATUS_CONFIRM_EMAIL_SENDED });
+    }
+  }, [dispatch, isConfirmResetEmailSended]);
 
   return (
+    <>
     <div className={componentStyles.container}>
       <p className="text text_type_main-medium">Вход</p>
       <div className={`mt-6 ${componentStyles.inputWrapper}`}>
@@ -46,6 +51,7 @@ const Login = () => {
           name={"password"}
         />
       </div>
+      {loginRequestFailed && <p>{loginRequestError}</p>}
       <div className="mt-6">
         <Button type="primary" size="medium" onClick={onClick}>
           Войти
@@ -66,6 +72,7 @@ const Login = () => {
         </Link>
       </p>
     </div>
+    </>
   );
 };
 

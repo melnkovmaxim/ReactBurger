@@ -9,10 +9,25 @@
     background-color: #1C1C21;
 }
 
+.containerNonClosing {
+    width: 720px;
+    border-radius: 40px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 15vh auto 0 auto;
+}
+
 .header {
     display: flex;
     align-items: center;
     height: 64px;
+}
+
+.headerTextCenter {
+    text-align: center;
+    width: 100%;
 }
 
 .headerWrapper {

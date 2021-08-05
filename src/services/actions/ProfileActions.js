@@ -4,6 +4,10 @@ import {
     USER_INFO_REQUEST_METHOD,
     UPDATE_USER_INFO_REQUEST_METHOD,
     UPDATE_USER_INFO_REQUEST_URL,
+    RESET_PASSWORD_REQUEST_URL,
+    RESET_PASSWORD_REQUEST_METHOD,
+    CONFIRM_RESET_PASSWORD_REQUEST_URL,
+    CONFIRM_RESET_PASSWORD_REQUEST_METHOD,
   } from "../../resources/Request";
 
 export const SET_USER_INFO = "SET_USER_INFO";
@@ -29,6 +33,9 @@ export const CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS =
   "CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS";
 export const CONFIRM_RESET_PASSWORD_REQUEST_FAILED =
   "CONFIRM_RESET_PASSWORD_REQUEST_FAILED";
+
+export const RESET_STATUS_EMAIL_SENDED = "RESET_STATUS_EMAIL_SENDED";
+export const RESET_STATUS_CONFIRM_EMAIL_SENDED = "RESET_STATUS_CONFIRM_EMAIL_SENDED";
 
 export function getUserInfo(accessToken) {
   return function (dispatch) {
@@ -62,7 +69,7 @@ export function updateUserInfo(user) {
     const onFailed = (error) => {
       dispatch({ type: UPDATE_USER_INFO_REQUEST_FAILED, error: error });
     };
-    console.log('Ok');
+
     fetchByAction(
       UPDATE_USER_INFO_REQUEST_URL,
       UPDATE_USER_INFO_REQUEST_METHOD,
@@ -70,6 +77,48 @@ export function updateUserInfo(user) {
       onFailed,
       JSON.stringify(user),
       JSON.parse(localStorage.getItem('access_token')).token
+    );
+  };
+}
+
+export function resetPassword(email) {
+  return function (dispatch) {
+    dispatch({ type: RESET_PASSWORD_REQUEST });
+
+    const onSuccess = (json) => {
+      dispatch({ type: RESET_PASSWORD_REQUEST_SUCCESS });
+    };
+    const onFailed = (error) => {
+      dispatch({ type: RESET_PASSWORD_REQUEST_FAILED, error: error });
+    };
+
+    fetchByAction(
+      RESET_PASSWORD_REQUEST_URL,
+      RESET_PASSWORD_REQUEST_METHOD,
+      onSuccess,
+      onFailed,
+      JSON.stringify({ email: email }),
+    );
+  };
+}
+
+export function confirmResetPassword(password, confirmToken) {
+  return function (dispatch) {
+    dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST });
+
+    const onSuccess = (json) => {
+      dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS });
+    };
+    const onFailed = (error) => {
+      dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST_FAILED, error: error });
+    };
+
+    fetchByAction(
+      CONFIRM_RESET_PASSWORD_REQUEST_URL,
+      CONFIRM_RESET_PASSWORD_REQUEST_METHOD,
+      onSuccess,
+      onFailed,
+      JSON.stringify({ password: password, token: confirmToken })
     );
   };
 }

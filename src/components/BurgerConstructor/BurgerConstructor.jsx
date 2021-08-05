@@ -6,6 +6,8 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../services/actions/OrderActions";
+import { isAliveToken } from "../../utils/Token";
+import { useHistory } from 'react-router-dom';
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -13,6 +15,8 @@ const BurgerConstructor = () => {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
   const ingredients = useSelector(store => store.ingredients.constructorItems);
   const bun = ingredients.find((item) => item.type === "bun");
+  const accessToken = useSelector(store => store.auth.accessToken);
+  const history = useHistory();
 
   useEffect(() => {
     const bunsPrice = bun ? bun.price * 2 : 0;
@@ -26,6 +30,10 @@ const BurgerConstructor = () => {
   }, [bun, ingredients]);
 
   const onClick = () => {
+    if (!isAliveToken(accessToken)) {
+      history.push('/login');
+    }
+
     const bunId = bun ? bun._id : '';
     dispatch(createOrder(bunId, ingredients.filter(ingredient => ingredient._id !== bunId)
                                            .map(ingredient => ingredient._id)
