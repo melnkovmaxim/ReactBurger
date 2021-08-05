@@ -1,24 +1,25 @@
 import { useEffect } from "react";
+import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 import { refreshToken as doRefreshToken } from "../../services/actions/AuthActions";
-import { isAliveToken } from "../../utils/Token";
 
 const ProtectedRoute = ({ children, ...props }) => {
   const dispatch = useDispatch();
-  const { accessToken, refreshToken } = useSelector(store => store.auth);
+  const [cookies] = useCookies(['token']);
+  const refreshTokenRequestPending = useSelector(store => store.auth.refreshTokenRequestPending);
 
   useEffect(() => {
-    if (!isAliveToken(accessToken) && refreshToken) {
-      dispatch(doRefreshToken(refreshToken));
+    if (!cookies.token && !refreshTokenRequestPending) {
+      dispatch(doRefreshToken());
     }
-  }, [accessToken, refreshToken, dispatch]);
+  }, [dispatch, cookies, refreshTokenRequestPending]);
 
   return (
     <Route
       {...props}
       render={({ location }) =>
-        refreshToken ? (
+        cookies.token ? (
           children
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: location } }} />

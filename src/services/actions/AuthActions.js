@@ -9,7 +9,6 @@ import {
   REFRESH_TOKEN_REQUEST_METHOD,
 } from "../../resources/Request";
 import { fetchByAction } from "../Api";
-import { getTokenWithExpiresDate } from "../../utils/Token";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
 export const LOGIN_REQUEST_SUCCESS = "LOGIN_REQUEST_SUCCESS";
@@ -41,7 +40,7 @@ export function register(email, login, password) {
     const onSuccess = (json) => {
       dispatch({
         type: REGISTER_REQUEST_SUCCESS,
-        accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)),
+        accessToken: json.accessToken.replace('Bearer ',''),
         refreshToken: json.refreshToken,
       });
     };
@@ -70,7 +69,7 @@ export function login(email, password) {
     const onSuccess = (json) => {
       dispatch({
         type: LOGIN_REQUEST_SUCCESS,
-        accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)),
+        accessToken: json.accessToken.replace('Bearer ',''),
         refreshToken: json.refreshToken,
       });
     };
@@ -88,16 +87,22 @@ export function login(email, password) {
   };
 }
 
-export function refreshToken(refreshToken) {
+export function refreshToken() {
   return function (dispatch) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
+    const refreshToken = localStorage.getItem('refresh_token');
+
+    if (refreshToken === null) {
+      dispatch({ type: REFRESH_TOKEN_REQUEST_FAILED, error: 'Не найден refresh token' });
+      return;
+    }
 
     const body = JSON.stringify({
       token: refreshToken,
     });
     const onSuccess = (json) => {
       dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS, 
-        accessToken: JSON.stringify(getTokenWithExpiresDate(json.accessToken)), 
+        accessToken: json.accessToken.replace('Bearer ',''), 
         refreshToken: json.refreshToken });
     };
     const onFailed = (error) => {
@@ -114,9 +119,16 @@ export function refreshToken(refreshToken) {
   };
 }
 
-export function logout(refreshToken) {
+export function logout() {
   return function (dispatch) {
     dispatch({ type: LOGOUT_REQUEST });
+    const refreshToken = localStorage.getItem('refresh_token');
+
+    if (refreshToken === null) {
+      console.log('is null');
+      dispatch({ type: LOGOUT_REQUEST_FAILED, error: 'Не найден refresh token' });
+      return;
+    }
 
     const body = JSON.stringify({
       token: refreshToken,

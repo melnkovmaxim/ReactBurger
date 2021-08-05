@@ -9,6 +9,7 @@ import { rootReducer } from './services/reducers/RootReducer';
 import thunk from 'redux-thunk';
 import { getLastAction, lastActionMiddleware } from './middlewares/LastActionMiddleware';
 import { LOGIN_REQUEST_SUCCESS, LOGOUT_REQUEST, REGISTER_REQUEST_SUCCESS, REFRESH_TOKEN_REQUEST_FAILED } from './services/actions/AuthActions';
+import { Cookies } from 'react-cookie';
 
 declare global {
   interface Window {
@@ -21,21 +22,25 @@ const enhancer = composeEnhancers(applyMiddleware(thunk, lastActionMiddleware));
 const store = createStore(rootReducer, enhancer);
 store.subscribe(() => {
   const action = getLastAction();
+  const cookies = new Cookies();
 
   switch(action.type) {
     case LOGOUT_REQUEST:
     case REFRESH_TOKEN_REQUEST_FAILED: {
-      localStorage.removeItem('access_token');
+      cookies.remove('token');
       localStorage.removeItem('refresh_token');
       break;
     }
     case LOGIN_REQUEST_SUCCESS:
     case REGISTER_REQUEST_SUCCESS: {
-      const accessTokenFromStorage = localStorage.getItem('access_token');
+      const accessTokenFromCookie = cookies.get('token');
       const refreshTokenFromStorage = localStorage.getItem('refresh_token');
       
-      if (action.accessToken && action.accessToken !== accessTokenFromStorage) {
-        localStorage.setItem('access_token', action.accessToken);
+      if (action.accessToken && action.accessToken !== accessTokenFromCookie) {
+        const currentDate = new Date();
+        //currentDate.setMinutes(currentDate.getMinutes() + 19);
+        currentDate.setSeconds(currentDate.getSeconds() + 11);
+        cookies.set('token', action.accessToken, { expires: currentDate })
       }
     
       if (action.refreshToken && action.refreshToken !== refreshTokenFromStorage) {

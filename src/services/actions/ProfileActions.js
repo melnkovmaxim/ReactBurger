@@ -9,6 +9,7 @@ import {
     CONFIRM_RESET_PASSWORD_REQUEST_URL,
     CONFIRM_RESET_PASSWORD_REQUEST_METHOD,
   } from "../../resources/Request";
+import { Cookies } from 'react-cookie';
 
 export const SET_USER_INFO = "SET_USER_INFO";
 export const REMOVE_USER_INFO = "REMOVE_USER_INFO";
@@ -37,7 +38,8 @@ export const CONFIRM_RESET_PASSWORD_REQUEST_FAILED =
 export const RESET_STATUS_EMAIL_SENDED = "RESET_STATUS_EMAIL_SENDED";
 export const RESET_STATUS_CONFIRM_EMAIL_SENDED = "RESET_STATUS_CONFIRM_EMAIL_SENDED";
 
-export function getUserInfo(accessToken) {
+const cookies = new Cookies();
+export function getUserInfo() {
   return function (dispatch) {
     dispatch({ type: USER_INFO_REQUEST });
 
@@ -54,7 +56,7 @@ export function getUserInfo(accessToken) {
       onSuccess,
       onFailed,
       null,
-      JSON.parse(accessToken).token
+      "Bearer " + cookies.get('token')
     );
   };
 }
@@ -76,7 +78,7 @@ export function updateUserInfo(user) {
       onSuccess,
       onFailed,
       JSON.stringify(user),
-      JSON.parse(localStorage.getItem('access_token')).token
+      "Bearer " + cookies.get('token')
     );
   };
 }

@@ -9,12 +9,11 @@ const ProfileDetails = () => {
   const dispatch = useDispatch();
   const user = useSelector(store => store.profile.user);
   const [state, setState] = useState({ name: '', email: '', password: '' } );
-  const accessToken = useSelector(store => store.auth.accessToken);
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
 
   useEffect(() => {
-    dispatch(getUserInfo(accessToken));
-  }, [dispatch, accessToken]);
+    dispatch(getUserInfo());
+  }, [dispatch]);
 
   useEffect(() => {
     setState({ ...state, ...user });

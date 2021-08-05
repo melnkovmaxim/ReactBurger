@@ -1,43 +1,53 @@
 import ConstructorIngredientList from "../ConstructorIngredientList/ConstructorIngredientList";
-import { CurrencyIcon, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import {
+  CurrencyIcon,
+  Button,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./BurgerConstructor.module.css";
 import { useEffect, useState } from "react";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../services/actions/OrderActions";
-import { isAliveToken } from "../../utils/Token";
-import { useHistory } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import { useCookies } from "react-cookie";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState();
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
-  const ingredients = useSelector(store => store.ingredients.constructorItems);
+  const ingredients = useSelector(
+    (store) => store.ingredients.constructorItems
+  );
   const bun = ingredients.find((item) => item.type === "bun");
-  const accessToken = useSelector(store => store.auth.accessToken);
   const history = useHistory();
+  const [cookies] = useCookies(['token']);
 
   useEffect(() => {
     const bunsPrice = bun ? bun.price * 2 : 0;
     const ingredientsPrice = ingredients.reduce((total, current) => {
       if (current.type === "bun") return total;
-      
-      return total += current.price
+
+      return (total += current.price);
     }, 0);
 
     setTotalPrice(bunsPrice + ingredientsPrice);
   }, [bun, ingredients]);
 
   const onClick = () => {
-    if (!isAliveToken(accessToken)) {
-      history.push('/login');
+    if (!cookies.token) {
+      history.push("/login");
     }
 
-    const bunId = bun ? bun._id : '';
-    dispatch(createOrder(bunId, ingredients.filter(ingredient => ingredient._id !== bunId)
-                                           .map(ingredient => ingredient._id)
-    ));
+    const bunId = bun ? bun._id : "";
+    dispatch(
+      createOrder(
+        bunId,
+        ingredients
+          .filter((ingredient) => ingredient._id !== bunId)
+          .map((ingredient) => ingredient._id)
+      )
+    );
     setIsDetailsModalOpen(true);
   };
 
@@ -47,7 +57,7 @@ const BurgerConstructor = () => {
 
   return (
     <>
-      { isDetailsModalOpen && (
+      {isDetailsModalOpen && (
         <Modal onClose={onClose}>
           <OrderDetails />
         </Modal>
