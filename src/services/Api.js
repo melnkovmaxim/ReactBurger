@@ -5,7 +5,10 @@ export function fetchByAction(url, method, onSuccess, onFailed, body = null, tok
     body: body,
   })
     .then(async (response) => {
-      const json = await response.json();
+      const contentType = response.headers.get("content-type");
+      const json = contentType === "application/json" 
+        ? await response.json() 
+        : null;
 
       if (response.ok) {
         return json;
