@@ -1,15 +1,15 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { logout } from '../../services/actions/AuthActions';
+import { getRefreshToken } from '../../utils/LocalStorage';
 
 const Logout = () => {
     const dispatch = useDispatch();
-    const refreshToken = useSelector(store => store.auth.refreshToken);
 
     useEffect(() => {
-        dispatch(logout(refreshToken));
-    }, [dispatch, refreshToken]);
+        dispatch(logout(getRefreshToken()));
+    }, [dispatch]);
 
     return (
         <Redirect to={{ pathname: '/' }} />

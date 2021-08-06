@@ -1,27 +1,35 @@
 import { useEffect } from "react";
-import { useCookies } from "react-cookie";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Redirect, useLocation } from "react-router-dom";
 import { refreshToken as doRefreshToken } from "../../services/actions/AuthActions";
+import { getAccessToken } from "../../utils/Cookie";
+import { getRefreshToken } from "../../utils/LocalStorage";
 
 const NonAuthRoute = ({ children, ...props }) => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const [cookies] = useCookies(['token']);
-  const refreshTokenRequestPending = useSelector(store => store.auth.refreshTokenRequestPending);
+  const accessToken = getAccessToken();
+  const refreshToken = getRefreshToken();
+  const { refreshTokenRequestPending, loginRequestPending, registerRequestPending } = useSelector(store => store.auth);
 
   useEffect(() => {
-    if (!cookies.token && !refreshTokenRequestPending) {
-      dispatch(doRefreshToken());
+    if (refreshTokenRequestPending || loginRequestPending || registerRequestPending) {
+      return;
     }
-  }, [dispatch, cookies, refreshTokenRequestPending]);
+
+    if (!accessToken && refreshToken) {
+      dispatch(doRefreshToken(refreshToken));
+    }
+  }, [dispatch, accessToken, refreshToken, refreshTokenRequestPending, loginRequestPending, registerRequestPending]);
 
   return (
     <Route
       {...props}
       render={() =>
-        cookies.token ? (
-          <Redirect to={{ pathname: location.state ? location.state.from.pathname : "/" }} />
+        (accessToken) ? (
+          <Redirect to={{ 
+            pathname: location.state ? location.state.from.pathname : "/", 
+            state: { isRepeatAction: location.state && location.state.from === "/" } }} />
         ) : (
           children
         )

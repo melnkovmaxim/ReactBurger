@@ -10,7 +10,7 @@ import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../services/actions/OrderActions";
 import { useHistory } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { getAccessToken } from "../../utils/Cookie";
 
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,6 @@ const BurgerConstructor = () => {
   );
   const bun = ingredients.find((item) => item.type === "bun");
   const history = useHistory();
-  const [cookies] = useCookies(['token']);
 
   useEffect(() => {
     const bunsPrice = bun ? bun.price * 2 : 0;
@@ -34,9 +33,19 @@ const BurgerConstructor = () => {
     setTotalPrice(bunsPrice + ingredientsPrice);
   }, [bun, ingredients]);
 
+  useEffect(() => {
+    if (history.location.state && history.location.state.isRepeatAction) {
+      onClick();
+      const location = { ...history.location, isRepeatAction: false }
+      history.replace({ ...location });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [history]);
+
   const onClick = () => {
-    if (!cookies.token) {
-      history.push("/login");
+    if (!getAccessToken()) {
+      history.push("/login", { from: history.location.pathname });
+      return;
     }
 
     const bunId = bun ? bun._id : "";

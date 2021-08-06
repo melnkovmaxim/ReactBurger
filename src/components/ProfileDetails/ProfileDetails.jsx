@@ -4,16 +4,18 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { getUserInfo } from "../../services/actions/ProfileActions";
+import { getAccessToken } from "../../utils/Cookie";
 
 const ProfileDetails = () => {
   const dispatch = useDispatch();
   const user = useSelector(store => store.profile.user);
   const [state, setState] = useState({ name: '', email: '', password: '' } );
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
+  const accessToken = getAccessToken();
 
   useEffect(() => {
-    dispatch(getUserInfo());
-  }, [dispatch]);
+    dispatch(getUserInfo(accessToken));
+  }, [dispatch, accessToken]);
 
   useEffect(() => {
     setState({ ...state, ...user });

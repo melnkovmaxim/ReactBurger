@@ -8,6 +8,8 @@ import {
   REFRESH_TOKEN_REQUEST_URL,
   REFRESH_TOKEN_REQUEST_METHOD,
 } from "../../resources/Request";
+import { removeAccessToken, setAccessToken } from "../../utils/Cookie";
+import { removeRefreshToken, setRefreshToken } from "../../utils/LocalStorage";
 import { fetchByAction } from "../Api";
 
 export const LOGIN_REQUEST = "LOGIN_REQUEST";
@@ -38,10 +40,10 @@ export function register(email, login, password) {
       name: login,
     });
     const onSuccess = (json) => {
+      setAccessToken(json.accessToken.replace('Bearer ',''));
+      setRefreshToken(json.refreshToken);
       dispatch({
         type: REGISTER_REQUEST_SUCCESS,
-        accessToken: json.accessToken.replace('Bearer ',''),
-        refreshToken: json.refreshToken,
       });
     };
     const onFailed = (error) => {
@@ -67,10 +69,10 @@ export function login(email, password) {
       password: password,
     });
     const onSuccess = (json) => {
+      setAccessToken(json.accessToken.replace('Bearer ',''));
+      setRefreshToken(json.refreshToken);
       dispatch({
         type: LOGIN_REQUEST_SUCCESS,
-        accessToken: json.accessToken.replace('Bearer ',''),
-        refreshToken: json.refreshToken,
       });
     };
     const onFailed = (error) => {
@@ -87,25 +89,21 @@ export function login(email, password) {
   };
 }
 
-export function refreshToken() {
+export function refreshToken(refreshToken) {
   return function (dispatch) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
-    const refreshToken = localStorage.getItem('refresh_token');
-
-    if (refreshToken === null) {
-      dispatch({ type: REFRESH_TOKEN_REQUEST_FAILED, error: 'Не найден refresh token' });
-      return;
-    }
 
     const body = JSON.stringify({
       token: refreshToken,
     });
     const onSuccess = (json) => {
-      dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS, 
-        accessToken: json.accessToken.replace('Bearer ',''), 
-        refreshToken: json.refreshToken });
+      setAccessToken(json.accessToken.replace('Bearer ',''));
+      setRefreshToken(json.refreshToken);
+      dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS });
     };
     const onFailed = (error) => {
+      removeAccessToken();
+      removeRefreshToken();
       dispatch({ type: REFRESH_TOKEN_REQUEST_FAILED, error: error });
     };
 
@@ -119,16 +117,11 @@ export function refreshToken() {
   };
 }
 
-export function logout() {
+export function logout(refreshToken) {
   return function (dispatch) {
     dispatch({ type: LOGOUT_REQUEST });
-    const refreshToken = localStorage.getItem('refresh_token');
-
-    if (refreshToken === null) {
-      console.log('is null');
-      dispatch({ type: LOGOUT_REQUEST_FAILED, error: 'Не найден refresh token' });
-      return;
-    }
+    removeAccessToken();
+    removeRefreshToken();
 
     const body = JSON.stringify({
       token: refreshToken,

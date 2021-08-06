@@ -11,24 +11,11 @@ import Profile from "./pages/Profile/Profile";
 import NotFound from "./pages/NotFound/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 import Logout from "./pages/Logout/Logout";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { SET_TOKENS } from './services/actions/AuthActions';
 import NonAuthRoute from "./components/NonAuthRoute/NonAuthRoute";
 import IngredientDetails from "./components/IngredientDetails/IngredientDetails";
 import ModalOverlay from "./components/ModalOverlay/ModalOverlay";
 
 const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    const accessToken = localStorage.getItem('access_token');
-    const refreshToken = localStorage.getItem('refresh_token');
-    dispatch({ type: SET_TOKENS, accessToken: accessToken, refreshToken: refreshToken})
-  }, [dispatch]);
-  const ingredients = useSelector(store => store.ingredients);
-  const viewedItem = ingredients[0];
-
-
   return (
       <div className={componentStyles.content}>
         <Router>
@@ -59,7 +46,7 @@ const App = () => {
                 <Profile />
               </ProtectedRoute>
               <Route path="/ingredients/:id">
-                <ModalOverlay header="Детали ингредиента"><IngredientDetails {...viewedItem} /></ModalOverlay>
+                <ModalOverlay header="Детали ингредиента"><IngredientDetails /></ModalOverlay>
               </Route>
               <Route>
                 <NotFound />

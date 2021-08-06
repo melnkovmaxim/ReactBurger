@@ -14,7 +14,7 @@ import { RESET_STATUS_CONFIRM_EMAIL_SENDED } from "../../services/actions/Profil
 const Login = () => {
   const dispatch = useDispatch();
   const [state, setState] = useState({ email: "", password: "" });
-  const { loginRequestFailed, loginRequestError } = useSelector(store => store.auth);
+  const {loginRequestFailed, loginRequestError} = useSelector(store => store.auth);
   const isConfirmResetEmailSended = useSelector(
     (store) => store.profile.isSendedConfirmResetPasswordEmail
   );

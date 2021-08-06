@@ -15,9 +15,6 @@ import {
 } from "../actions/AuthActions";
 
 const initialState = {
-  accessToken: '',
-  refreshToken: '',
-
   registerRequestPending: false,
   registerRequestFailed: false,
   registerRequestError: "",
@@ -40,8 +37,6 @@ export const authReducer = (state = initialState, action) => {
     case SET_TOKENS: {
       return {
         ...state,
-        accessToken: action.accessToken,
-        refreshToken: action.refreshToken,
       }
     }
     case REGISTER_REQUEST: {
@@ -78,8 +73,6 @@ export const authReducer = (state = initialState, action) => {
         loginRequestPending: false,
         loginRequestFailed: false,
         loginRequestError: '',
-        accessToken: action.accessToken,
-        refreshToken: action.refreshToken
       };
     }
     case LOGIN_REQUEST_FAILED: {
@@ -103,8 +96,6 @@ export const authReducer = (state = initialState, action) => {
         refreshTokenRequestPending: false,
         refreshTokenRequestFailed: false,
         refreshTokenRequestError: '',
-        accessToken: action.accessToken,
-        refreshToken: action.refreshToken,
       }
     }
     case REFRESH_TOKEN_REQUEST_FAILED: {
@@ -113,16 +104,12 @@ export const authReducer = (state = initialState, action) => {
         refreshTokenRequestPending: false,
         refreshTokenRequestFailed: true,
         refreshTokenRequestError: action.error,
-        accessToken: '',
-        refreshToken: '',
       }
     }
     case LOGOUT_REQUEST: {
       return {
         ...state,
         logoutRequestPending: true,
-        accessToken: '',
-        refreshToken: ''
       };
     }
     case LOGOUT_REQUEST_SUCCESS: {
@@ -130,7 +117,6 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         logoutRequestPending: false,
         logoutRequestFailed: false,
-        logoutRequestError: '',
       };
     }
     case LOGOUT_REQUEST_FAILED: {
