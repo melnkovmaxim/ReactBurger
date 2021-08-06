@@ -8,8 +8,7 @@ export function getAccessToken() {
 
 export function setAccessToken(accessToken) {
     const currentDate = new Date();
-    //currentDate.setMinutes(currentDate.getMinutes() + 19);
-    currentDate.setSeconds(currentDate.getSeconds() + 5);
+    currentDate.setMinutes(currentDate.getMinutes() + 19);
     cookies.set('token', accessToken, { expires: currentDate })
 }
 
