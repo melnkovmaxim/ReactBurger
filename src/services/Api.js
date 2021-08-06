@@ -5,20 +5,15 @@ export function fetchByAction(url, method, onSuccess, onFailed, body = null, tok
     body: body,
   })
     .then(async (response) => {
-      const contentType = response.headers.get("content-type");
-      const json = contentType === "application/json" 
-        ? await response.json() 
-        : null;
-
       if (response.ok) {
-        return json;
+        return await response.json();
       }
 
-      if (json && json.message) {
-        return Promise.reject(json.message);
+      try {
+        return Promise.reject((await response.json()).message);
+      } catch (e) {
+        return Promise.reject(`Произошла ошибка. Статус запроса: ${response.status}`);
       }
-
-      return Promise.reject(`Ошибка ${response.status}`);
     })
     .then((json) => {
       if (!json.success) {
