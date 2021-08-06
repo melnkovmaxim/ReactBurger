@@ -1,18 +1,18 @@
 import componentStyles from './ProfileMenu.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 const ProfileMenu = () => {
   return (
     <div className={componentStyles.container}>
-      <Link to="/profile" className={`text text_type_main-medium ${componentStyles.link}`} >
+      <NavLink to="/profile" className={`text text_type_main-medium ${componentStyles.link}`} activeClassName={componentStyles.active} >
         Профиль
-      </Link>
-      <Link to="/profile" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} >
+      </NavLink>
+      <NavLink to="/profile/orders" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} activeClassName={componentStyles.active} >
         История заказов
-      </Link>
-      <Link to="/logout" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} >
+      </NavLink>
+      <NavLink to="/logout" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} activeClassName={componentStyles.active} >
         Выход
-      </Link>
+      </NavLink>
       <p className="mt-20 text text_type_main-default text_color_inactive">
         В этом разделе вы можете изменить свои персональные данные
       </p>

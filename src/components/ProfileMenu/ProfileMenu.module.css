@@ -8,3 +8,7 @@
     text-decoration: none;
     line-height: 64px;
 }
+
+.active {
+    color: #f2f2f3;
+}
