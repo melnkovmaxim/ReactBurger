@@ -12,8 +12,6 @@ import NotFound from "../../pages/NotFound/NotFound";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Logout from "../../pages/Logout/Logout";
 import NonAuthRoute from "../NonAuthRoute/NonAuthRoute";
-import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import ModalOverlay from "../ModalOverlay/ModalOverlay";
 
 const App = () => {
   return (
@@ -24,9 +22,6 @@ const App = () => {
           </div>
           <div className={componentStyles.body}>
             <Switch>
-              <Route path="/" exact={true}>
-                <Home />
-              </Route>
               <NonAuthRoute path="/login" exact={true}>
                 <Login />
               </NonAuthRoute>
@@ -45,8 +40,8 @@ const App = () => {
               <ProtectedRoute path="/profile">
                 <Profile />
               </ProtectedRoute>
-              <Route path="/ingredients/:id">
-                <ModalOverlay header="Детали ингредиента"><IngredientDetails /></ModalOverlay>
+              <Route path="/">
+                <Home />
               </Route>
               <Route>
                 <NotFound />

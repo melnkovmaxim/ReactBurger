@@ -3,15 +3,36 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
+import { Switch, Route, useLocation } from "react-router-dom";
+import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
+import Modal from "../../components/Modal/Modal";
 
 const Home = () => {
-  return (   
-      <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients />
-        <div className="ml-5 mr-5" />
-        <BurgerConstructor />
-      </DndProvider>
+  const location = useLocation();
+  const background = location.state && location.state.background;
+
+  return (
+    <>
+      <Switch location={background || location}>
+        <Route path="/" exact={true}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients />
+            <div className="ml-5 mr-5" />
+            <BurgerConstructor />
+          </DndProvider>
+        </Route>
+      </Switch>
+      <Route path="/ingredients/:id">
+        {background ? (
+          <Modal>
+            <IngredientDetails />
+          </Modal>
+        ) : (
+          <IngredientDetails />
+        )}
+      </Route>
+    </>
   );
-}
+};
 
 export default Home;

@@ -2,40 +2,44 @@ import componentStyles from "../IngredientDetails/IngredientDetails.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getIngredients } from "../../services/actions/IngredientActions";
-import { useState } from "react";
 import { useEffect } from "react";
+import { useState } from "react";
 
 const IngredientDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
-  const ingredients = useSelector((store) => store.ingredients.items);
-  const viewedIngredient = useSelector((store) => store.ingredients.viewedItem);
-  const [ingredientData, setIngredientData] = useState({});
+  const { items, itemsRequestPending } = useSelector((store) => store.ingredients);
+  const [viewedIngredient, setViewedIngredient] = useState();
+  const [error, setError] = useState();
 
   useEffect(() => {
     if (id) {
       dispatch(getIngredients());
     }
+  }, [dispatch, id]);
 
-    const result = id
-      ? ingredients.find((item) => item._id === id)
-      : viewedIngredient;
-    setIngredientData({ ingredient: result });
-  }, [dispatch, id, ingredients, viewedIngredient]);
+  useEffect(() => {
+    const ingredient = items.find(item => item._id === id);
+    setViewedIngredient(ingredient);
+
+    if (!ingredient) {
+      setError(itemsRequestPending ? "" : `Ингредиент с идентификатором ${id} не найден`);
+    }
+  }, [id, items, itemsRequestPending]);
 
   return (
     <>
-      {ingredientData.ingredient ? (
+      {viewedIngredient ? (
         <div className={`mb-15 ${componentStyles.content}`}>
           <img
             className={componentStyles.ingredientImage}
-            src={ingredientData.ingredient.image_large}
-            alt={ingredientData.ingredient.name}
+            src={viewedIngredient.image_large}
+            alt={viewedIngredient.name}
           />
           <p
             className={`mt-4 text text_type_main-medium ${componentStyles.textCenter}`}
           >
-            {ingredientData.ingredient.name}
+            {viewedIngredient.name}
           </p>
           <div
             className={`mt-8 ${componentStyles.ingredientInfo} ${componentStyles.textCenter}`}
@@ -45,7 +49,7 @@ const IngredientDetails = () => {
                 Калории, ккал
               </p>
               <p className="mt-2 text text_type_digits-default text_color_inactive">
-                {ingredientData.ingredient.calories}
+                {viewedIngredient.calories}
               </p>
             </div>
             <div>
@@ -53,7 +57,7 @@ const IngredientDetails = () => {
                 Белки, г
               </p>
               <p className="mt-2 text text_type_digits-default text_color_inactive">
-                {ingredientData.ingredient.proteins}
+                {viewedIngredient.proteins}
               </p>
             </div>
             <div>
@@ -61,7 +65,7 @@ const IngredientDetails = () => {
                 Жиры, г.
               </p>
               <p className="mt-2 text text_type_digits-default text_color_inactive">
-                {ingredientData.ingredient.fat}
+                {viewedIngredient.fat}
               </p>
             </div>
             <div>
@@ -69,13 +73,13 @@ const IngredientDetails = () => {
                 Углеводы, г
               </p>
               <p className="mt-2 text text_type_digits-default text_color_inactive">
-                {ingredientData.ingredient.carbohydrates}
+                {viewedIngredient.carbohydrates}
               </p>
             </div>
           </div>
         </div>
       ) : (
-        <p>Ингредиент с идентификатором {id} не найден</p>
+        <p>{error}</p>
       )}
     </>
   );
