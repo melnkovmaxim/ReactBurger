@@ -13,3 +13,11 @@
 .inputWrapper > div > div {
     width: 100%;
 }
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.disableSubmit {}
+.disableSubmit > button[type=text] { background-color: red;}
