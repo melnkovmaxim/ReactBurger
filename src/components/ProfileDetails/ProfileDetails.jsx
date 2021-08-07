@@ -23,7 +23,7 @@ const ProfileDetails = () => {
   }, [user]);
 
   return (
-    <div className={`ml-15 pl-6 pr-6 ${componentStyles.container}`}>
+    <form className={`ml-15 pl-6 pr-6 ${componentStyles.container}`}>
       <div className={`${componentStyles.inputWrapper}`}>
         <Input
           type={"text"}
@@ -57,7 +57,7 @@ const ProfileDetails = () => {
           value={state.password}
         />
       </div>
-    </div>
+    </form>
   );
 };
 

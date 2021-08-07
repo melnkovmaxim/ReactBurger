@@ -18,7 +18,8 @@ const PasswordForgot = () => {
   const isEmailSended = useSelector(
     (store) => store.profile.isSendedResetPasswordEmail
   );
-  const onClick = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatch(resetPassword());
   };
 
@@ -27,7 +28,7 @@ const PasswordForgot = () => {
       {isEmailSended ? (
         <Redirect to={{ pathname: "/reset-password" }} />
       ) : (
-        <div className={componentStyles.container}>
+        <form className={componentStyles.container} onSubmit={onSubmit}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <div className={`mt-6 ${componentStyles.inputWrapper}`}>
             <Input
@@ -40,7 +41,7 @@ const PasswordForgot = () => {
           </div>
           {resetPasswordRequestFailed && <p>{resetPasswordRequestError}</p>}
           <div className="mt-6">
-            <Button type="primary" size="medium" onClick={onClick}>
+            <Button type="primary" size="medium">
               Восстановить
             </Button>
           </div>
@@ -51,7 +52,7 @@ const PasswordForgot = () => {
               Войти
             </Link>
           </p>
-        </div>
+        </form>
       )}
     </>
   );

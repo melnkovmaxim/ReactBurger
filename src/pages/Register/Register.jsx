@@ -14,12 +14,13 @@ const Register = () => {
   const [state, setState] = useState({ name: '', email: '', password: '' });
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const { registerRequestFailed , registerRequestError } = useSelector(store => store.auth);
-  const onClick = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatch(register(state.email, state.name, state.password));
   };
 
   return (
-    <div className={componentStyles.container}>
+    <form className={componentStyles.container} onSubmit={onSubmit}>
       <p className="text text_type_main-medium">Регистрация</p>
       <div className={`mt-6 ${componentStyles.inputWrapper}`}>
         <Input
@@ -50,7 +51,7 @@ const Register = () => {
       </div>
       {registerRequestFailed && <p>{registerRequestError}</p>}
       <div className="mt-6">
-        <Button type="primary" size="medium" onClick={onClick}>
+        <Button type="primary" size="medium">
           Войти
         </Button>
       </div>
@@ -61,7 +62,7 @@ const Register = () => {
           Войти
         </Link>
       </p>
-    </div>
+    </form>
   );
 };
 

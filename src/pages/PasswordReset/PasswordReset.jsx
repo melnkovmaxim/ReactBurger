@@ -8,17 +8,15 @@ import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RESET_STATUS_EMAIL_SENDED } from "../../services/actions/ProfileActions";
+import { confirmResetPassword, RESET_STATUS_EMAIL_SENDED } from "../../services/actions/ProfileActions";
 
 const PasswordReset = () => {
   const dispatch = useDispatch();
   const { isSendedResetPasswordEmail, isSendedConfirmResetPasswordEmail } =
     useSelector((store) => store.profile);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [state, setState] = useState({ password: '', token: '' });
   const { confirmResetPasswordRequestFailed , confirmResetPasswordRequestError } = useSelector(store => store.profile);
-  const onChangeEmail = (e) => setEmail(e.target.value);
-  const onChangePassword = (e) => setPassword(e.target.value);
+  const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
 
   useEffect(() => {
     if (isSendedResetPasswordEmail) {
@@ -26,17 +24,22 @@ const PasswordReset = () => {
     }
   }, [dispatch, isSendedResetPasswordEmail]);
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(confirmResetPassword(state.password, state.token))
+  };
+
   return (
     <>
       {isSendedConfirmResetPasswordEmail ? (
         <Redirect to={{ pathname: "/reset-password" }} />
       ) : (
-        <div className={componentStyles.container}>
+        <form className={componentStyles.container} onSubmit={onSubmit}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
           <div className={`mt-6 ${componentStyles.inputWrapper}`}>
             <PasswordInput
-              onChange={onChangePassword}
-              value={password}
+              onChange={onChange}
+              value={state.password}
               name={"password"}
             />
           </div>
@@ -44,9 +47,10 @@ const PasswordReset = () => {
             <Input
               type={"text"}
               placeholder={"Введите код из письма"}
-              value={email}
-              onChange={onChangeEmail}
+              value={state.token}
+              onChange={onChange}
               size={"default"}
+              name={"token"}
             />
           </div>
           {confirmResetPasswordRequestFailed && <p>{confirmResetPasswordRequestError}</p>}
@@ -62,7 +66,7 @@ const PasswordReset = () => {
               Войти
             </Link>
           </p>
-        </div>
+        </form>
       )}
     </>
   );

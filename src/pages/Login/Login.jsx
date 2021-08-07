@@ -20,7 +20,8 @@ const Login = () => {
   );
   const onChange = (e) =>
     setState({ ...state, [e.target.name]: e.target.value });
-  const onClick = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatch(login(state.email, state.password));
   };
 
@@ -31,8 +32,7 @@ const Login = () => {
   }, [dispatch, isConfirmResetEmailSended]);
 
   return (
-    <>
-    <div className={componentStyles.container}>
+    <form className={componentStyles.container} onSubmit={onSubmit}>
       <p className="text text_type_main-medium">Вход</p>
       <div className={`mt-6 ${componentStyles.inputWrapper}`}>
         <Input
@@ -53,7 +53,7 @@ const Login = () => {
       </div>
       {loginRequestFailed && <p>{loginRequestError}</p>}
       <div className="mt-6">
-        <Button type="primary" size="medium" onClick={onClick}>
+        <Button type="primary" size="medium">
           Войти
         </Button>
       </div>
@@ -71,8 +71,7 @@ const Login = () => {
           Восстановить пароль
         </Link>
       </p>
-    </div>
-    </>
+    </form>
   );
 };
 
