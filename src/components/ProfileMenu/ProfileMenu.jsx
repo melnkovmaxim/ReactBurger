@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 const ProfileMenu = () => {
   return (
     <div className={componentStyles.container}>
-      <NavLink to="/profile" className={`text text_type_main-medium ${componentStyles.link}`} activeClassName={componentStyles.active} >
+      <NavLink exact to="/profile" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} activeClassName={componentStyles.active} >
         Профиль
       </NavLink>
       <NavLink to="/profile/orders" className={`text text_type_main-medium ${componentStyles.link} text_color_inactive`} activeClassName={componentStyles.active} >
