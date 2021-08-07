@@ -20,7 +20,7 @@ const AppHeader = () => {
             </HeaderButton>
           </NavLink>
           <NavLink
-            to="/orders/tape"
+            to="/feed"
             activeClassName={componentStyles.active}
           >
             <HeaderButton type="secondary" size="medium" text="Лента заказов">
