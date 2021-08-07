@@ -15,7 +15,7 @@ const Home = () => {
 
   return (
     <>
-      <Switch location={(history.action === "PUSH" && background) || location}>
+      <Switch location={((history.action === "PUSH" || history.action === "REPLACE") && background) || location}>
         <Route path="/" exact={true}>
           <DndProvider backend={HTML5Backend}>
             <BurgerIngredients />
@@ -36,7 +36,7 @@ const Home = () => {
       </Route>
 
       <Route path="/order" exact={true}>
-        {background && history.action === 'PUSH' ? (
+        {background && (history.action === 'PUSH' || history.action === "REPLACE") ? (
           <Modal>
             <OrderDetails />
           </Modal>
