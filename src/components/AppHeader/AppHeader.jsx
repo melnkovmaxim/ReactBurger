@@ -20,7 +20,7 @@ const AppHeader = () => {
             </HeaderButton>
           </NavLink>
           <NavLink
-            to="/profile/orders"
+            to="/orders/tape"
             activeClassName={componentStyles.active}
           >
             <HeaderButton type="secondary" size="medium" text="Лента заказов">
@@ -36,6 +36,7 @@ const AppHeader = () => {
             <NavLink
               exact
               to="/profile"
+              isActive={(match, location) => { return location.pathname.startsWith('/profile'); }}
               activeClassName={componentStyles.active}
             >
               <HeaderButton

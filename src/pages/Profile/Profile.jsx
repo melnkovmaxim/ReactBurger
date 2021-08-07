@@ -3,7 +3,7 @@ import ProfileDetails from "../../components/ProfileDetails/ProfileDetails";
 import { Switch, Route } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import componentStyles from "./Profile.module.css";
-import OrderTape from "../../components/OrderTape/OrderTape";
+import OrdersHistory from "../../components/OrdersHistory/OrdersHistory";
 
 const Profile = () => {
   return (
@@ -14,10 +14,10 @@ const Profile = () => {
           <ProfileDetails />
         </Route>
         <Route path="/profile/orders" exact={true}>
-          <OrderTape />
+          <OrdersHistory />
         </Route>
         <Route path="/profile/orders/:id" exact={true}>
-          <OrderTape />
+          <OrdersHistory />
         </Route>
         <Route>
           <NotFound />

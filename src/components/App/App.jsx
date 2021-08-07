@@ -12,6 +12,7 @@ import NotFound from "../../pages/NotFound/NotFound";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Logout from "../../pages/Logout/Logout";
 import NonAuthRoute from "../NonAuthRoute/NonAuthRoute";
+import OrderTape from "../OrdersTape/OrdersTape";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
             <Switch>
               <Route path={["/", "/ingredients/:id", "/order"]} exact={true}>
                 <Home />
+              </Route>
+              <Route path="/orders/tape" exact={true}>
+                <OrderTape />
               </Route>
               <NonAuthRoute path="/login" exact={true}>
                 <Login />
