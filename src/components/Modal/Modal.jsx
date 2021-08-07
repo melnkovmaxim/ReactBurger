@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
 
 const Modal = ({ children, header, onClose }) => {
-  const root = document.getElementById("root");
+  const modal = document.getElementById("modal");
   const keyCodeEsc = 27;
 
   const setInvisibleOnClick = (e) => {
@@ -34,7 +34,7 @@ const Modal = ({ children, header, onClose }) => {
         {children}
       </ModalOverlay>
     </div>,
-    root
+    modal
   );
 };
 
