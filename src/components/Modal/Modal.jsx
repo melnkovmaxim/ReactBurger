@@ -5,19 +5,23 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useCallback } from 'react';
 import { useEffect } from "react";
+import { createRef } from "react";
 
 const Modal = ({ children }) => {
   const location = useLocation();
   const history = useHistory();
   const keyCodeEsc = 27;
+  const overlayRef = createRef();
 
   const closeOnClick = useCallback(
     (e) => {
-      if (e.target.className === componentStyles.overlay) {
+      console.log(overlayRef);
+      console.log(e.target);
+      if (e.target === overlayRef.current) {
         history.goBack();
       }
     },
-    [history]
+    [history, overlayRef]
   );
 
   const closeOnPress = useCallback(
@@ -39,7 +43,7 @@ const Modal = ({ children }) => {
 
   return ReactDOM.createPortal(
     <div className={componentStyles.container}>
-      <ModalOverlay onClick={closeOnClick}/>
+      <ModalOverlay ref={overlayRef} onClick={closeOnClick}/>
       <div className={componentStyles.content}>
         <div className={`mt-15 mr-10 ${componentStyles.closeButton}`}>
           <Link
