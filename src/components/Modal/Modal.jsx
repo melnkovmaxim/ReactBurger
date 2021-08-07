@@ -15,8 +15,6 @@ const Modal = ({ children }) => {
 
   const closeOnClick = useCallback(
     (e) => {
-      console.log(overlayRef);
-      console.log(e.target);
       if (e.target === overlayRef.current) {
         history.goBack();
       }
