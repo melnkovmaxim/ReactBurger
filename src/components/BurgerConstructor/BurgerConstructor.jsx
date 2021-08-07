@@ -18,6 +18,7 @@ const BurgerConstructor = () => {
   );
   const bun = ingredients.find((item) => item.type === "bun");
   const history = useHistory();
+  const createOrderRequestPending = useSelector(store => store.order.createOrderRequestPending);
 
   useEffect(() => {
     const bunsPrice = bun ? bun.price * 2 : 0;
@@ -40,6 +41,10 @@ const BurgerConstructor = () => {
   }, [history]);
 
   const onClick = () => {
+    if (createOrderRequestPending) {
+      return;
+    }
+
     if (!getAccessToken()) {
       history.push("/login", { from: history.location.pathname });
       return;
