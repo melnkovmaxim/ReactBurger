@@ -22,6 +22,9 @@ const App = () => {
           </div>
           <div className={componentStyles.body}>
             <Switch>
+              <Route path={["/", "/ingredients/:id", "/order"]} exact={true}>
+                <Home />
+              </Route>
               <NonAuthRoute path="/login" exact={true}>
                 <Login />
               </NonAuthRoute>
@@ -40,9 +43,6 @@ const App = () => {
               <ProtectedRoute path="/profile">
                 <Profile />
               </ProtectedRoute>
-              <Route path="/">
-                <Home />
-              </Route>
               <Route>
                 <NotFound />
               </Route>

@@ -1,14 +1,9 @@
-.overlay {
-    position: fixed;
-    height: 100%;
-    background-color: rgba(0, 0, 0, .4);
-    overflow: hidden;
+.container {
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 100;
+    margin: 0 auto;
 }
 
 .content {
@@ -32,4 +27,19 @@
 
 .textCenter {
     text-align: center;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    height: 64px;
+}
+
+.headerTextCenter {
+    text-align: center;
+    width: 100%;
+}
+
+.headerWrapper {
+    width: 100%;
 }

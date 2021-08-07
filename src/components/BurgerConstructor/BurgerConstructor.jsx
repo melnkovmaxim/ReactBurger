@@ -5,8 +5,6 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./BurgerConstructor.module.css";
 import { useEffect, useState } from "react";
-import Modal from "../Modal/Modal";
-import OrderDetails from "../OrderDetails/OrderDetails";
 import { useDispatch, useSelector } from "react-redux";
 import { createOrder } from "../../services/actions/OrderActions";
 import { useHistory } from "react-router-dom";
@@ -15,7 +13,6 @@ import { getAccessToken } from "../../utils/Cookie";
 const BurgerConstructor = () => {
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState();
-  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState();
   const ingredients = useSelector(
     (store) => store.ingredients.constructorItems
   );
@@ -57,20 +54,12 @@ const BurgerConstructor = () => {
           .map((ingredient) => ingredient._id)
       )
     );
-    setIsDetailsModalOpen(true);
-  };
 
-  const onClose = () => {
-    setIsDetailsModalOpen(false);
+    history.push('/order', {background: history.location});
   };
 
   return (
     <>
-      {isDetailsModalOpen && (
-        <Modal onClose={onClose}>
-          <OrderDetails />
-        </Modal>
-      )}
       <div className={`pt-25 ${componentStyles.container}`}>
         <div className="ml-8">
           <ConstructorIngredientList bun={bun} ingredients={ingredients} />

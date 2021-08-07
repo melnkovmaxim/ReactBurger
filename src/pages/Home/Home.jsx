@@ -6,6 +6,7 @@ import { DndProvider } from "react-dnd";
 import { Switch, Route, useLocation } from "react-router-dom";
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";
+import OrderDetails from "../../components/OrderDetails/OrderDetails";
 
 const Home = () => {
   const location = useLocation();
@@ -22,15 +23,23 @@ const Home = () => {
           </DndProvider>
         </Route>
       </Switch>
+
       <Route path="/ingredients/:id">
         {background ? (
           <Modal>
-            <IngredientDetails />
+            <IngredientDetails headerAlign={"left"} />
           </Modal>
         ) : (
           <IngredientDetails />
         )}
       </Route>
+      {background && (
+        <Route path="/order" exact={true}>
+          <Modal>
+            <OrderDetails />
+          </Modal>
+        </Route>
+      )}
     </>
   );
 };
