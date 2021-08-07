@@ -2,37 +2,57 @@ import componentStyles from "./Modal.module.css";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, Redirect, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { useCallback } from 'react';
+import { useEffect } from "react";
 
 const Modal = ({ children }) => {
-  const modal = document.getElementById("modal");
   const location = useLocation();
+  const history = useHistory();
+  const keyCodeEsc = 27;
 
-  return (
-    <>
-      {modal ? (
-        ReactDOM.createPortal(
-          <div className={componentStyles.container}>
-            <ModalOverlay />
-            <div className={componentStyles.content}>
-              <div className={`mt-15 mr-10 ${componentStyles.closeButton}`}>
-                <Link
-                  className={componentStyles.top}
-                  to={location.state.background.pathname}
-                >
-                  <CloseIcon type="primary" />
-                </Link>
-              </div>
-              {children}
-            </div>
-          </div>,
-          document.getElementById("modal")
-        )
-      ) : (
-        <Redirect to="/" />
-      )}
-    </>
+  const closeOnClick = useCallback(
+    (e) => {
+      if (e.target.className === componentStyles.overlay) {
+        history.goBack();
+      }
+    },
+    [history]
   );
+
+  const closeOnPress = useCallback(
+    (e) => {
+      if (e.keyCode === keyCodeEsc) {
+        history.goBack();
+      }
+    },
+    [history]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", closeOnPress);
+
+    return () => {
+      document.removeEventListener("keydown", closeOnPress);
+    };
+  }, [closeOnPress]);
+
+  return ReactDOM.createPortal(
+    <div className={componentStyles.container}>
+      <ModalOverlay onClick={closeOnClick}/>
+      <div className={componentStyles.content}>
+        <div className={`mt-15 mr-10 ${componentStyles.closeButton}`}>
+          <Link
+            className={componentStyles.top}
+            to={location.state.background.pathname}
+          >
+            <CloseIcon type="primary" />
+          </Link>
+        </div>
+        {children}
+      </div>
+    </div>,
+    document.getElementById("modal"));
 };
 
 export default Modal;
