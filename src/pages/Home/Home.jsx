@@ -3,7 +3,7 @@ import BurgerConstructor from "../../components/BurgerConstructor/BurgerConstruc
 import BurgerIngredients from "../../components/BurgerIngredients/BurgerIngredients";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { DndProvider } from "react-dnd";
-import { Switch, Route, useLocation } from "react-router-dom";
+import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
@@ -33,13 +33,16 @@ const Home = () => {
           <IngredientDetails />
         )}
       </Route>
-      {background && (
-        <Route path="/order" exact={true}>
+
+      <Route path="/order" exact={true}>
+        {background ? (
           <Modal>
             <OrderDetails />
           </Modal>
-        </Route>
-      )}
+        ) : (
+          <Redirect to="/" />
+        )}
+      </Route>
     </>
   );
 };
