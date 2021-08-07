@@ -1,6 +1,6 @@
 import ProfileMenu from "../../components/ProfileMenu/ProfileMenu";
 import ProfileDetails from "../../components/ProfileDetails/ProfileDetails";
-import { BrowserRouter as Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import NotFound from "../NotFound/NotFound";
 import componentStyles from "./Profile.module.css";
 import OrderTape from "../../components/OrderTape/OrderTape";
