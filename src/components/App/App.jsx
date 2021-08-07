@@ -1,19 +1,19 @@
 import React from "react";
 import componentStyles from "./App.module.css";
-import AppHeader from "./components/AppHeader/AppHeader";
+import AppHeader from "../AppHeader/AppHeader";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
-import Register from "./pages/Register/Register";
-import PasswordForgot from "./pages/PasswordForgot/PasswordForgot";
-import PasswordReset from "./pages/PasswordReset/PasswordReset";
-import Profile from "./pages/Profile/Profile";
-import NotFound from "./pages/NotFound/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
-import Logout from "./pages/Logout/Logout";
-import NonAuthRoute from "./components/NonAuthRoute/NonAuthRoute";
-import IngredientDetails from "./components/IngredientDetails/IngredientDetails";
-import ModalOverlay from "./components/ModalOverlay/ModalOverlay";
+import Home from "../../pages/Home/Home";
+import Login from "../../pages/Login/Login";
+import Register from "../../pages/Register/Register";
+import PasswordForgot from "../../pages/PasswordForgot/PasswordForgot";
+import PasswordReset from "../../pages/PasswordReset/PasswordReset";
+import Profile from "../../pages/Profile/Profile";
+import NotFound from "../../pages/NotFound/NotFound";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+import Logout from "../../pages/Logout/Logout";
+import NonAuthRoute from "../NonAuthRoute/NonAuthRoute";
+import IngredientDetails from "../IngredientDetails/IngredientDetails";
+import ModalOverlay from "../ModalOverlay/ModalOverlay";
 
 const App = () => {
   return (
