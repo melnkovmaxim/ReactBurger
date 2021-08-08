@@ -6,23 +6,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
 import { useState } from "react";
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { confirmResetPassword, RESET_STATUS_EMAIL_SENDED } from "../../services/actions/ProfileActions";
+import { confirmResetPassword } from "../../services/actions/ProfileActions";
+import { useHistory } from 'react-router-dom';
 
 const PasswordReset = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const { isSendedResetPasswordEmail, isSendedConfirmResetPasswordEmail } =
-    useSelector((store) => store.profile);
   const [state, setState] = useState({ password: '', token: '' });
   const { confirmResetPasswordRequestFailed , confirmResetPasswordRequestError } = useSelector(store => store.profile);
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
-
-  useEffect(() => {
-    if (isSendedResetPasswordEmail) {
-      dispatch({ type: RESET_STATUS_EMAIL_SENDED });
-    }
-  }, [dispatch, isSendedResetPasswordEmail]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -31,8 +24,8 @@ const PasswordReset = () => {
 
   return (
     <>
-      {isSendedConfirmResetPasswordEmail ? (
-        <Redirect to={{ pathname: "/reset-password" }} />
+      {history.action !== 'PUSH' ? (
+        <Redirect to={{ pathname: "/forgot-password" }} />
       ) : (
         <form className={componentStyles.container} onSubmit={onSubmit}>
           <p className="text text_type_main-medium">Восстановление пароля</p>

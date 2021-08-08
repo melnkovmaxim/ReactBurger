@@ -11,14 +11,11 @@ import {
   CONFIRM_RESET_PASSWORD_REQUEST,
   CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS,
   CONFIRM_RESET_PASSWORD_REQUEST_FAILED,
-  RESET_STATUS_EMAIL_SENDED,
-  RESET_STATUS_CONFIRM_EMAIL_SENDED,
 } from "../actions/ProfileActions";
 
 const initialState = {
   user: {},
   isSendedResetPasswordEmail: false,
-  isSendedConfirmResetPasswordEmail: false,
 
   userInfoRequestPending: false,
   userInfoRequestFailed: false,
@@ -132,18 +129,6 @@ export const profileReducer = (state = initialState, action) => {
         confirmResetPasswordRequestPending: false,
         confirmResetPasswordRequestFailed: true,
         confirmResetPasswordRequestError: action.error,
-      }
-    }
-    case RESET_STATUS_EMAIL_SENDED: {
-      return {
-        ...state,
-        isSendedResetPasswordEmail: false,
-      }
-    }
-    case RESET_STATUS_CONFIRM_EMAIL_SENDED: {
-      return {
-        ...state,
-        isSendedConfirmResetPasswordEmail: false,
       }
     }
     default: {

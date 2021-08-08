@@ -8,28 +8,17 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
-import { useEffect } from "react";
-import { RESET_STATUS_CONFIRM_EMAIL_SENDED } from "../../services/actions/ProfileActions";
 
 const Login = () => {
   const dispatch = useDispatch();
   const [state, setState] = useState({ email: "", password: "" });
   const {loginRequestFailed, loginRequestError} = useSelector(store => store.auth);
-  const isConfirmResetEmailSended = useSelector(
-    (store) => store.profile.isSendedConfirmResetPasswordEmail
-  );
   const onChange = (e) =>
     setState({ ...state, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login(state.email, state.password));
   };
-
-  useEffect(() => {
-    if (isConfirmResetEmailSended) {
-      dispatch({ type: RESET_STATUS_CONFIRM_EMAIL_SENDED });
-    }
-  }, [dispatch, isConfirmResetEmailSended]);
 
   return (
     <form className={componentStyles.container} onSubmit={onSubmit}>

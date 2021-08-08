@@ -35,9 +35,6 @@ export const CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS =
 export const CONFIRM_RESET_PASSWORD_REQUEST_FAILED =
   "CONFIRM_RESET_PASSWORD_REQUEST_FAILED";
 
-export const RESET_STATUS_EMAIL_SENDED = "RESET_STATUS_EMAIL_SENDED";
-export const RESET_STATUS_CONFIRM_EMAIL_SENDED = "RESET_STATUS_CONFIRM_EMAIL_SENDED";
-
 export function getUserInfo(accessToken) {
   return function (dispatch) {
     dispatch({ type: USER_INFO_REQUEST });
