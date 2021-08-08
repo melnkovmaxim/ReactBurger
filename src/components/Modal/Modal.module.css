@@ -1,12 +1,31 @@
-.overlay {
+.container {
     position: fixed;
     height: 100%;
-    background-color: rgba(0, 0, 0, .4);
+    background-color: transparent;
     overflow: hidden;
+    width: 100%;
+    z-index: 100;
     display: flex;
     align-items: center;
-    width: 100%;
-    left: 0;
-    top: 0;
+}
+
+.content {
+    width: 720px;
+    margin: 0 auto;
+    background-color: #1c1c21;
+    border-radius: 40px;
+    position: relative;
+}
+
+.closeButton {
+    position: absolute;
+    right: 0;
+    cursor: pointer;
+    height: 24px;
+    width: 24px;
     z-index: 100;
+}
+
+.top {
+    z-index: 1020;
 }

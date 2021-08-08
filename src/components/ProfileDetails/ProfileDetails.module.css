@@ -1,0 +1,23 @@
+.container {
+    width: 480px;
+}
+
+.inputWrapper {
+    width: 100%;
+}
+
+.inputWrapper > div {
+    width: 100%;
+}
+
+.inputWrapper > div > div {
+    width: 100%;
+}
+
+.buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.disableSubmit {}
+.disableSubmit > button[type=text] { background-color: red;}

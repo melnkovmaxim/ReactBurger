@@ -3,11 +3,11 @@ import {
     GET_INGREDIENTS_SUCCESS,
     GET_INGREDIENTS_FAILED,
     ADD_CONSTRUCTOR_INGREDIENT,
-    VIEW_INGREDIENT,
     MOVE_CONSTRUCTOR_INGREDIENT,
     REMOVE_CONSTRUCTOR_INGREDIENT,
     DRAG,
-    DROP
+    DROP,
+    CLEAR_CONSTRUCTOR
 } from '../actions/IngredientActions';
 import uuid from 'react-uuid'
 
@@ -23,8 +23,6 @@ const initialState = {
     constructorItemCounts: new Map(),
     constructorBunId: '',
     constructorTotalPrice: 0,
-
-    viewedItem: {},
 }
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -89,14 +87,6 @@ export const ingredientsReducer = (state = initialState, action) => {
                 constructorItemCounts: constructorItemCounts                      
             }
         }
-        case VIEW_INGREDIENT: {
-            const viewedItem = state.items.find(item => item._id === action.itemId);
-
-            return {
-                ...state,
-                viewedItem: viewedItem,
-            }
-        }
         case MOVE_CONSTRUCTOR_INGREDIENT: {
             const draggedItem = state.constructorItems.find(item => item.constructorItemId === action.draggedItemId);
             const draggedItemIndex = state.constructorItems.indexOf(draggedItem);
@@ -110,6 +100,15 @@ export const ingredientsReducer = (state = initialState, action) => {
             return {
                 ...state,
                 constructorItems: selectedItemsWithoutDragged
+            }
+        }
+        case CLEAR_CONSTRUCTOR: {
+            return {
+                ...state,
+                constructorItems: [],
+                constructorItemCounts: new Map(),
+                constructorBunId: '',
+                constructorTotalPrice: 0,
             }
         }
         case DRAG: {

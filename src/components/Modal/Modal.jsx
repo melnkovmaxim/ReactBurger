@@ -1,46 +1,59 @@
 import componentStyles from "./Modal.module.css";
-import { useEffect, useCallback } from "react";
 import ModalOverlay from "../ModalOverlay/ModalOverlay";
-import PropTypes from "prop-types";
 import ReactDOM from "react-dom";
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { useCallback } from 'react';
+import { useEffect, useRef } from "react";
 
-const Modal = ({ children, header, onClose }) => {
-  const root = document.getElementById("root");
+const Modal = ({ children }) => {
+  const location = useLocation();
+  const history = useHistory();
   const keyCodeEsc = 27;
+  const overlayRef = useRef();
 
-  const setInvisibleOnClick = (e) => {
-    if (e.target.className === componentStyles.overlay) {
-      onClose();
-    }
-  };
+  const closeOnClick = useCallback(
+    (e) => {
+      if (e.target === overlayRef.current) {
+        history.goBack();
+      }
+    },
+    [history, overlayRef]
+  );
 
-  const setInvisibleOnPress = useCallback((e) => {
-    if (e.keyCode === keyCodeEsc) {
-      onClose();
-    }
-  }, [onClose]);
+  const closeOnPress = useCallback(
+    (e) => {
+      if (e.keyCode === keyCodeEsc) {
+        history.goBack();
+      }
+    },
+    [history]
+  );
 
   useEffect(() => {
-    document.addEventListener("keydown", setInvisibleOnPress);
+    document.addEventListener("keydown", closeOnPress);
 
     return () => {
-      document.removeEventListener("keydown", setInvisibleOnPress);
+      document.removeEventListener("keydown", closeOnPress);
     };
-  }, [setInvisibleOnPress]);
+  }, [closeOnPress]);
 
   return ReactDOM.createPortal(
-    <div className={componentStyles.overlay} onClick={setInvisibleOnClick}>
-      <ModalOverlay header={header} onClose={onClose}>
+    <div className={componentStyles.container}>
+      <ModalOverlay ref={overlayRef} onClick={closeOnClick}/>
+      <div className={componentStyles.content}>
+        <div className={`mt-15 mr-10 ${componentStyles.closeButton}`}>
+          <Link
+            className={componentStyles.top}
+            to={location.state.background.pathname}
+          >
+            <CloseIcon type="primary" />
+          </Link>
+        </div>
         {children}
-      </ModalOverlay>
+      </div>
     </div>,
-    root
-  );
-};
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  header: PropTypes.string
+    document.getElementById("modal"));
 };
 
 export default Modal;

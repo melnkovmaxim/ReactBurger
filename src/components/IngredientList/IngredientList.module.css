@@ -4,3 +4,8 @@
     grid-template-columns: repeat(2, auto);
     column-gap: 24px;
 }
+
+.link {
+    text-decoration: none;
+    color: #f2f2f3;
+}

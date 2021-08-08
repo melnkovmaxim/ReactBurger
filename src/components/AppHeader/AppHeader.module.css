@@ -26,3 +26,10 @@
 .buttonWrapper {
     float: right;
 }
+
+.active {
+}
+
+.active > button > div > p {
+    color: #f2f2f3;
+}
