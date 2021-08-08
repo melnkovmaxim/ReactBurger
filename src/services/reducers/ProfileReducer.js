@@ -15,7 +15,6 @@ import {
 
 const initialState = {
   user: {},
-  isSendedResetPasswordEmail: false,
 
   userInfoRequestPending: false,
   userInfoRequestFailed: false,
