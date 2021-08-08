@@ -15,6 +15,7 @@ import {
 
 const initialState = {
   user: {},
+  isSuccessResetPassword: false,
 
   userInfoRequestPending: false,
   userInfoRequestFailed: false,
@@ -86,6 +87,7 @@ export const profileReducer = (state = initialState, action) => {
         resetPasswordRequestPending: true,
         resetPasswordRequestFailed: false,
         resetPasswordRequestError: '',
+        isSuccessResetPassword: false,
       }
     }
     case RESET_PASSWORD_REQUEST_SUCCESS: {
@@ -95,6 +97,8 @@ export const profileReducer = (state = initialState, action) => {
         resetPasswordRequestPending: false,
         resetPasswordRequestFailed: false,
         resetPasswordRequestError: '',
+        confirmResetPasswordRequestFailed: false,
+        confirmResetPasswordRequestError: '',
       }
     }
     case RESET_PASSWORD_REQUEST_FAILED: {
@@ -120,6 +124,7 @@ export const profileReducer = (state = initialState, action) => {
         confirmResetPasswordRequestPending: false,
         confirmResetPasswordRequestFailed: false,
         confirmResetPasswordRequestError: '',
+        isSuccessResetPassword: true,
       }
     }
     case CONFIRM_RESET_PASSWORD_REQUEST_FAILED: {

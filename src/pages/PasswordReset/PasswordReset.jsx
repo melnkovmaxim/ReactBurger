@@ -14,7 +14,7 @@ const PasswordReset = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const [state, setState] = useState({ password: '', token: '' });
-  const { confirmResetPasswordRequestFailed , confirmResetPasswordRequestError } = useSelector(store => store.profile);
+  const { isSuccessResetPassword, confirmResetPasswordRequestFailed , confirmResetPasswordRequestError } = useSelector(store => store.profile);
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {
@@ -24,8 +24,8 @@ const PasswordReset = () => {
 
   return (
     <>
-      {history.action !== 'PUSH' ? (
-        <Redirect to={{ pathname: "/forgot-password" }} />
+      {history.action !== 'PUSH' || isSuccessResetPassword ? (
+        <Redirect to={{ pathname: isSuccessResetPassword ? "/login" : "/forgot-password" }} />
       ) : (
         <form className={componentStyles.container} onSubmit={onSubmit}>
           <p className="text text_type_main-medium">Восстановление пароля</p>
