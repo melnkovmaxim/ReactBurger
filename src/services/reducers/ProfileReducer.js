@@ -60,26 +60,26 @@ export const profileReducer = (state = initialState, action) => {
       };
     }
     case UPDATE_USER_INFO_REQUEST: {
-        return {
-            ...state,
-            updateUserInfoRequestPending: true,
-        }
+      return {
+        ...state,
+        updateUserInfoRequestPending: true,
+      }
     }
     case UPDATE_USER_INFO_REQUEST_SUCCESS: {
-        return {
-            ...state,
-            updateUserInfoRequestPending: false,
-            updateUserInfoRequestFailed: false,
-            updateUserInfoRequestError: '',
-        }
+      return {
+        ...state,
+        updateUserInfoRequestPending: false,
+        updateUserInfoRequestFailed: false,
+        updateUserInfoRequestError: '',
+      }
     }
     case UPDATE_USER_INFO_REQUEST_FAILED: {
-        return {
-            ...state,
-            updateUserInfoRequestPending: false,
-            updateUserInfoRequestFailed: true,
-            updateUserInfoRequestError: action.error,
-        }
+      return {
+        ...state,
+        updateUserInfoRequestPending: false,
+        updateUserInfoRequestFailed: true,
+        updateUserInfoRequestError: action.error,
+      }
     }
     case RESET_PASSWORD_REQUEST: {
       return {

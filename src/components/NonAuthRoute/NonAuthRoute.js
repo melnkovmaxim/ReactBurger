@@ -24,12 +24,13 @@ const NonAuthRoute = ({ children, ...props }) => {
 
   return (
     <Route
-      {...props}
-      render={() =>
+      { ...props }
+      render={ () =>
         (accessToken) ? (
-          <Redirect to={{ 
-            pathname: location.state ? location.state.from.pathname : "/", 
-            state: { isRepeatAction: location.state && location.state.from === "/" } }} />
+          <Redirect to={ {
+            pathname: location.state ? location.state.from.pathname : "/",
+            state: { isRepeatAction: location.state && location.state.from === "/" }
+          } }/>
         ) : (
           children
         )

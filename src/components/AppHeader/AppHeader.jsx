@@ -11,40 +11,42 @@ import componentStyles from "./AppHeader.module.css";
 const AppHeader = () => {
   return (
     <>
-      <div className={`pt-4 pb-4 ${componentStyles.headerBackground}`} />
-      <header className={`pt-4 pb-4 ${componentStyles.header}`}>
-        <nav className={componentStyles.stretchedFlexItem}>
-          <NavLink exact to="/" activeClassName={componentStyles.active}>
+      <div className={ `pt-4 pb-4 ${ componentStyles.headerBackground }` }/>
+      <header className={ `pt-4 pb-4 ${ componentStyles.header }` }>
+        <nav className={ componentStyles.stretchedFlexItem }>
+          <NavLink exact to="/" activeClassName={ componentStyles.active }>
             <HeaderButton type="secondary" size="medium" text="Конструктор">
-              <BurgerIcon />
+              <BurgerIcon/>
             </HeaderButton>
           </NavLink>
           <NavLink
             to="/feed"
-            activeClassName={componentStyles.active}
+            activeClassName={ componentStyles.active }
           >
             <HeaderButton type="secondary" size="medium" text="Лента заказов">
-              <ListIcon type="secondary" />
+              <ListIcon type="secondary"/>
             </HeaderButton>
           </NavLink>
         </nav>
         <Link to="/">
-          <Logo />
+          <Logo/>
         </Link>
-        <div className={componentStyles.stretchedFlexItem}>
-          <div className={componentStyles.buttonWrapper}>
+        <div className={ componentStyles.stretchedFlexItem }>
+          <div className={ componentStyles.buttonWrapper }>
             <NavLink
               exact
               to="/profile"
-              isActive={(match, location) => { return location.pathname.startsWith('/profile'); }}
-              activeClassName={componentStyles.active}
+              isActive={ (match, location) => {
+                return location.pathname.startsWith('/profile');
+              } }
+              activeClassName={ componentStyles.active }
             >
               <HeaderButton
                 type="secondary"
                 size="medium"
                 text="Личный кабинет"
               >
-                <ProfileIcon type="secondary" />
+                <ProfileIcon type="secondary"/>
               </HeaderButton>
             </NavLink>
           </div>

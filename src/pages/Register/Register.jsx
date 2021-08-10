@@ -13,43 +13,43 @@ const Register = () => {
   const dispatch = useDispatch();
   const [state, setState] = useState({ name: '', email: '', password: '' });
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
-  const { registerRequestFailed , registerRequestError } = useSelector(store => store.auth);
+  const { registerRequestFailed, registerRequestError } = useSelector(store => store.auth);
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(register(state.email, state.name, state.password));
   };
 
   return (
-    <form className={componentStyles.container} onSubmit={onSubmit}>
+    <form className={ componentStyles.container } onSubmit={ onSubmit }>
       <p className="text text_type_main-medium">Регистрация</p>
-      <div className={`mt-6 ${componentStyles.inputWrapper}`}>
+      <div className={ `mt-6 ${ componentStyles.inputWrapper }` }>
         <Input
-          type={"text"}
-          name={"name"}
-          placeholder={"Имя"}
-          onChange={onChange}
-          size={"default"}
-          value={state.name}
+          type={ "text" }
+          name={ "name" }
+          placeholder={ "Имя" }
+          onChange={ onChange }
+          size={ "default" }
+          value={ state.name }
         />
       </div>
-      <div className={`mt-6 ${componentStyles.inputWrapper}`}>
+      <div className={ `mt-6 ${ componentStyles.inputWrapper }` }>
         <Input
-          type={"text"}
-          name={"email"}
-          placeholder={"E-mail"}
-          onChange={onChange}
-          size={"default"}
-          value={state.email}
+          type={ "text" }
+          name={ "email" }
+          placeholder={ "E-mail" }
+          onChange={ onChange }
+          size={ "default" }
+          value={ state.email }
         />
       </div>
-      <div className={`mt-6 ${componentStyles.inputWrapper}`}>
+      <div className={ `mt-6 ${ componentStyles.inputWrapper }` }>
         <PasswordInput
-          onChange={onChange}
-          value={state.password}
-          name={"password"}
+          onChange={ onChange }
+          value={ state.password }
+          name={ "password" }
         />
       </div>
-      {registerRequestFailed && <p>{registerRequestError}</p>}
+      { registerRequestFailed && <p>{ registerRequestError }</p> }
       <div className="mt-6">
         <Button type="primary" size="medium">
           Войти
@@ -57,8 +57,8 @@ const Register = () => {
       </div>
       <p className="mt-20 text text_type_main-default">
         Уже зарегистрированы?
-        <Link className={componentStyles.link} to="/login">
-          {" "}
+        <Link className={ componentStyles.link } to="/login">
+          { " " }
           Войти
         </Link>
       </p>

@@ -7,20 +7,20 @@ import OrdersHistory from "../../components/OrdersHistory/OrdersHistory";
 
 const Profile = () => {
   return (
-    <div className={componentStyles.container}>
-      <ProfileMenu />
+    <div className={ componentStyles.container }>
+      <ProfileMenu/>
       <Switch>
-        <Route path="/profile" exact={true}>
-          <ProfileDetails />
+        <Route path="/profile" exact={ true }>
+          <ProfileDetails/>
         </Route>
-        <Route path="/profile/orders" exact={true}>
-          <OrdersHistory />
+        <Route path="/profile/orders" exact={ true }>
+          <OrdersHistory/>
         </Route>
-        <Route path="/profile/orders/:id" exact={true}>
-          <OrdersHistory />
+        <Route path="/profile/orders/:id" exact={ true }>
+          <OrdersHistory/>
         </Route>
         <Route>
-          <NotFound />
+          <NotFound/>
         </Route>
       </Switch>
     </div>

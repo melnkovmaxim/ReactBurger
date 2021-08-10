@@ -19,12 +19,12 @@ const ProtectedRoute = ({ children, ...props }) => {
 
   return (
     <Route
-      {...props}
-      render={({ location }) =>
-      (accessToken) ? (
+      { ...props }
+      render={ ({ location }) =>
+        (accessToken) ? (
           children
         ) : (
-          <Redirect to={{ pathname: "/login", state: { from: location } }} />
+          <Redirect to={ { pathname: "/login", state: { from: location } } }/>
         )
       }
     />

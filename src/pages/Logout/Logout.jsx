@@ -5,15 +5,15 @@ import { logout } from '../../services/actions/AuthActions';
 import { getRefreshToken } from '../../utils/LocalStorage';
 
 const Logout = () => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(logout(getRefreshToken()));
-    }, [dispatch]);
+  useEffect(() => {
+    dispatch(logout(getRefreshToken()));
+  }, [dispatch]);
 
-    return (
-        <Redirect to={{ pathname: '/' }} />
-    );
+  return (
+    <Redirect to={ { pathname: '/' } }/>
+  );
 };
 
 export default Logout;

@@ -15,5 +15,5 @@
 }
 
 .ingredientWrapper img + span {
-  flex-grow: 1;
+    flex-grow: 1;
 }

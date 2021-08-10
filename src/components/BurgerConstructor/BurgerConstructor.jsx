@@ -37,7 +37,7 @@ const BurgerConstructor = () => {
       const location = { ...history.location, isRepeatAction: false }
       history.replace({ ...location });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [history]);
 
   const onClick = () => {
@@ -60,20 +60,20 @@ const BurgerConstructor = () => {
       )
     );
 
-    history.push('/order', {background: history.location});
+    history.push('/order', { background: history.location });
   };
 
   return (
     <>
-      <div className={`pt-25 ${componentStyles.container}`}>
+      <div className={ `pt-25 ${ componentStyles.container }` }>
         <div className="ml-8">
-          <ConstructorIngredientList bun={bun} ingredients={ingredients} />
-          <div className={`mt-10 mr-4 ${componentStyles.flexContainer}`}>
-            <span className={`mr-10 ${componentStyles.bottomMenuWrapper}`}>
-              <p className="mr-4 text text_type_digits-medium">{totalPrice}</p>
-              <CurrencyIcon type="primary" />
+          <ConstructorIngredientList bun={ bun } ingredients={ ingredients }/>
+          <div className={ `mt-10 mr-4 ${ componentStyles.flexContainer }` }>
+            <span className={ `mr-10 ${ componentStyles.bottomMenuWrapper }` }>
+              <p className="mr-4 text text_type_digits-medium">{ totalPrice }</p>
+              <CurrencyIcon type="primary"/>
             </span>
-            <Button type="primary" size="large" onClick={() => onClick()}>
+            <Button type="primary" size="large" onClick={ () => onClick() }>
               Оформить заказ
             </Button>
           </div>

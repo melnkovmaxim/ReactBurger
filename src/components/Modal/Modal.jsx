@@ -39,18 +39,18 @@ const Modal = ({ children }) => {
   }, [closeOnPress]);
 
   return ReactDOM.createPortal(
-    <div className={componentStyles.container}>
-      <ModalOverlay ref={overlayRef} onClick={closeOnClick}/>
-      <div className={componentStyles.content}>
-        <div className={`mt-15 mr-10 ${componentStyles.closeButton}`}>
+    <div className={ componentStyles.container }>
+      <ModalOverlay ref={ overlayRef } onClick={ closeOnClick }/>
+      <div className={ componentStyles.content }>
+        <div className={ `mt-15 mr-10 ${ componentStyles.closeButton }` }>
           <Link
-            className={componentStyles.top}
-            to={location.state.background.pathname}
+            className={ componentStyles.top }
+            to={ location.state.background.pathname }
           >
-            <CloseIcon type="primary" />
+            <CloseIcon type="primary"/>
           </Link>
         </div>
-        {children}
+        { children }
       </div>
     </div>,
     document.getElementById("modal"));

@@ -16,44 +16,44 @@ import Feed from "../../pages/Feed/Feed";
 
 const App = () => {
   return (
-      <div className={componentStyles.content}>
-        <Router>
-          <div className={componentStyles.header}>
-            <AppHeader />
-          </div>
-          <div className={componentStyles.body}>
-            <Switch>
-              <Route path={["/", "/ingredients/:id", "/order"]} exact={true}>
-                <Home />
-              </Route>
-              <Route path="/feed" exact={true}>
-                <Feed />
-              </Route>
-              <NonAuthRoute path="/login" exact={true}>
-                <Login />
-              </NonAuthRoute>
-              <NonAuthRoute path="/register" exact={true}>
-                <Register />
-              </NonAuthRoute>
-              <ProtectedRoute path="/logout" exact={true}>
-                <Logout />
-              </ProtectedRoute>
-              <NonAuthRoute path="/forgot-password" exact={true}>
-                <PasswordForgot />
-              </NonAuthRoute>
-              <NonAuthRoute path="/reset-password" exact={true}>
-                <PasswordReset />
-              </NonAuthRoute>
-              <ProtectedRoute path="/profile">
-                <Profile />
-              </ProtectedRoute>
-              <Route>
-                <NotFound />
-              </Route>
-            </Switch>
-          </div>
-        </Router>
-      </div>
+    <div className={ componentStyles.content }>
+      <Router>
+        <div className={ componentStyles.header }>
+          <AppHeader/>
+        </div>
+        <div className={ componentStyles.body }>
+          <Switch>
+            <Route path={ ["/", "/ingredients/:id", "/order"] } exact={ true }>
+              <Home/>
+            </Route>
+            <Route path="/feed" exact={ true }>
+              <Feed/>
+            </Route>
+            <NonAuthRoute path="/login" exact={ true }>
+              <Login/>
+            </NonAuthRoute>
+            <NonAuthRoute path="/register" exact={ true }>
+              <Register/>
+            </NonAuthRoute>
+            <ProtectedRoute path="/logout" exact={ true }>
+              <Logout/>
+            </ProtectedRoute>
+            <NonAuthRoute path="/forgot-password" exact={ true }>
+              <PasswordForgot/>
+            </NonAuthRoute>
+            <NonAuthRoute path="/reset-password" exact={ true }>
+              <PasswordReset/>
+            </NonAuthRoute>
+            <ProtectedRoute path="/profile">
+              <Profile/>
+            </ProtectedRoute>
+            <Route>
+              <NotFound/>
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </div>
   );
 };
 

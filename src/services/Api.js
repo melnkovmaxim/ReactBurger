@@ -12,7 +12,7 @@ export function fetchByAction(url, method, onSuccess, onFailed, body = null, tok
       try {
         return Promise.reject((await response.json()).message);
       } catch (e) {
-        return Promise.reject(`Произошла ошибка. Статус запроса: ${response.status}`);
+        return Promise.reject(`Произошла ошибка. Статус запроса: ${ response.status }`);
       }
     })
     .then((json) => {

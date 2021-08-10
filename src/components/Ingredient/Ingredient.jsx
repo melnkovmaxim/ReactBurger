@@ -23,14 +23,14 @@ const Ingredient = memo(({ id, name, image, price, showIngredientDetails }) => {
   });
 
   return (
-    <div ref={dragRef} className={componentStyles.container} onClick={() => showIngredientDetails(id)} >
-      <img src={image} alt={name} className="pl-4 pr-4" />
-      <span className={`mt-1 mb-1 text text_type_digits-default ${componentStyles.price}`}>
-        <p className="pr-1">{price}</p>
-        <CurrencyIcon type="primary" />
+    <div ref={ dragRef } className={ componentStyles.container } onClick={ () => showIngredientDetails(id) }>
+      <img src={ image } alt={ name } className="pl-4 pr-4"/>
+      <span className={ `mt-1 mb-1 text text_type_digits-default ${ componentStyles.price }` }>
+        <p className="pr-1">{ price }</p>
+        <CurrencyIcon type="primary"/>
       </span>
-      <p className={`text text_type_main-default ${componentStyles.name}`}>{name}</p>
-        { count > 0 && (<Counter count={count} size="default" />) }
+      <p className={ `text text_type_main-default ${ componentStyles.name }` }>{ name }</p>
+      { count > 0 && (<Counter count={ count } size="default"/>) }
     </div>
   );
 });
