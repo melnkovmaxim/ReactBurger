@@ -10,9 +10,9 @@ import { getIngredients } from "../../services/actions/IngredientActions";
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
   const ingredients = useSelector(store => store.ingredients.items);
-  const ingridientTypes = ingredients.map((item) => item.type);
-  const uniqueIngridientTypes = [...new Set(ingridientTypes)];
-  const [currentTabType, setcurrentTabType] = React.useState("bun");
+  const ingredientTypes = ingredients.map((item) => item.type);
+  const uniqueIngredientTypes = [...new Set(ingredientTypes)];
+  const [currentTabType, setCurrentTabType] = React.useState("bun");
   const currentViewsRatio = React.useRef({});
 
   const handleScroll = (type) => {
@@ -24,7 +24,7 @@ const BurgerIngredients = () => {
       const maxRatio = Math.max(...allRatio);
       const typeWithMaxRatio = ingredientListTypes.find(currentType => currentViewsRatio.current[currentType] === maxRatio);
 
-      setcurrentTabType(typeWithMaxRatio);
+      setCurrentTabType(typeWithMaxRatio);
     };
   };
 
@@ -39,7 +39,7 @@ const BurgerIngredients = () => {
   typeDescriptions.set("main", "Начинки");
 
   const scrollToIngredients = (type) => {
-    setcurrentTabType(type);
+    setCurrentTabType(type);
     document.getElementById(type).scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -47,14 +47,14 @@ const BurgerIngredients = () => {
     <div className={ componentStyles.container }>
       <h1 className="mt-10 text text_type_main-large">Соберите бургер</h1>
       <div className={ `mt-5 ${ componentStyles.tabList }` }>
-        { uniqueIngridientTypes.map((type) => (typeDescriptions.get(type) &&
+        { uniqueIngredientTypes.map((type) => (typeDescriptions.get(type) &&
           (<Tab key={ type } value={ type } active={ currentTabType === type } onClick={ scrollToIngredients }>
             { typeDescriptions.get(type) }
           </Tab>)
         )) }
       </div>
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) }>
-        { uniqueIngridientTypes.map((type, index) => (typeDescriptions.get(type) &&
+        { uniqueIngredientTypes.map((type, index) => (typeDescriptions.get(type) &&
           (<IngredientList key={ type } handleScroll={ handleScroll } index={ index }
                            name={ typeDescriptions.get(type) } type={ type } bunId={ type === "bun" ? bun._id : null }
                            ingredients={ ingredients.filter((item) => item.type === type) }/>)
