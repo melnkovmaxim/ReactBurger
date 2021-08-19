@@ -1,11 +1,11 @@
-import FeedTap from "../../components/FeedTap/FeedTap";
+import OrdersTape from "../../components/OrdersTape/OrdersTape";
 import FeedStatistics from "../../components/FeedStatistics/FeedStatistics";
 import componentStyles from './Feed.module.css';
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  WS_PUBLIC_ORDERS_CONNECTION_CLOSED,
-  WS_PUBLIC_ORDERS_CONNECTION_START
+  WS_ALL_ORDERS_CONNECTION_CLOSED,
+  WS_ALL_ORDERS_CONNECTION_START
 } from "../../services/actions/WsActions";
 import { getIngredients } from "../../services/actions/IngredientActions";
 
@@ -15,10 +15,10 @@ const Feed = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch({ type: WS_PUBLIC_ORDERS_CONNECTION_START });
+    dispatch({ type: WS_ALL_ORDERS_CONNECTION_START });
 
     return (() => {
-      dispatch({ type: WS_PUBLIC_ORDERS_CONNECTION_CLOSED });
+      dispatch({ type: WS_ALL_ORDERS_CONNECTION_CLOSED });
     });
   }, [dispatch]);
 
@@ -32,7 +32,7 @@ const Feed = () => {
     <div className={ `mt-8 ${ componentStyles.container }` }>
       <p className={ "text text_type_main-large" }>Лента заказов</p>
       <div className={ `mt-6 ${ componentStyles.innerContainer }` }>
-        { orders && <FeedTap orders={ orders } originalIngredients={ originalIngredients }/> }
+        { orders && <OrdersTape orders={ orders } originalIngredients={ originalIngredients }/> }
         <div className="ml-15"/>
         { orders && <FeedStatistics orders={ orders } total={ total } totalToday={ totalToday }/> }
       </div>

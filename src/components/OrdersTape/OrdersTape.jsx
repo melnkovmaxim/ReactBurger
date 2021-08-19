@@ -1,10 +1,10 @@
-import componentStyles from './FeedTap.module.css';
-import FeedTapOrder from "../FeedTapOrder/FeedTapOrder";
+import componentStyles from './OrdersTape.module.css';
+import OrderTapeCard from "../OrderTapeCard/OrderTapeCard";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getIngredients } from "../../services/actions/IngredientActions";
 
-const FeedTap = ({ orders, originalIngredients }) => {
+const OrdersTape = ({ orders, originalIngredients }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const FeedTap = ({ orders, originalIngredients }) => {
       <div className={ `pr-2 ${ componentStyles.orderListWrapper }` }>
         { originalIngredients.length > 0 && orders && orders.map((item, index) =>
           (<div key={ item._id } className={`${index !== orders.length - 1 && 'mb-4'}`}>
-            <FeedTapOrder order={ item } originalIngredients={ originalIngredients }/>
+            <OrderTapeCard order={ item } originalIngredients={ originalIngredients }/>
           </div>)
         ) }
       </div>
@@ -26,4 +26,4 @@ const FeedTap = ({ orders, originalIngredients }) => {
   );
 }
 
-export default FeedTap;
+export default OrdersTape;

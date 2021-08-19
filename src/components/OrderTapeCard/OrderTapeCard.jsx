@@ -1,9 +1,9 @@
-import componentStyles from './FeedTapOrder.module.css';
+import componentStyles from './OrderTapeCard.module.css';
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientIconList from "../IngredientIconList/IngredientIconList";
 import getOrderReadableDate from "../../utils/Date";
 
-const FeedTapOrder = ({ order, originalIngredients }) => {
+const OrderTapeCard = ({ order, originalIngredients }) => {
   const mappedIngredients = order.ingredients && order.ingredients.map(item => {
     const originalIngredient = originalIngredients.find(original => original._id === item);
     return {
@@ -37,4 +37,4 @@ const FeedTapOrder = ({ order, originalIngredients }) => {
   );
 }
 
-export default FeedTapOrder;
+export default OrderTapeCard;
