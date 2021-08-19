@@ -1,4 +1,5 @@
 import { CLEAR_CONSTRUCTOR } from "./IngredientActions";
+import { getAccessToken } from "../../utils/Cookie";
 
 export const CREATE_ORDER_REQUEST = "CREATE_ORDER";
 export const CREATE_ORDER_REQUEST_SUCCESS = "CREATE_ORDER_SUCCESS";
@@ -33,6 +34,7 @@ export function createOrder(bunId, ingredientIdList) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + getAccessToken()
       },
       body: JSON.stringify({ ingredients: allIngredients }),
     })

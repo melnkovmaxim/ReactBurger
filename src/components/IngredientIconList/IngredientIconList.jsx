@@ -23,8 +23,9 @@ const IngredientIconList = ({ ingredients }) => {
     return 0;
   }
   return (<div className={ componentStyles.container }>
-    <div style={{ zIndex: maxIngredientIconIndex }}><IngredientIcon link={ bun.link } name={ bun.name } count={ 1 }/></div>
-    { Array.from(ingredientsById.keys()).sort(sortIngredientsByCount).map((key, index) =>
+    { bun && (<div style={ { zIndex: maxIngredientIconIndex } }><IngredientIcon link={ bun.link } name={ bun.name }
+                                                                                count={ 1 }/></div>) }
+    { Array.from(ingredientsById.keys()).sort(sortIngredientsByCount).slice(0, 7).map((key, index) =>
       (<div key={ ingredientsById.get(key)[0].id } className={ componentStyles.listElement }
             style={ { zIndex: maxIngredientIconIndex - index - 1 } }>
         <IngredientIcon link={ ingredientsById.get(key)[0].link } name={ ingredientsById.get(key)[0].name }
