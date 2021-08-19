@@ -26,3 +26,8 @@
     border-radius: 6px;
     background: #8585AD;
 }
+
+.link {
+    text-decoration: none;
+    color: #f2f2f3;
+}

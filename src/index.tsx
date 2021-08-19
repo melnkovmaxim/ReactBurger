@@ -8,7 +8,7 @@ import {compose, createStore, applyMiddleware} from 'redux';
 import {rootReducer} from './services/reducers/RootReducer';
 import thunk from 'redux-thunk';
 import SocketMiddleware from './middlewares/SocketMiddleware';
-import {publicOrdersWsActions, privateOrdersWsActions} from './services/actions/WsActions';
+import {allOrdersWsActions, userOrdersWsActions} from './services/actions/WsActions';
 
 declare global {
   interface Window {
@@ -16,18 +16,19 @@ declare global {
   }
 }
 
-const wsPublicOrdersUrl = 'wss://norma.nomoreparties.space/orders/all';
-const wsPrivateOrdersUrl = 'wss://norma.nomoreparties.space/orders';
+const wsAllOrdersUrl = 'wss://norma.nomoreparties.space/orders/all';
+const wsUserOrdersUrl = 'wss://norma.nomoreparties.space/orders';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(
   applyMiddleware(thunk),
-  applyMiddleware(SocketMiddleware(wsPublicOrdersUrl, {
-    ...publicOrdersWsActions
+  applyMiddleware(SocketMiddleware(wsAllOrdersUrl, {
+    ...allOrdersWsActions
   })),
-  applyMiddleware(SocketMiddleware(wsPrivateOrdersUrl, {
-    ...privateOrdersWsActions
+  applyMiddleware(SocketMiddleware(wsUserOrdersUrl, {
+    ...userOrdersWsActions
   })));
+
 const store = createStore(rootReducer, enhancer);
 
 ReactDOM.render(

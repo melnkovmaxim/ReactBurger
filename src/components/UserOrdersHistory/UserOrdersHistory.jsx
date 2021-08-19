@@ -24,7 +24,11 @@ const UserOrdersHistory = () => {
     }
   }, [dispatch]);
 
-  return (<div className={`ml-15 ${componentStyles.container}`}><OrdersTape orders={userOrders} originalIngredients={originalIngredients}/></div>);
+  return (
+    <div className={`ml-15 ${componentStyles.container}`}>
+      <OrdersTape orders={userOrders} originalIngredients={originalIngredients} />
+    </div>
+  );
 };
 
 export default UserOrdersHistory;

@@ -10,7 +10,7 @@ export const WS_USER_ORDERS_CONNECTION_ERROR = 'WS_USER_ORDERS_CONNECTION_ERROR'
 export const WS_GET_USER_ORDERS_MESSAGE = 'WS_GET_USER_ORDERS_MESSAGE';
 export const WS_USER_ORDERS_CONNECTION_CLOSED = 'WS_USER_ORDERS_CONNECTION_CLOSED';
 
-export const publicOrdersWsActions = {
+export const allOrdersWsActions = {
   wsInit: WS_ALL_ORDERS_CONNECTION_START,
   onOpen: WS_ALL_ORDERS_CONNECTION_SUCCESS,
   onClose: WS_ALL_ORDERS_CONNECTION_CLOSED,
@@ -18,7 +18,7 @@ export const publicOrdersWsActions = {
   onMessage: WS_GET_ALL_ORDERS_MESSAGE
 }
 
-export const privateOrdersWsActions = {
+export const userOrdersWsActions = {
   wsInit: WS_USER_ORDERS_CONNECTION_START,
   onOpen: WS_USER_ORDERS_CONNECTION_SUCCESS,
   onClose: WS_USER_ORDERS_CONNECTION_CLOSED,
