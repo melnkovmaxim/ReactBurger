@@ -1,0 +1,23 @@
+.container {
+    width: 640px;
+    margin: 0 auto;
+    background-color: green;
+}
+
+.ingredients {
+
+}
+
+.status {
+    color: #00cccc;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.price {
+    display: flex;
+    justify-content: space-between;
+}

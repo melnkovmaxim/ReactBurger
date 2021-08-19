@@ -10,8 +10,8 @@ import {
 } from '../actions/WsActions';
 
 const initialState = {
-  wsPublicOrdersConnected: false,
-  wsPrivateOrdersConnected: false,
+  wsAllOrdersConnected: false,
+  wsUserOrdersConnected: false,
 
   allOrders: [],
   userOrders: [],
@@ -24,19 +24,19 @@ export const wsReducer = (state = initialState, action) => {
     case WS_ALL_ORDERS_CONNECTION_SUCCESS:
       return {
         ...state,
-        wsPublicOrdersConnected: true
+        wsAllOrdersConnected: true
       };
 
     case WS_ALL_ORDERS_CONNECTION_ERROR:
       return {
         ...state,
-        wsPublicOrdersConnected: false
+        wsAllOrdersConnected: false
       };
 
     case WS_ALL_ORDERS_CONNECTION_CLOSED:
       return {
         ...state,
-        wsPublicOrdersConnected: false
+        wsAllOrdersConnected: false
       };
 
     case WS_GET_ALL_ORDERS_MESSAGE:
@@ -49,17 +49,17 @@ export const wsReducer = (state = initialState, action) => {
     case WS_USER_ORDERS_CONNECTION_SUCCESS:
       return {
         ...state,
-        wsPrivateOrdersConnected: true
+        wsUserOrdersConnected: true
       }
     case WS_USER_ORDERS_CONNECTION_ERROR:
       return {
         ...state,
-        wsPrivateOrdersConnected: false
+        wsUserOrdersConnected: false
       }
     case WS_USER_ORDERS_CONNECTION_CLOSED:
       return {
         ...state,
-        wsPrivateOrdersConnected: false
+        wsUserOrdersConnected: false
       }
     case WS_GET_USER_ORDERS_MESSAGE:
       return {

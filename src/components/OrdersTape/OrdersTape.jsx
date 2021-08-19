@@ -19,8 +19,8 @@ const OrdersTape = ({ orders, originalIngredients, link }) => {
     <div className={ componentStyles.container }>
       <div className={ `pr-2 ${ componentStyles.orderListWrapper }` }>
         { originalIngredients.length > 0 && orders && orders.map((item, index) =>
-          (<div className={ index !== orders.length - 1 && 'mb-4' }>
-              <Link key={ item._id } className={ `${ componentStyles.link }` }
+          (<div key={ item._id } className={ index !== orders.length - 1 ? 'mb-4' : '' }>
+              <Link className={ `${ componentStyles.link }` }
                     to={ { pathname: location.pathname + '/' + item._id, state: { background: location }, } }>
               <OrderTapeCard order={ item } originalIngredients={ originalIngredients }/>
             </Link>

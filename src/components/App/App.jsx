@@ -13,6 +13,7 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Logout from "../../pages/Logout/Logout";
 import NonAuthRoute from "../NonAuthRoute/NonAuthRoute";
 import Feed from "../../pages/Feed/Feed";
+import OrderTapeCardDetails from "../OrderTapeCardDetails/OrderTapeCardDetails";
 
 const App = () => {
   return (
@@ -28,6 +29,9 @@ const App = () => {
             </Route>
             <Route path="/feed" exact={ true }>
               <Feed/>
+            </Route>
+            <Route path="/feed/:id" exact={true}>
+              <OrderTapeCardDetails/>
             </Route>
             <NonAuthRoute path="/login" exact={ true }>
               <Login/>
