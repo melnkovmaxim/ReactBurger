@@ -5,10 +5,10 @@ export function getOrderTotalCost(ingredients) {
 export function getReadableOrderStatus(orderStatus) {
   switch (orderStatus) {
     case 'created': {
-      return 'Принят';
+      return 'Создан';
     }
     case 'pending': {
-      return 'В работе';
+      return 'Готовится';
     }
     case 'done': {
       return 'Выполнен';
