@@ -10,7 +10,7 @@ const OrderTapeCard = ({ order, originalIngredients }) => {
     return {
       id: originalIngredient._id,
       name: originalIngredient.name,
-      link: originalIngredient.image_mobile,
+      image_mobile: originalIngredient.image_mobile,
       type: originalIngredient.type,
       price: originalIngredient.price
     };

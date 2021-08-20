@@ -23,12 +23,12 @@ const IngredientIconList = ({ ingredients }) => {
     return 0;
   }
   return (<div className={ componentStyles.container }>
-    { bun && (<div style={ { zIndex: maxIngredientIconIndex } }><IngredientIcon link={ bun.link } name={ bun.name }
+    { bun && (<div style={ { zIndex: maxIngredientIconIndex } }><IngredientIcon image_mobile={ bun.image_mobile } name={ bun.name }
                                                                                 count={ 1 }/></div>) }
     { Array.from(ingredientsById.keys()).sort(sortIngredientsByCount).slice(0, 7).map((key, index) =>
       (<div key={ ingredientsById.get(key)[0].id } className={ componentStyles.listElement }
             style={ { zIndex: maxIngredientIconIndex - index - 1 } }>
-        <IngredientIcon link={ ingredientsById.get(key)[0].link } name={ ingredientsById.get(key)[0].name }
+        <IngredientIcon image_mobile={ ingredientsById.get(key)[0].image_mobile } name={ ingredientsById.get(key)[0].name }
                         count={ ingredientsById.get(key).length }/>
       </div>)
     ) }

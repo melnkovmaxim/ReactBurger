@@ -13,7 +13,7 @@ const FeedStatistics = ({ orders, total, totalToday }) => {
         <div className="pl-9"/>
         <div className={ componentStyles.orders }>
           <p className="pb-6 text text_type_main-medium">В работе:</p>
-          { orders.filter(order => order.status === "created").slice(0, 9).map(createdOrder =>
+          { orders.filter(order => order.status === "pending").slice(0, 9).map(createdOrder =>
             (<p key={createdOrder._id} className="pb-2 text text_type_digits-default">{ createdOrder.number }</p>)
           )}
         </div>

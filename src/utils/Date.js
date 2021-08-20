@@ -17,7 +17,7 @@ function getOrderReadableDate(comparisonDate) {
     console.log(compare);
     result = formatDistance(subDays(compare, 1), today, { addSuffix: true, locale: ru });
   }
-  const pattern = 'HH:mm \'i\'-z'
+  const pattern = 'HH:mm \'i\'-z';
   result = result + ', ' + format(compare, pattern);
 
   return result;

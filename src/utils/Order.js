@@ -1,7 +1,4 @@
 export function getOrderTotalCost(ingredients) {
-  const bun = ingredients.find(item => item.type === "bun");
-  const bunPrice = bun ? bun.price : 0;
-
   return ingredients.reduce((total, current) => total + current.price, 0);
 }
 

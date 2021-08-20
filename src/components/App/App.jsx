@@ -27,11 +27,8 @@ const App = () => {
             <Route path={ ["/", "/ingredients/:id", "/order"] } exact={ true }>
               <Home/>
             </Route>
-            <Route path="/feed" exact={ true }>
+            <Route path={ ["/feed", "/feed/:id"] } exact={ true }>
               <Feed/>
-            </Route>
-            <Route path="/feed/:id" exact={true}>
-              <OrderTapeCardDetails/>
             </Route>
             <NonAuthRoute path="/login" exact={ true }>
               <Login/>
