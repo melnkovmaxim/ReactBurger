@@ -3,6 +3,7 @@ import { ru } from "date-fns/locale";
 
 function getOrderReadableDate(comparisonDate) {
   const today = new Date();
+  today.setHours(0,0,0,0);
   const yesterday = subDays(today, 1);
   const compare = parseISO(comparisonDate);
 
@@ -13,7 +14,8 @@ function getOrderReadableDate(comparisonDate) {
   } else if (isSameDay(compare, yesterday)) {
     result = 'Вчера';
   } else  {
-    result = formatDistance(compare, today, { addSuffix: true, locale: ru });
+    console.log(compare);
+    result = formatDistance(subDays(compare, 1), today, { addSuffix: true, locale: ru });
   }
   const pattern = 'HH:mm \'i\'-z'
   result = result + ', ' + format(compare, pattern);
