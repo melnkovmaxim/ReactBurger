@@ -1,4 +1,5 @@
 import componentStyles from './FeedStatistics.module.css';
+import PropTypes from "prop-types";
 
 const FeedStatistics = ({ orders, total, totalToday }) => {
   return (
@@ -29,5 +30,16 @@ const FeedStatistics = ({ orders, total, totalToday }) => {
     </div>
   );
 }
+
+const orderPropTypes = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  number: PropTypes.string.isRequired,
+});
+
+FeedStatistics.propTypes = PropTypes.shape({
+  orders: PropTypes.objectOf(orderPropTypes.isRequired).isRequired,
+  total: PropTypes.number.isRequired,
+  totalToday: PropTypes.number.isRequired,
+}).isRequired;
 
 export default FeedStatistics;

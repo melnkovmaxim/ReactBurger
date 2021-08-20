@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getIngredients } from "../../services/actions/IngredientActions";
 import { useEffect } from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const IngredientDetails = ({ headerAlign }) => {
   const dispatch = useDispatch();
@@ -103,5 +104,9 @@ const IngredientDetails = ({ headerAlign }) => {
     </>
   );
 };
+
+IngredientDetails.propTypes = PropTypes.shape({
+  headerAlign: PropTypes.string,
+}).isRequired;
 
 export default IngredientDetails;

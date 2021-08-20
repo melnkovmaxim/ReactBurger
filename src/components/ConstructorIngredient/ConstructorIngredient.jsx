@@ -80,6 +80,7 @@ ConstructorIngredient.propTypes = {
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
+  children: PropTypes.element,
   id: PropTypes.string,
   index: PropTypes.number,
   type: PropTypes.string,

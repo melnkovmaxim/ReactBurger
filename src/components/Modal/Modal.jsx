@@ -5,6 +5,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation, useHistory } from "react-router-dom";
 import { useCallback } from 'react';
 import { useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
 const Modal = ({ children }) => {
   const location = useLocation();
@@ -55,5 +56,9 @@ const Modal = ({ children }) => {
     </div>,
     document.getElementById("modal"));
 };
+
+Modal.propTypes = PropTypes.shape({
+  children: PropTypes.element.isRequired
+}).isRequired;
 
 export default Modal;

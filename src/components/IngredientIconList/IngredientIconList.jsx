@@ -1,5 +1,6 @@
 import componentStyles from './IngredientIconList.module.css';
 import IngredientIcon from "../IngredientIcon/IngredientIcon";
+import PropTypes from "prop-types";
 
 const IngredientIconList = ({ ingredients }) => {
   const uniqueIngredients = new Map();
@@ -33,5 +34,18 @@ const IngredientIconList = ({ ingredients }) => {
     ) }
   </div>)
 }
+
+const ingredientPropTypes = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  status: PropTypes.string.isRequired,
+  image_mobile: PropTypes.string.isRequired,
+});
+
+IngredientIconList.propTypes = PropTypes.shape({
+  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
+}).isRequired;
 
 export default IngredientIconList;
