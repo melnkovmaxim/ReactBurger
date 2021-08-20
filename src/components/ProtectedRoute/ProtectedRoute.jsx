@@ -5,7 +5,6 @@ import { refreshToken as doRefreshToken } from "../../services/actions/AuthActio
 import { getAccessToken } from "../../utils/Cookie";
 import { getRefreshToken } from "../../utils/LocalStorage";
 import PropTypes from "prop-types";
-import NonAuthRoute from "../NonAuthRoute/NonAuthRoute";
 
 const ProtectedRoute = ({ children, ...props }) => {
   const dispatch = useDispatch();
