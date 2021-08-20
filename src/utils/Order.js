@@ -5,10 +5,10 @@ export function getOrderTotalCost(ingredients) {
 export function getReadableOrderStatus(orderStatus) {
   switch (orderStatus) {
     case 'created': {
-      return 'Создан';
+      return 'Принят';
     }
     case 'pending': {
-      return 'В ожидании';
+      return 'В работе';
     }
     case 'done': {
       return 'Выполнен';
@@ -17,4 +17,15 @@ export function getReadableOrderStatus(orderStatus) {
       return orderStatus;
     }
   }
+}
+
+export function getUniqueOrderIngredients(ingredients) {
+  const uniqueIngredients = new Map();
+
+  ingredients.forEach(item => {
+    const value = uniqueIngredients.has(item._id) ? [...uniqueIngredients.get(item._id), item] : [item];
+    uniqueIngredients.set(item._id, value);
+  });
+
+  return uniqueIngredients;
 }

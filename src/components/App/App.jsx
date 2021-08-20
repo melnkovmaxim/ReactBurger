@@ -13,7 +13,6 @@ import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import Logout from "../../pages/Logout/Logout";
 import NonAuthRoute from "../NonAuthRoute/NonAuthRoute";
 import Feed from "../../pages/Feed/Feed";
-import OrderTapeCardDetails from "../OrderTapeCardDetails/OrderTapeCardDetails";
 
 const App = () => {
   return (

@@ -22,7 +22,7 @@ const UserOrdersHistory = () => {
     if (!originalIngredients || originalIngredients.length < 1) {
       dispatch(getIngredients());
     }
-  }, [dispatch]);
+  }, [dispatch, originalIngredients]);
 
   return (
     <div className={`ml-15 ${componentStyles.container}`}>

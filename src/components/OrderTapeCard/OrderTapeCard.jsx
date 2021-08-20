@@ -5,16 +5,7 @@ import getOrderReadableDate from "../../utils/Date";
 import { getOrderTotalCost } from "../../utils/Order";
 
 const OrderTapeCard = ({ order, originalIngredients }) => {
-  const mappedIngredients = order.ingredients && order.ingredients.map(item => {
-    const originalIngredient = originalIngredients.find(original => original._id === item);
-    return {
-      id: originalIngredient._id,
-      name: originalIngredient.name,
-      image_mobile: originalIngredient.image_mobile,
-      type: originalIngredient.type,
-      price: originalIngredient.price
-    };
-  });
+  const mappedIngredients = order.ingredients && order.ingredients.map(item => originalIngredients.find(original => original._id === item));
 
 //{format(zonedDate, pattern, { timeZone })} Сегодня, 16:20 i-GMT+3
   return (

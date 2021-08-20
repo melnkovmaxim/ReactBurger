@@ -5,7 +5,6 @@ import NotFound from "../NotFound/NotFound";
 import componentStyles from "./Profile.module.css";
 import UserOrdersHistory from "../../components/UserOrdersHistory/UserOrdersHistory";
 import Modal from "../../components/Modal/Modal";
-import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import React from "react";
 import OrderTapeCardDetails from "../../components/OrderTapeCardDetails/OrderTapeCardDetails";
 

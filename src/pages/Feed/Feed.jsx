@@ -8,9 +8,8 @@ import {
   WS_ALL_ORDERS_CONNECTION_START
 } from "../../services/actions/WsActions";
 import { getIngredients } from "../../services/actions/IngredientActions";
-import { Switch, useHistory, useLocation, Route, Redirect } from "react-router-dom";
+import { Switch, useHistory, useLocation, Route } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
-import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import OrderTapeCardDetails from "../../components/OrderTapeCardDetails/OrderTapeCardDetails";
 
 const Feed = () => {
@@ -33,7 +32,7 @@ const Feed = () => {
     if (!originalIngredients || originalIngredients.length < 1) {
       dispatch(getIngredients());
     }
-  }, [dispatch]);
+  }, [dispatch, originalIngredients]);
 
   return (
     <>
