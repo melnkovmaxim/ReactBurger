@@ -22,12 +22,9 @@ const wsUserOrdersUrl = 'wss://norma.nomoreparties.space/orders';
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(
   applyMiddleware(thunk),
-  applyMiddleware(SocketMiddleware(wsAllOrdersUrl, {
-    ...allOrdersWsActions
-  })),
-  applyMiddleware(SocketMiddleware(wsUserOrdersUrl, {
-    ...userOrdersWsActions
-  })));
+  applyMiddleware(SocketMiddleware(wsAllOrdersUrl, { ...allOrdersWsActions })),
+  applyMiddleware(SocketMiddleware(wsUserOrdersUrl, { ...userOrdersWsActions }, true))
+);
 
 const store = createStore(rootReducer, enhancer);
 

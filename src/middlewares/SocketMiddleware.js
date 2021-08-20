@@ -1,6 +1,6 @@
 import { getAccessToken } from "../utils/Cookie";
 
-const socketMiddleware = (wsUrl, wsActions) => {
+const socketMiddleware = (wsUrl, wsActions, withToken = false) => {
   return store => {
     let socket = null;
 
@@ -10,7 +10,8 @@ const socketMiddleware = (wsUrl, wsActions) => {
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}?token=${getAccessToken()}`);
+        const url = withToken ? `${wsUrl}?token=${getAccessToken()}` : wsUrl;
+        socket = new WebSocket(url);
       }
 
       if (socket) {
