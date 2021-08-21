@@ -1,0 +1,12 @@
+.container {
+    width: 100%;
+    max-height: 100vh;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.innerContainer {
+    height: 775px;
+    display: flex;
+    justify-content: space-between;
+}

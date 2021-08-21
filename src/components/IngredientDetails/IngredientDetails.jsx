@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { getIngredients } from "../../services/actions/IngredientActions";
 import { useEffect } from "react";
 import { useState } from "react";
+import PropTypes from "prop-types";
 
 const IngredientDetails = ({ headerAlign }) => {
   const dispatch = useDispatch();
@@ -28,46 +29,46 @@ const IngredientDetails = ({ headerAlign }) => {
       setError(
         itemsRequestPending
           ? ""
-          : `Ингредиент с идентификатором ${id} не найден`
+          : `Ингредиент с идентификатором ${ id } не найден`
       );
     }
   }, [id, items, itemsRequestPending]);
 
   return (
     <>
-      {viewedIngredient ? (
-        <div className={componentStyles.container}>
-          {" "}
-          <div className={componentStyles.headerWrapper}>
-            <div className={`mt-10 ml-10 mr-10 ${componentStyles.header}`}>
+      { viewedIngredient ? (
+        <div className={ componentStyles.container }>
+          { " " }
+          <div className={ componentStyles.headerWrapper }>
+            <div className={ `mt-10 ml-10 mr-10 ${ componentStyles.header }` }>
               <p
-                className={`text text_type_main-large ${componentStyles.headerTextCenter}`}
-                style={{ textAlign: headerAlign}}
+                className={ `text text_type_main-large ${ componentStyles.headerTextCenter }` }
+                style={ { textAlign: headerAlign } }
               >
-                {"Детали ингредиента"}
+                { "Детали ингредиента" }
               </p>
             </div>
           </div>
-          <div className={`mb-15 ${componentStyles.content}`}>
+          <div className={ `mb-15 ${ componentStyles.content }` }>
             <img
-              className={componentStyles.ingredientImage}
-              src={viewedIngredient.image_large}
-              alt={viewedIngredient.name}
+              className={ componentStyles.ingredientImage }
+              src={ viewedIngredient.image_large }
+              alt={ viewedIngredient.name }
             />
             <p
-              className={`mt-4 text text_type_main-medium ${componentStyles.textCenter}`}
+              className={ `mt-4 text text_type_main-medium ${ componentStyles.textCenter }` }
             >
-              {viewedIngredient.name}
+              { viewedIngredient.name }
             </p>
             <div
-              className={`mt-8 ${componentStyles.ingredientInfo} ${componentStyles.textCenter}`}
+              className={ `mt-8 ${ componentStyles.ingredientInfo } ${ componentStyles.textCenter }` }
             >
               <div>
                 <p className="text text_type_main-default text_color_inactive">
                   Калории, ккал
                 </p>
                 <p className="mt-2 text text_type_digits-default text_color_inactive">
-                  {viewedIngredient.calories}
+                  { viewedIngredient.calories }
                 </p>
               </div>
               <div>
@@ -75,7 +76,7 @@ const IngredientDetails = ({ headerAlign }) => {
                   Белки, г
                 </p>
                 <p className="mt-2 text text_type_digits-default text_color_inactive">
-                  {viewedIngredient.proteins}
+                  { viewedIngredient.proteins }
                 </p>
               </div>
               <div>
@@ -83,7 +84,7 @@ const IngredientDetails = ({ headerAlign }) => {
                   Жиры, г.
                 </p>
                 <p className="mt-2 text text_type_digits-default text_color_inactive">
-                  {viewedIngredient.fat}
+                  { viewedIngredient.fat }
                 </p>
               </div>
               <div>
@@ -91,17 +92,21 @@ const IngredientDetails = ({ headerAlign }) => {
                   Углеводы, г
                 </p>
                 <p className="mt-2 text text_type_digits-default text_color_inactive">
-                  {viewedIngredient.carbohydrates}
+                  { viewedIngredient.carbohydrates }
                 </p>
               </div>
             </div>
           </div>
         </div>
       ) : (
-        <p>{error}</p>
-      )}
+        <p>{ error }</p>
+      ) }
     </>
   );
 };
+
+IngredientDetails.propTypes = PropTypes.shape({
+  headerAlign: PropTypes.string,
+}).isRequired;
 
 export default IngredientDetails;

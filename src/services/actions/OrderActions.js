@@ -1,4 +1,5 @@
 import { CLEAR_CONSTRUCTOR } from "./IngredientActions";
+import { getAccessToken } from "../../utils/Cookie";
 
 export const CREATE_ORDER_REQUEST = "CREATE_ORDER";
 export const CREATE_ORDER_REQUEST_SUCCESS = "CREATE_ORDER_SUCCESS";
@@ -15,7 +16,10 @@ export function createOrder(bunId, ingredientIdList) {
     }
 
     if (!ingredientIdList || ingredientIdList.length === 0) {
-      dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер только с булками, без ингредиентов' });
+      dispatch({
+        type: CREATE_ORDER_REQUEST_FAILED,
+        error: 'Нельзя заказать бургер только с булками, без ингредиентов'
+      });
       return;
     }
 
@@ -30,21 +34,22 @@ export function createOrder(bunId, ingredientIdList) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": 'Bearer ' + getAccessToken()
       },
       body: JSON.stringify({ ingredients: allIngredients }),
-      })
+    })
       .then(async (response) => {
         const json = await response.json();
 
         if (response.ok) {
           return json;
         }
-        
+
         if (json && json.message) {
           return Promise.reject(json.message);
         }
 
-        return Promise.reject(`Ошибка ${response.status}`);
+        return Promise.reject(`Ошибка ${ response.status }`);
       })
       .then((json) => {
         if (!json.success) {

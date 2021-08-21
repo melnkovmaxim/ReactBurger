@@ -19,42 +19,44 @@ const ConstructorIngredientList = ({ bun, ingredients }) => {
   });
 
   return (
-    <div ref={dropTarget} className={`${componentStyles.container} ${isDragging && componentStyles.border}`}>
-      {bun && (
-      <div className="mb-4">
-        <ConstructorIngredient
-          constructorIngredientId={bun.constructorItemId}
-          type="top"
-          isLocked={true}
-          thumbnail={bun.image}
-          text={bun.name.concat(" (верх)")}
-          price={bun.price}
-        />
-      </div>
-      )}
+    <div ref={ dropTarget } className={ `${ componentStyles.container } ${ isDragging && componentStyles.border }` }>
+      { bun && (
+        <div className="mb-4">
+          <ConstructorIngredient
+            constructorIngredientId={ bun.constructorItemId }
+            type="top"
+            isLocked={ true }
+            thumbnail={ bun.image }
+            text={ bun.name.concat(" (верх)") }
+            price={ bun.price }
+          />
+        </div>
+      ) }
       <div className={ (clsx(componentStyles.ingredientList), componentStyles.ingredientList) }>
-        {ingredients.filter(item => item.type !== 'bun').map((item, index) => (
-          <div key={item.constructorItemId} className={`${index !== 0 ? "mt-4" : ""} ${componentStyles.ingredientWrapper}`} >
-            <ConstructorIngredient constructorIngredientId={item.constructorItemId} id={item._id} text={item.name} price={item.price} thumbnail={item.image} index={index}  >
+        { ingredients.filter(item => item.type !== 'bun').map((item, index) => (
+          <div key={ item.constructorItemId }
+               className={ `${ index !== 0 ? "mt-4" : "" } ${ componentStyles.ingredientWrapper }` }>
+            <ConstructorIngredient constructorIngredientId={ item.constructorItemId } id={ item._id } text={ item.name }
+                                   price={ item.price } thumbnail={ item.image } index={ index }>
               <div className="mr-2">
-                <DragIcon type="primary" />
+                <DragIcon type="primary"/>
               </div>
             </ConstructorIngredient>
           </div>
-        ))}
+        )) }
       </div>
-      {bun && (
-      <div className="mt-4">
-        <ConstructorIngredient
-          constructorIngredientId={bun.constructorItemId}
-          elementType="bottom"
-          thumbnail={bun.image}
-          isLocked={true}
-          text={bun.name.concat(" (низ)")}
-          price={bun.price}
-        />
-      </div>
-      )}
+      { bun && (
+        <div className="mt-4">
+          <ConstructorIngredient
+            constructorIngredientId={ bun.constructorItemId }
+            elementType="bottom"
+            thumbnail={ bun.image }
+            isLocked={ true }
+            text={ bun.name.concat(" (низ)") }
+            price={ bun.price }
+          />
+        </div>
+      ) }
     </div>
   );
 };

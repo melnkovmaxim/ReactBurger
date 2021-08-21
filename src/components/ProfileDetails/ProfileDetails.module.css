@@ -19,5 +19,9 @@
     justify-content: flex-end;
 }
 
-.disableSubmit {}
-.disableSubmit > button[type=text] { background-color: red;}
+.disableSubmit {
+}
+
+.disableSubmit > button[type=text] {
+    background-color: red;
+}

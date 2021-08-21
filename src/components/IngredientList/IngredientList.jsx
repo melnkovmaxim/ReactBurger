@@ -10,34 +10,35 @@ const IngredientList = forwardRef(
     const location = useLocation();
 
     return (
-      <div ref={ref} id={type}>
+      <div ref={ ref } id={ type }>
         <InView
-          onChange={handleScroll(type)}
-          threshold={[0, 0.25, 0.5, 0.75, 1]}
+          onChange={ handleScroll(type) }
+          threshold={ [0, 0.25, 0.5, 0.75, 1] }
         >
           <div className="mt-10">
-            <h1 className="text text_type_main-medium">{name}</h1>
-            <div className={`mt-6 ${componentStyles.ingredientWrapper}`}>
-              {ingredients.map((item) => {
+            <h1 className="text text_type_main-medium">{ name }</h1>
+            <div className={ `mt-6 ${ componentStyles.ingredientWrapper }` }>
+              { ingredients.map((item) => {
                 return (
                   <Link
-                    className={componentStyles.link}
-                    key={item._id}
-                    to={{
-                      pathname: `/ingredients/${item._id}`,
+                    className={ componentStyles.link }
+                    key={ item._id }
+                    to={ {
+                      pathname: `/ingredients/${ item._id }`,
                       state: { background: location },
-                    }}
+                    } }
                   >
                     <Ingredient
-                      id={item._id}
-                      name={item.name}
-                      price={item.price}
-                      image={item.image}
-                      showIngredientDetails={() => {}}
+                      id={ item._id }
+                      name={ item.name }
+                      price={ item.price }
+                      image={ item.image }
+                      showIngredientDetails={ () => {
+                      } }
                     />
                   </Link>
                 );
-              })}
+              }) }
             </div>
           </div>
         </InView>

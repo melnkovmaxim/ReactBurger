@@ -23,18 +23,18 @@ const PasswordForgot = () => {
   };
 
   return (
-    <form className={componentStyles.container} onSubmit={onSubmit}>
+    <form className={ componentStyles.container } onSubmit={ onSubmit }>
       <p className="text text_type_main-medium">Восстановление пароля</p>
-      <div className={`mt-6 ${componentStyles.inputWrapper}`}>
+      <div className={ `mt-6 ${ componentStyles.inputWrapper }` }>
         <Input
-          type={"text"}
-          placeholder={"E-mail"}
-          onChange={onChangeEmail}
-          value={email}
-          size={"default"}
+          type={ "text" }
+          placeholder={ "E-mail" }
+          onChange={ onChangeEmail }
+          value={ email }
+          size={ "default" }
         />
       </div>
-      {resetPasswordRequestFailed && <p>{resetPasswordRequestError}</p>}
+      { resetPasswordRequestFailed && <p>{ resetPasswordRequestError }</p> }
       <div className="mt-6">
         <Button type="primary" size="medium">
           Восстановить
@@ -42,8 +42,8 @@ const PasswordForgot = () => {
       </div>
       <p className="mt-20 text text_type_main-default">
         Вспомнили пароль?
-        <Link className={componentStyles.link} to="/login">
-          {" "}
+        <Link className={ componentStyles.link } to="/login">
+          { " " }
           Войти
         </Link>
       </p>

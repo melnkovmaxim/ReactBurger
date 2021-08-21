@@ -15,34 +15,34 @@ const Home = () => {
 
   return (
     <>
-      <Switch location={((history.action === "PUSH" || history.action === "REPLACE") && background) || location}>
-        <Route path="/" exact={true}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <div className="ml-5 mr-5" />
-            <BurgerConstructor />
+      <Switch location={ ((history.action === "PUSH" || history.action === "REPLACE") && background) || location }>
+        <Route path="/" exact={ true }>
+          <DndProvider backend={ HTML5Backend }>
+            <BurgerIngredients/>
+            <div className="ml-5 mr-5"/>
+            <BurgerConstructor/>
           </DndProvider>
         </Route>
       </Switch>
 
       <Route path="/ingredients/:id">
-        {background && history.action === 'PUSH' ? (
+        { background && history.action === 'PUSH' ? (
           <Modal>
-            <IngredientDetails headerAlign={"left"} />
+            <IngredientDetails headerAlign={ "left" }/>
           </Modal>
         ) : (
-          <IngredientDetails />
-        )}
+          <IngredientDetails/>
+        ) }
       </Route>
 
-      <Route path="/order" exact={true}>
-        {background && (history.action === 'PUSH' || history.action === "REPLACE") ? (
+      <Route path="/order" exact={ true }>
+        { background && (history.action === 'PUSH' || history.action === "REPLACE") ? (
           <Modal>
-            <OrderDetails />
+            <OrderDetails/>
           </Modal>
         ) : (
-          <Redirect to="/" />
-        )}
+          <Redirect to="/"/>
+        ) }
       </Route>
     </>
   );

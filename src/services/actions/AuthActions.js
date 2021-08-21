@@ -40,7 +40,7 @@ export function register(email, login, password) {
       name: login,
     });
     const onSuccess = (json) => {
-      setAccessToken(json.accessToken.replace('Bearer ',''));
+      setAccessToken(json.accessToken.replace('Bearer ', ''));
       setRefreshToken(json.refreshToken);
       dispatch({
         type: REGISTER_REQUEST_SUCCESS,
@@ -69,7 +69,7 @@ export function login(email, password) {
       password: password,
     });
     const onSuccess = (json) => {
-      setAccessToken(json.accessToken.replace('Bearer ',''));
+      setAccessToken(json.accessToken.replace('Bearer ', ''));
       setRefreshToken(json.refreshToken);
       dispatch({
         type: LOGIN_REQUEST_SUCCESS,
@@ -97,7 +97,7 @@ export function refreshToken(refreshToken) {
       token: refreshToken,
     });
     const onSuccess = (json) => {
-      setAccessToken(json.accessToken.replace('Bearer ',''));
+      setAccessToken(json.accessToken.replace('Bearer ', ''));
       setRefreshToken(json.refreshToken);
       dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS });
     };
