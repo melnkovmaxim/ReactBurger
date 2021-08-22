@@ -27,6 +27,7 @@ export const orderReducer = (state = initialState, action) => {
         burgerName: action.burgerName,
         createOrderRequestPending: false,
         createOrderRequestFailed: false,
+        createOrderRequestError: '',
       }
     }
     case CREATE_ORDER_REQUEST_FAILED: {
@@ -34,6 +35,7 @@ export const orderReducer = (state = initialState, action) => {
         ...state,
         orderNumber: '',
         burgerName: '',
+        createOrderRequestPending: false,
         createOrderRequestFailed: true,
         createOrderRequestError: action.error,
       }
