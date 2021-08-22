@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DRAG, DROP } from "../../services/actions/IngredientActions";
 import { memo } from "react";
 
-const Ingredient = memo(({ id, name, image, price, showIngredientDetails }) => {
+const Ingredient = memo(({ id, name, image, price, type, showIngredientDetails }) => {
   const dispatch = useDispatch();
   const count = useSelector(store => store.ingredients.constructorItemCounts.get(id));
 
@@ -23,7 +23,7 @@ const Ingredient = memo(({ id, name, image, price, showIngredientDetails }) => {
   });
 
   return (
-    <div ref={ dragRef } className={ componentStyles.container } onClick={ () => showIngredientDetails(id) }>
+    <div ref={ dragRef } className={`burger-ingredient burger-ingredient-${type} ${componentStyles.container} `} onClick={ () => showIngredientDetails(id) }>
       <img src={ image } alt={ name } className="pl-4 pr-4"/>
       <span className={ `mt-1 mb-1 text text_type_digits-default ${ componentStyles.price }` }>
         <p className="pr-1">{ price }</p>
@@ -40,6 +40,7 @@ Ingredient.propTypes = {
   name: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
   showIngredientDetails: PropTypes.func.isRequired,
 };
 

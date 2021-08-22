@@ -19,7 +19,7 @@ const ConstructorIngredientList = ({ bun, ingredients }) => {
   });
 
   return (
-    <div ref={ dropTarget } className={ `${ componentStyles.container } ${ isDragging && componentStyles.border }` }>
+    <div ref={ dropTarget } className={ `constructor-ingredients  ${ componentStyles.container } ${ isDragging && componentStyles.border }` }>
       { bun && (
         <div className="mb-4">
           <ConstructorIngredient
@@ -37,7 +37,7 @@ const ConstructorIngredientList = ({ bun, ingredients }) => {
           <div key={ item.constructorItemId }
                className={ `${ index !== 0 ? "mt-4" : "" } ${ componentStyles.ingredientWrapper }` }>
             <ConstructorIngredient constructorIngredientId={ item.constructorItemId } id={ item._id } text={ item.name }
-                                   price={ item.price } thumbnail={ item.image } index={ index }>
+                                   price={ item.price } thumbnail={ item.image } index={ index } ingredientType={item.type}>
               <div className="mr-2">
                 <DragIcon type="primary"/>
               </div>
