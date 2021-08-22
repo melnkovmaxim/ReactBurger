@@ -11,9 +11,6 @@ import {
 } from "../../resources/Request";
 import { getAccessToken } from "../../utils/Cookie";
 
-export const SET_USER_INFO = "SET_USER_INFO";
-export const REMOVE_USER_INFO = "REMOVE_USER_INFO";
-
 export const USER_INFO_REQUEST = "USER_INFO_REQUEST";
 export const USER_INFO_REQUEST_SUCCESS = "USER_INFO_REQUEST_SUCCESS";
 export const USER_INFO_REQUEST_FAILED = "USER_INFO_REQUEST_FAILED";

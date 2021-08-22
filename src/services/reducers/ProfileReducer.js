@@ -54,6 +54,7 @@ export const profileReducer = (state = initialState, action) => {
     case USER_INFO_REQUEST_FAILED: {
       return {
         ...state,
+        user: {},
         userInfoRequestPending: false,
         userInfoRequestFailed: true,
         userInfoRequestError: action.error,
