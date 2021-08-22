@@ -95,13 +95,13 @@ export const ingredientsReducer = (state = initialState, action) => {
       const targetItem = state.constructorItems.find(item => item.constructorItemId === action.targetItemId);
       const targetItemIndex = state.constructorItems.indexOf(targetItem);
 
-      const selectedItemsWithoutDragged = [...state.constructorItems];
-      selectedItemsWithoutDragged.splice(draggedItemIndex, 1);
-      selectedItemsWithoutDragged.splice(action.targetItemIndex ?? targetItemIndex, 0, draggedItem);
+      const selectedItemsBeforeDragging = [...state.constructorItems];
+      selectedItemsBeforeDragging.splice(draggedItemIndex, 1);
+      selectedItemsBeforeDragging.splice(action.targetItemIndex ?? targetItemIndex, 0, draggedItem);
 
       return {
         ...state,
-        constructorItems: selectedItemsWithoutDragged
+        constructorItems: selectedItemsBeforeDragging
       }
     }
     case CLEAR_CONSTRUCTOR: {
