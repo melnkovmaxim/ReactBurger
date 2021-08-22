@@ -39,13 +39,15 @@ export const ingredientsReducer = (state = initialState, action) => {
         items: action.ingredients,
         itemsRequestPending: false,
         itemsRequestFailed: false,
+        itemsRequestError: '',
       }
     }
     case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
+        itemsRequestPending: false,
         itemsRequestFailed: true,
-        error: action.error,
+        itemsRequestError: action.error,
       }
     }
     case ADD_CONSTRUCTOR_INGREDIENT: {
