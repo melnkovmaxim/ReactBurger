@@ -29,7 +29,7 @@ const initialState = {
   refreshTokenRequestError: '',
 };
 
-test('should return the initial state', () => {
+test('should return the initial state auth reducer', () => {
   expect(authReducer(undefined, {})).toEqual(initialState);
 });
 
