@@ -2,7 +2,7 @@ import {
   CREATE_ORDER_REQUEST,
   CREATE_ORDER_REQUEST_SUCCESS,
   CREATE_ORDER_REQUEST_FAILED
-} from "../actions/OrderActions";
+} from "../../actions/OrderActions";
 
 const initialState = {
   orderNumber: '',

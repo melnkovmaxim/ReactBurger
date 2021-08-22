@@ -1,9 +1,9 @@
-import { ingredientsReducer } from "./IngredientsReducer";
-import { orderReducer } from "./OrderReducer";
+import { ingredientsReducer } from "./IngredientsReducer/IngredientsReducer";
+import { orderReducer } from "./OrderReducer/OrderReducer";
 import { combineReducers } from "redux";
-import { authReducer } from "./AuthReducer";
-import { profileReducer } from "./ProfileReducer";
-import { wsReducer } from "./WsReducer";
+import { authReducer } from "./AuthReducer/AuthReducer";
+import { profileReducer } from "./ProfileReducer/ProfileReducer";
+import { wsReducer } from "./WsReducer/WsReducer";
 
 
 export const rootReducer = combineReducers({

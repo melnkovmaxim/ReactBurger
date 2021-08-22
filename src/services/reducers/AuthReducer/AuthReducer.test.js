@@ -9,7 +9,7 @@ import {
   REGISTER_REQUEST,
   REGISTER_REQUEST_FAILED,
   REGISTER_REQUEST_SUCCESS
-} from "../actions/AuthActions";
+} from "../../actions/AuthActions";
 
 const initialState = {
   registerRequestPending: false,

@@ -6,7 +6,7 @@ import {
   WS_GET_ALL_ORDERS_MESSAGE, WS_GET_USER_ORDERS_MESSAGE, WS_USER_ORDERS_CONNECTION_CLOSED,
   WS_USER_ORDERS_CONNECTION_ERROR,
   WS_USER_ORDERS_CONNECTION_SUCCESS
-} from "../actions/WsActions";
+} from "../../actions/WsActions";
 
 const initialState = {
   wsAllOrdersConnected: false,

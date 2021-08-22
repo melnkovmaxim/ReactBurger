@@ -5,7 +5,7 @@ import {
   GET_INGREDIENTS_FAILED,
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS, MOVE_CONSTRUCTOR_INGREDIENT, REMOVE_CONSTRUCTOR_INGREDIENT
-} from "../actions/IngredientActions";
+} from "../../actions/IngredientActions";
 
 const initialState = {
   items: [],

@@ -8,7 +8,7 @@ import {
   DRAG,
   DROP,
   CLEAR_CONSTRUCTOR
-} from '../actions/IngredientActions';
+} from '../../actions/IngredientActions';
 import uuid from 'react-uuid'
 
 const initialState = {

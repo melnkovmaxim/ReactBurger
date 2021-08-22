@@ -11,7 +11,7 @@ import {
   CONFIRM_RESET_PASSWORD_REQUEST,
   CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS,
   CONFIRM_RESET_PASSWORD_REQUEST_FAILED,
-} from "../actions/ProfileActions";
+} from "../../actions/ProfileActions";
 
 const initialState = {
   user: {},

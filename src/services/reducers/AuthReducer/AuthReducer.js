@@ -11,7 +11,7 @@ import {
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_REQUEST_SUCCESS,
   REFRESH_TOKEN_REQUEST_FAILED,
-} from "../actions/AuthActions";
+} from "../../actions/AuthActions";
 
 const initialState = {
   registerRequestPending: false,

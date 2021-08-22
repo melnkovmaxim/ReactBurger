@@ -6,7 +6,7 @@ import {
   USER_INFO_REQUEST,
   USER_INFO_REQUEST_FAILED,
   USER_INFO_REQUEST_SUCCESS
-} from "../actions/ProfileActions";
+} from "../../actions/ProfileActions";
 
 const initialState = {
   user: {},
