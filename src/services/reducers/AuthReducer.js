@@ -8,7 +8,6 @@ import {
   LOGOUT_REQUEST,
   LOGOUT_REQUEST_SUCCESS,
   LOGOUT_REQUEST_FAILED,
-  SET_TOKENS,
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_REQUEST_SUCCESS,
   REFRESH_TOKEN_REQUEST_FAILED,
@@ -34,11 +33,6 @@ const initialState = {
 
 export const authReducer = (state = initialState, action) => {
   switch (action.type) {
-    case SET_TOKENS: {
-      return {
-        ...state,
-      }
-    }
     case REGISTER_REQUEST: {
       return {
         ...state,
@@ -117,6 +111,7 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         logoutRequestPending: false,
         logoutRequestFailed: false,
+        logoutRequestError: '',
       };
     }
     case LOGOUT_REQUEST_FAILED: {
