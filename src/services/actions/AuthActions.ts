@@ -12,24 +12,24 @@ import { removeAccessToken, setAccessToken } from "../../utils/Cookie";
 import { removeRefreshToken, setRefreshToken } from "../../utils/LocalStorage";
 import { fetchByAction } from "../Api";
 
-export const LOGIN_REQUEST = "LOGIN_REQUEST";
-export const LOGIN_REQUEST_SUCCESS = "LOGIN_REQUEST_SUCCESS";
-export const LOGIN_REQUEST_FAILED = "LOGIN_REQUEST_FAILED";
+export const LOGIN_REQUEST: "LOGIN_REQUEST" = "LOGIN_REQUEST";
+export const LOGIN_REQUEST_SUCCESS: "LOGIN_REQUEST_SUCCESS" = "LOGIN_REQUEST_SUCCESS";
+export const LOGIN_REQUEST_FAILED: "LOGIN_REQUEST_FAILED" = "LOGIN_REQUEST_FAILED";
 
-export const REGISTER_REQUEST = "REGISTER_REQUEST";
-export const REGISTER_REQUEST_SUCCESS = "REGISTER_REQUEST_SUCCESS";
-export const REGISTER_REQUEST_FAILED = "REGISTER_REQUEST_FAILED";
+export const REGISTER_REQUEST: "REGISTER_REQUEST" = "REGISTER_REQUEST";
+export const REGISTER_REQUEST_SUCCESS: "REGISTER_REQUEST_SUCCESS" = "REGISTER_REQUEST_SUCCESS";
+export const REGISTER_REQUEST_FAILED: "REGISTER_REQUEST_FAILED" = "REGISTER_REQUEST_FAILED";
 
-export const LOGOUT_REQUEST = "LOGOUT_REQUEST";
-export const LOGOUT_REQUEST_SUCCESS = "LOGOUT_REQUEST_SUCCESS";
-export const LOGOUT_REQUEST_FAILED = "LOGOUT_REQUEST_FAILED";
+export const LOGOUT_REQUEST: "LOGOUT_REQUEST" = "LOGOUT_REQUEST";
+export const LOGOUT_REQUEST_SUCCESS: "LOGOUT_REQUEST_SUCCESS" = "LOGOUT_REQUEST_SUCCESS";
+export const LOGOUT_REQUEST_FAILED: "LOGOUT_REQUEST_FAILED" = "LOGOUT_REQUEST_FAILED";
 
-export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
-export const REFRESH_TOKEN_REQUEST_SUCCESS = "REFRESH_TOKEN_REQUEST_SUCCESS";
-export const REFRESH_TOKEN_REQUEST_FAILED = "REFRESH_TOKEN_REQUEST_FAILED";
+export const REFRESH_TOKEN_REQUEST: "REFRESH_TOKEN_REQUEST" = "REFRESH_TOKEN_REQUEST";
+export const REFRESH_TOKEN_REQUEST_SUCCESS: "REFRESH_TOKEN_REQUEST_SUCCESS" = "REFRESH_TOKEN_REQUEST_SUCCESS";
+export const REFRESH_TOKEN_REQUEST_FAILED: "REFRESH_TOKEN_REQUEST_FAILED" = "REFRESH_TOKEN_REQUEST_FAILED";
 
-export function register(email, login, password) {
-  return function (dispatch) {
+export function register(email: string, login: string, password: string) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: REGISTER_REQUEST });
 
     const body = JSON.stringify({
@@ -44,7 +44,7 @@ export function register(email, login, password) {
         type: REGISTER_REQUEST_SUCCESS,
       });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: string) => {
       dispatch({ type: REGISTER_REQUEST_FAILED, error: error });
     };
 
@@ -58,8 +58,8 @@ export function register(email, login, password) {
   };
 }
 
-export function login(email, password) {
-  return function (dispatch) {
+export function login(email: string, password: string) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: REGISTER_REQUEST });
 
     const body = JSON.stringify({
@@ -73,7 +73,7 @@ export function login(email, password) {
         type: LOGIN_REQUEST_SUCCESS,
       });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: string) => {
       dispatch({ type: LOGIN_REQUEST_FAILED, error: error });
     };
 
@@ -87,8 +87,8 @@ export function login(email, password) {
   };
 }
 
-export function refreshToken(refreshToken) {
-  return function (dispatch) {
+export function refreshToken(refreshToken: string) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
 
     const body = JSON.stringify({
@@ -99,7 +99,7 @@ export function refreshToken(refreshToken) {
       setRefreshToken(json.refreshToken);
       dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: string) => {
       removeAccessToken();
       removeRefreshToken();
       dispatch({ type: REFRESH_TOKEN_REQUEST_FAILED, error: error });
@@ -115,8 +115,8 @@ export function refreshToken(refreshToken) {
   };
 }
 
-export function logout(refreshToken) {
-  return function (dispatch) {
+export function logout(refreshToken: string) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: LOGOUT_REQUEST });
     removeAccessToken();
     removeRefreshToken();
@@ -127,7 +127,7 @@ export function logout(refreshToken) {
     const onSuccess = (json) => {
       dispatch({ type: LOGOUT_REQUEST_SUCCESS });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: string) => {
       dispatch({ type: LOGOUT_REQUEST_FAILED, error: error });
     };
 

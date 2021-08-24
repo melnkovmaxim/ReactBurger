@@ -16,8 +16,8 @@ declare global {
   }
 }
 
-const wsAllOrdersUrl = 'wss://norma.nomoreparties.space/orders/all';
-const wsUserOrdersUrl = 'wss://norma.nomoreparties.space/orders';
+const wsAllOrdersUrl: string = 'wss://norma.nomoreparties.space/orders/all';
+const wsUserOrdersUrl: string = 'wss://norma.nomoreparties.space/orders';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const enhancer = composeEnhancers(

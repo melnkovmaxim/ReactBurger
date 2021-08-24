@@ -11,35 +11,35 @@ import {
 } from "../../resources/Request";
 import { getAccessToken } from "../../utils/Cookie";
 
-export const USER_INFO_REQUEST = "USER_INFO_REQUEST";
-export const USER_INFO_REQUEST_SUCCESS = "USER_INFO_REQUEST_SUCCESS";
-export const USER_INFO_REQUEST_FAILED = "USER_INFO_REQUEST_FAILED";
+export const USER_INFO_REQUEST: "USER_INFO_REQUEST" = "USER_INFO_REQUEST";
+export const USER_INFO_REQUEST_SUCCESS: "USER_INFO_REQUEST_SUCCESS" = "USER_INFO_REQUEST_SUCCESS";
+export const USER_INFO_REQUEST_FAILED: "USER_INFO_REQUEST_FAILED" = "USER_INFO_REQUEST_FAILED";
 
-export const UPDATE_USER_INFO_REQUEST = "UPDATE_USER_INFO_REQUEST";
-export const UPDATE_USER_INFO_REQUEST_SUCCESS =
+export const UPDATE_USER_INFO_REQUEST: "UPDATE_USER_INFO_REQUEST" = "UPDATE_USER_INFO_REQUEST";
+export const UPDATE_USER_INFO_REQUEST_SUCCESS: "UPDATE_USER_INFO_REQUEST_SUCCESS" =
   "UPDATE_USER_INFO_REQUEST_SUCCESS";
-export const UPDATE_USER_INFO_REQUEST_FAILED =
+export const UPDATE_USER_INFO_REQUEST_FAILED: "UPDATE_USER_INFO_REQUEST_FAILED" =
   "UPDATE_USER_INFO_REQUEST_FAILED";
 
-export const RESET_PASSWORD_REQUEST = "RESET_PASSWORD_REQUEST_REQUEST";
-export const RESET_PASSWORD_REQUEST_SUCCESS = "RESET_PASSWORD_REQUEST_SUCCESS";
-export const RESET_PASSWORD_REQUEST_FAILED = "RESET_PASSWORD_REQUEST_FAILED";
+export const RESET_PASSWORD_REQUEST: "RESET_PASSWORD_REQUEST_REQUEST" = "RESET_PASSWORD_REQUEST_REQUEST";
+export const RESET_PASSWORD_REQUEST_SUCCESS: "RESET_PASSWORD_REQUEST_SUCCESS" = "RESET_PASSWORD_REQUEST_SUCCESS";
+export const RESET_PASSWORD_REQUEST_FAILED: "RESET_PASSWORD_REQUEST_FAILED" = "RESET_PASSWORD_REQUEST_FAILED";
 
-export const CONFIRM_RESET_PASSWORD_REQUEST =
+export const CONFIRM_RESET_PASSWORD_REQUEST: "CONFIRM_RESET_PASSWORD_REQUEST_REQUEST" =
   "CONFIRM_RESET_PASSWORD_REQUEST_REQUEST";
-export const CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS =
+export const CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS: "CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS" =
   "CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS";
-export const CONFIRM_RESET_PASSWORD_REQUEST_FAILED =
+export const CONFIRM_RESET_PASSWORD_REQUEST_FAILED: "CONFIRM_RESET_PASSWORD_REQUEST_FAILED" =
   "CONFIRM_RESET_PASSWORD_REQUEST_FAILED";
 
-export function getUserInfo(accessToken) {
-  return function (dispatch) {
+export function getUserInfo(accessToken: string) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: USER_INFO_REQUEST });
 
     const onSuccess = (json) => {
       dispatch({ type: USER_INFO_REQUEST_SUCCESS, name: json.user.name, email: json.user.email });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: string) => {
       dispatch({ type: USER_INFO_REQUEST_FAILED, error: error });
     };
 
@@ -55,13 +55,13 @@ export function getUserInfo(accessToken) {
 }
 
 export function updateUserInfo(user) {
-  return function (dispatch) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: UPDATE_USER_INFO_REQUEST });
 
     const onSuccess = (json) => {
       dispatch({ type: UPDATE_USER_INFO_REQUEST_SUCCESS });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: any) => {
       dispatch({ type: UPDATE_USER_INFO_REQUEST_FAILED, error: error });
     };
 
@@ -76,14 +76,14 @@ export function updateUserInfo(user) {
   };
 }
 
-export function resetPassword(email) {
-  return function (dispatch) {
+export function resetPassword(email: string) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
     const onSuccess = (json) => {
       dispatch({ type: RESET_PASSWORD_REQUEST_SUCCESS });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: string) => {
       dispatch({ type: RESET_PASSWORD_REQUEST_FAILED, error: error });
     };
 
@@ -97,14 +97,14 @@ export function resetPassword(email) {
   };
 }
 
-export function confirmResetPassword(password, confirmToken) {
-  return function (dispatch) {
+export function confirmResetPassword(password: string, confirmToken: string) {
+  return function (dispatch: (arg: any) => void) {
     dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST });
 
     const onSuccess = (json) => {
       dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS });
     };
-    const onFailed = (error) => {
+    const onFailed = (error: string) => {
       dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST_FAILED, error: error });
     };
 

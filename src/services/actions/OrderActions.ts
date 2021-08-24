@@ -1,15 +1,15 @@
 import { CLEAR_CONSTRUCTOR } from "./IngredientActions";
 import { getAccessToken } from "../../utils/Cookie";
 
-export const CREATE_ORDER_REQUEST = "CREATE_ORDER";
-export const CREATE_ORDER_REQUEST_SUCCESS = "CREATE_ORDER_SUCCESS";
-export const CREATE_ORDER_REQUEST_FAILED = "CREATE_ORDER_FAILED";
-export const ADD_INGREDIENT = "ADD_INGREDIENT";
+export const CREATE_ORDER_REQUEST: "CREATE_ORDER" = "CREATE_ORDER";
+export const CREATE_ORDER_REQUEST_SUCCESS: "CREATE_ORDER_SUCCESS" = "CREATE_ORDER_SUCCESS";
+export const CREATE_ORDER_REQUEST_FAILED: "CREATE_ORDER_FAILED" = "CREATE_ORDER_FAILED";
+export const ADD_INGREDIENT: "ADD_INGREDIENT" = "ADD_INGREDIENT";
 
-const URL_CREATE_ORDER = "https://norma.nomoreparties.space/api/orders";
+const URL_CREATE_ORDER: string = "https://norma.nomoreparties.space/api/orders";
 
-export function createOrder(bunId, ingredientIdList) {
-  return function (dispatch) {
+export function createOrder(bunId: string, ingredientIdList: Array<string>) {
+  return function (dispatch: (arg: any) => void) {
     if (!bunId) {
       dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер без булок' });
       return
@@ -62,7 +62,7 @@ export function createOrder(bunId, ingredientIdList) {
           burgerName: json.name,
         });
       })
-      .catch((error) => {
+      .catch((error: string) => {
         dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: error });
       });
   };
