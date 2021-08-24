@@ -33,6 +33,7 @@ const IngredientList = forwardRef(
                       name={ item.name }
                       price={ item.price }
                       image={ item.image }
+                      type={ item.type }
                       showIngredientDetails={ () => {
                       } }
                     />

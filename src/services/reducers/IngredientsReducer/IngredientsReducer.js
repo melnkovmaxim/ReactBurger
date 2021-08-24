@@ -8,7 +8,7 @@ import {
   DRAG,
   DROP,
   CLEAR_CONSTRUCTOR
-} from '../actions/IngredientActions';
+} from '../../actions/IngredientActions';
 import uuid from 'react-uuid'
 
 const initialState = {
@@ -39,13 +39,15 @@ export const ingredientsReducer = (state = initialState, action) => {
         items: action.ingredients,
         itemsRequestPending: false,
         itemsRequestFailed: false,
+        itemsRequestError: '',
       }
     }
     case GET_INGREDIENTS_FAILED: {
       return {
         ...state,
+        itemsRequestPending: false,
         itemsRequestFailed: true,
-        error: action.error,
+        itemsRequestError: action.error,
       }
     }
     case ADD_CONSTRUCTOR_INGREDIENT: {
@@ -93,13 +95,13 @@ export const ingredientsReducer = (state = initialState, action) => {
       const targetItem = state.constructorItems.find(item => item.constructorItemId === action.targetItemId);
       const targetItemIndex = state.constructorItems.indexOf(targetItem);
 
-      const selectedItemsWithoutDragged = [...state.constructorItems];
-      selectedItemsWithoutDragged.splice(draggedItemIndex, 1);
-      selectedItemsWithoutDragged.splice(action.targetItemIndex ?? targetItemIndex, 0, draggedItem);
+      const selectedItemsBeforeDragging = [...state.constructorItems];
+      selectedItemsBeforeDragging.splice(draggedItemIndex, 1);
+      selectedItemsBeforeDragging.splice(action.targetItemIndex ?? targetItemIndex, 0, draggedItem);
 
       return {
         ...state,
-        constructorItems: selectedItemsWithoutDragged
+        constructorItems: selectedItemsBeforeDragging
       }
     }
     case CLEAR_CONSTRUCTOR: {

@@ -11,7 +11,7 @@ import {
   CONFIRM_RESET_PASSWORD_REQUEST,
   CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS,
   CONFIRM_RESET_PASSWORD_REQUEST_FAILED,
-} from "../actions/ProfileActions";
+} from "../../actions/ProfileActions";
 
 const initialState = {
   user: {},
@@ -54,6 +54,7 @@ export const profileReducer = (state = initialState, action) => {
     case USER_INFO_REQUEST_FAILED: {
       return {
         ...state,
+        user: {},
         userInfoRequestPending: false,
         userInfoRequestFailed: true,
         userInfoRequestError: action.error,

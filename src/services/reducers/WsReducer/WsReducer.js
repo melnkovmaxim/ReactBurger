@@ -7,7 +7,7 @@ import {
   WS_USER_ORDERS_CONNECTION_CLOSED,
   WS_USER_ORDERS_CONNECTION_ERROR,
   WS_GET_USER_ORDERS_MESSAGE
-} from '../actions/WsActions';
+} from '../../actions/WsActions';
 
 const initialState = {
   wsAllOrdersConnected: false,

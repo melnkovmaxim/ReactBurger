@@ -10,6 +10,7 @@ const ConstructorIngredient = ({
                                  constructorIngredientId,
                                  index,
                                  type,
+                                 ingredientType,
                                  text,
                                  price,
                                  thumbnail,
@@ -64,7 +65,7 @@ const ConstructorIngredient = ({
   };
 
   return (
-    <div ref={ (node) => dragRef(dropRef(node)) } className={ componentStyles.container }
+    <div ref={ (node) => dragRef(dropRef(node)) } className={ `constructor-ingredient constructor-ingredient-${ingredientType} ${componentStyles.container}` }
          style={ { opacity: isDragging ? 0 : 1 } }>
       <div>{ children ?? (<div className="ml-8"></div>) }</div>
       <div className={ componentStyles.ingredientWrapper }>
@@ -80,6 +81,7 @@ ConstructorIngredient.propTypes = {
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
+  ingredientType: PropTypes.string.isRequired,
   children: PropTypes.element,
   id: PropTypes.string,
   index: PropTypes.number,

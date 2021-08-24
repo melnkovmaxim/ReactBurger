@@ -28,8 +28,6 @@ export const REFRESH_TOKEN_REQUEST = "REFRESH_TOKEN_REQUEST";
 export const REFRESH_TOKEN_REQUEST_SUCCESS = "REFRESH_TOKEN_REQUEST_SUCCESS";
 export const REFRESH_TOKEN_REQUEST_FAILED = "REFRESH_TOKEN_REQUEST_FAILED";
 
-export const SET_TOKENS = "SET_TOKENS";
-
 export function register(email, login, password) {
   return function (dispatch) {
     dispatch({ type: REGISTER_REQUEST });
