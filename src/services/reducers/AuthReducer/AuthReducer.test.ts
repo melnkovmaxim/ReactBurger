@@ -10,8 +10,9 @@ import {
   REGISTER_REQUEST_FAILED,
   REGISTER_REQUEST_SUCCESS
 } from "../../actions/AuthActions";
+import {IAuthReducerState} from "../../../interfaces/services/reducers/AuthReducer/IAuthReducerState";
 
-const initialState = {
+const initialState: IAuthReducerState = {
   registerRequestPending: false,
   registerRequestFailed: false,
   registerRequestError: "",
@@ -30,17 +31,17 @@ const initialState = {
 };
 
 test('should return the initial state auth reducer', () => {
-  expect(authReducer(undefined, {})).toEqual(initialState);
+  expect(authReducer(undefined, {type: ''})).toEqual(initialState);
 });
 
 test('should handle register request', () => {
-  const resultState = { ...initialState, registerRequestPending: true };
+  const resultState: IAuthReducerState = { ...initialState, registerRequestPending: true };
 
   expect(authReducer(initialState, { type: REGISTER_REQUEST })).toEqual(resultState);
 });
 
 test('should handle register request success', () => {
-  const previousState = {
+  const previousState: IAuthReducerState = {
     ...initialState,
     registerRequestPending: true,
     registerRequestFailed: true,
@@ -51,9 +52,9 @@ test('should handle register request success', () => {
 });
 
 test('should handle register request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, registerRequestPending: true };
-  const resultState = {
+  const error: string = 'error';
+  const previousState: IAuthReducerState = { ...initialState, registerRequestPending: true };
+  const resultState: IAuthReducerState = {
     ...initialState,
     registerRequestPending: false,
     registerRequestFailed: true,
@@ -64,13 +65,13 @@ test('should handle register request failed', () => {
 });
 
 test('should handle login request', () => {
-  const resultState = { ...initialState, loginRequestPending: true };
+  const resultState: IAuthReducerState = { ...initialState, loginRequestPending: true };
 
   expect(authReducer(initialState, { type: LOGIN_REQUEST })).toEqual(resultState);
 });
 
 test('should handle login request success', () => {
-  const previousState = {
+  const previousState: IAuthReducerState = {
     ...initialState,
     registerRequestPending: true,
     registerRequestFailed: true,
@@ -81,9 +82,9 @@ test('should handle login request success', () => {
 });
 
 test('should handle login request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, loginRequestPending: true };
-  const resultState = {
+  const error: string = 'error';
+  const previousState: IAuthReducerState = { ...initialState, loginRequestPending: true };
+  const resultState: IAuthReducerState = {
     ...initialState,
     loginRequestPending: false,
     loginRequestFailed: true,
@@ -94,13 +95,13 @@ test('should handle login request failed', () => {
 });
 
 test('should handle refresh token request', () => {
-  const resultState = { ...initialState, refreshTokenRequestPending: true };
+  const resultState: IAuthReducerState = { ...initialState, refreshTokenRequestPending: true };
 
   expect(authReducer(initialState, { type: REFRESH_TOKEN_REQUEST })).toEqual(resultState);
 });
 
 test('should handle refresh token request success', () => {
-  const previousState = {
+  const previousState: IAuthReducerState = {
     ...initialState,
     refreshTokenRequestPending: true,
     refreshTokenRequestFailed: true,
@@ -111,9 +112,9 @@ test('should handle refresh token request success', () => {
 });
 
 test('should handle refresh token request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, refreshTokenRequestPending: true };
-  const resultState = {
+  const error: string = 'error';
+  const previousState: IAuthReducerState = { ...initialState, refreshTokenRequestPending: true };
+  const resultState: IAuthReducerState = {
     ...initialState,
     refreshTokenRequestPending: false,
     refreshTokenRequestFailed: true,
@@ -124,13 +125,13 @@ test('should handle refresh token request failed', () => {
 });
 
 test('should handle logout request', () => {
-  const resultState = { ...initialState, logoutRequestPending: true };
+  const resultState: IAuthReducerState = { ...initialState, logoutRequestPending: true };
 
   expect(authReducer(initialState, { type: LOGOUT_REQUEST })).toEqual(resultState);
 });
 
 test('should handle logout request success', () => {
-  const previousState = {
+  const previousState: IAuthReducerState = {
     ...initialState,
     logoutRequestPending: true,
     logoutRequestFailed: true,
@@ -141,9 +142,9 @@ test('should handle logout request success', () => {
 });
 
 test('should handle logout request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, logoutRequestPending: true };
-  const resultState = {
+  const error: string = 'error';
+  const previousState: IAuthReducerState = { ...initialState, logoutRequestPending: true };
+  const resultState: IAuthReducerState = {
     ...initialState,
     logoutRequestPending: false,
     logoutRequestFailed: true,

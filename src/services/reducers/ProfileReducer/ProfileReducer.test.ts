@@ -7,10 +7,13 @@ import {
   USER_INFO_REQUEST_FAILED,
   USER_INFO_REQUEST_SUCCESS
 } from "../../actions/ProfileActions";
+import {IProfileReducerState} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerState";
 
-const initialState = {
+const initialState: IProfileReducerState = {
   user: {},
   isSuccessResetPassword: false,
+  isSendedResetPasswordEmail: false,
+  isSendedConfirmResetPasswordEmail: false,
 
   userInfoRequestPending: false,
   userInfoRequestFailed: false,
@@ -30,25 +33,25 @@ const initialState = {
 };
 
 test('should return the initial state profile reducer', () => {
-  expect(profileReducer(undefined, {})).toEqual(initialState);
+  expect(profileReducer(undefined, { type: '' })).toEqual(initialState);
 });
 
 test('should handle user info request', () => {
-  const resultState = { ...initialState, userInfoRequestPending: true };
+  const resultState: IProfileReducerState = { ...initialState, userInfoRequestPending: true };
 
   expect(profileReducer(initialState, { type: USER_INFO_REQUEST })).toEqual(resultState);
 });
 
 test('should handle user info request success', () => {
-  const userName = 'user';
-  const email = 'user@gmail.com';
-  const previousState = {
+  const userName: string = 'user';
+  const email: string = 'user@gmail.com';
+  const previousState: IProfileReducerState = {
     ...initialState,
     userInfoRequestPending: true,
     userInfoRequestFailed: true,
     userInfoRequestError: 'error'
   };
-  const resultState = { ...initialState, user: { name: userName, email: email } };
+  const resultState: IProfileReducerState = { ...initialState, user: { name: userName, email: email } };
 
   expect(profileReducer(previousState, {
     type: USER_INFO_REQUEST_SUCCESS,
@@ -58,22 +61,22 @@ test('should handle user info request success', () => {
 });
 
 test('should handle user info request failed', () => {
-  const user = { name: 'user', email: 'user@gmail.com' };
-  const error = 'error';
-  const previousState = { ...initialState, userInfoRequestPending: true, user: user };
-  const resultState = { ...initialState, user: {}, userInfoRequestFailed: true, userInfoRequestError: error };
+  const user: any = { name: 'user', email: 'user@gmail.com' };
+  const error: string = 'error';
+  const previousState: IProfileReducerState = { ...initialState, userInfoRequestPending: true, user: user };
+  const resultState: IProfileReducerState = { ...initialState, user: {}, userInfoRequestFailed: true, userInfoRequestError: error };
 
   expect(profileReducer(previousState, { type: USER_INFO_REQUEST_FAILED, error: error })).toEqual(resultState);
 });
 
 test('should handle update user info request', () => {
-  const resultState = { ...initialState, updateUserInfoRequestPending: true };
+  const resultState: IProfileReducerState = { ...initialState, updateUserInfoRequestPending: true };
 
   expect(profileReducer(initialState, { type: UPDATE_USER_INFO_REQUEST })).toEqual(resultState);
 });
 
 test('should handle update user info request success', () => {
-  const previousState = {
+  const previousState: IProfileReducerState = {
     ...initialState,
     updateUserInfoRequestPending: true,
     updateUserInfoRequestFailed: true,
@@ -84,21 +87,21 @@ test('should handle update user info request success', () => {
 });
 
 test('should handle update user info request failed', () => {
-  const error = 'error'
-  const previousState = { ...initialState, updateUserInfoRequestPending: true };
-  const resultState = { ...initialState, updateUserInfoRequestFailed: true, updateUserInfoRequestError: error };
+  const error: string = 'error'
+  const previousState: IProfileReducerState = { ...initialState, updateUserInfoRequestPending: true };
+  const resultState: IProfileReducerState = { ...initialState, updateUserInfoRequestFailed: true, updateUserInfoRequestError: error };
 
   expect(profileReducer(previousState, { type: UPDATE_USER_INFO_REQUEST_FAILED, error: error })).toEqual(resultState);
 });
 
 test('should handle reset password request', () => {
-  const resultState = { ...initialState, resetPasswordRequestPending: true };
+  const resultState: IProfileReducerState = { ...initialState, resetPasswordRequestPending: true };
 
   expect(profileReducer(initialState, { type: RESET_PASSWORD_REQUEST })).toEqual(resultState);
 });
 
 test('should handle reset password request success', () => {
-  const previousState = {
+  const previousState: IProfileReducerState = {
     ...initialState,
     resetPasswordRequestPending: true,
     resetPasswordRequestFailed: true,
@@ -106,41 +109,41 @@ test('should handle reset password request success', () => {
     confirmResetPasswordRequestFailed: true,
     confirmResetPasswordRequestError: 'error'
   }
-  const resultState = { ...initialState, isSendedResetPasswordEmail: true };
+  const resultState: IProfileReducerState = { ...initialState, isSendedResetPasswordEmail: true };
 
   expect(profileReducer(previousState, { type: RESET_PASSWORD_REQUEST_SUCCESS })).toEqual(resultState);
 });
 
 test('should handle reset password request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, resetPasswordRequestPending: true };
-  const resultState = { ...initialState, resetPasswordRequestFailed: true, resetPasswordRequestError: error };
+  const error: string = 'error';
+  const previousState: IProfileReducerState = { ...initialState, resetPasswordRequestPending: true };
+  const resultState: IProfileReducerState = { ...initialState, resetPasswordRequestFailed: true, resetPasswordRequestError: error };
 
   expect(profileReducer(previousState, { type: RESET_PASSWORD_REQUEST_FAILED, error: error })).toEqual(resultState);
 });
 
 test('should handle confirm reset password request', () => {
-  const resultState = { ...initialState, confirmResetPasswordRequestPending: true };
+  const resultState: IProfileReducerState = { ...initialState, confirmResetPasswordRequestPending: true };
 
   expect(profileReducer(initialState, { type: CONFIRM_RESET_PASSWORD_REQUEST })).toEqual(resultState);
 });
 
 test('should handle confirm reset password request success', () => {
-  const previousState = {
+  const previousState: IProfileReducerState = {
     ...initialState,
     confirmResetPasswordRequestPending: true,
     confirmResetPasswordRequestFailed: true,
     confirmResetPasswordRequestError: 'error'
   };
-  const resultState = { ...initialState, isSendedConfirmResetPasswordEmail: true, isSuccessResetPassword: true };
+  const resultState: IProfileReducerState = { ...initialState, isSendedConfirmResetPasswordEmail: true, isSuccessResetPassword: true };
 
   expect(profileReducer(previousState, { type: CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS })).toEqual(resultState);
 });
 
 test('should handle confirm reset password request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, confirmResetPasswordRequestPending: true };
-  const resultState = {
+  const error: string = 'error';
+  const previousState: IProfileReducerState = { ...initialState, confirmResetPasswordRequestPending: true };
+  const resultState: IProfileReducerState = {
     ...initialState,
     confirmResetPasswordRequestFailed: true,
     confirmResetPasswordRequestError: error

@@ -12,10 +12,14 @@ import {
   CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS,
   CONFIRM_RESET_PASSWORD_REQUEST_FAILED,
 } from "../../actions/ProfileActions";
+import {IProfileReducerState} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerState";
+import {IProfileReducerAction} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerAction";
 
-const initialState = {
+const initialState: IProfileReducerState = {
   user: {},
   isSuccessResetPassword: false,
+  isSendedResetPasswordEmail: false,
+  isSendedConfirmResetPasswordEmail: false,
 
   userInfoRequestPending: false,
   userInfoRequestFailed: false,
@@ -34,7 +38,7 @@ const initialState = {
   confirmResetPasswordRequestError: "",
 };
 
-export const profileReducer = (state = initialState, action) => {
+export const profileReducer = (state: IProfileReducerState = initialState, action: IProfileReducerAction) => {
   switch (action.type) {
     case USER_INFO_REQUEST: {
       return {

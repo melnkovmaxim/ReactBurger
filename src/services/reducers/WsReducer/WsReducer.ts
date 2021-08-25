@@ -8,8 +8,10 @@ import {
   WS_USER_ORDERS_CONNECTION_ERROR,
   WS_GET_USER_ORDERS_MESSAGE
 } from '../../actions/WsActions';
+import {IWsReducerState} from "../../../interfaces/services/reducers/WsReducer/IWsReducerState";
+import {IWsReducerAction} from "../../../interfaces/services/reducers/WsReducer/IWsReducerAction";
 
-const initialState = {
+const initialState: IWsReducerState = {
   wsAllOrdersConnected: false,
   wsUserOrdersConnected: false,
 
@@ -19,7 +21,7 @@ const initialState = {
   totalToday: 0,
 };
 
-export const wsReducer = (state = initialState, action) => {
+export const wsReducer = (state: IWsReducerState = initialState, action: IWsReducerAction) => {
   switch (action.type) {
     case WS_ALL_ORDERS_CONNECTION_SUCCESS:
       return {

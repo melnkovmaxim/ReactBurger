@@ -6,8 +6,9 @@ import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS, MOVE_CONSTRUCTOR_INGREDIENT, REMOVE_CONSTRUCTOR_INGREDIENT
 } from "../../actions/IngredientActions";
+import {IIngredientsReducerState} from "../../../interfaces/services/reducers/IngredientsReducer/IIngredientsReducerState";
 
-const initialState = {
+const initialState: IIngredientsReducerState = {
   items: [],
   itemsRequestPending: false,
   itemsRequestFailed: false,
@@ -22,24 +23,24 @@ const initialState = {
 }
 
 test('should return the initial state ingredients reducer', () => {
-  expect(ingredientsReducer(undefined, {})).toEqual(initialState);
+  expect(ingredientsReducer(undefined, { type: '' })).toEqual(initialState);
 });
 
 test('should handle get ingredients request', () => {
-  const resultState = { ...initialState, itemsRequestPending: true };
+  const resultState: IIngredientsReducerState = { ...initialState, itemsRequestPending: true };
 
   expect(ingredientsReducer(initialState, { type: GET_INGREDIENTS_REQUEST })).toEqual(resultState);
 });
 
 test('should handle get ingredients request success', () => {
-  const ingredients = [1, 2, 3];
-  const previousState = {
+  const ingredients: Array<number> = [1, 2, 3];
+  const previousState: IIngredientsReducerState = {
     ...initialState,
     itemsRequestPending: true,
     itemsRequestFailed: true,
     itemsRequestError: 'error'
   };
-  const resultState = {
+  const resultState: IIngredientsReducerState = {
     ...initialState,
     itemsRequestPending: false,
     itemsRequestFailed: false,
@@ -54,9 +55,9 @@ test('should handle get ingredients request success', () => {
 });
 
 test('should handle get ingredients request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, itemsRequestPending: true };
-  const resultState = {
+  const error: string = 'error';
+  const previousState: IIngredientsReducerState = { ...initialState, itemsRequestPending: true };
+  const resultState: IIngredientsReducerState = {
     ...initialState,
     itemsRequestPending: false,
     itemsRequestFailed: true,
@@ -67,13 +68,13 @@ test('should handle get ingredients request failed', () => {
 });
 
 test('should handle clear constructor', () => {
-  const constructorItemCounts = new Map();
+  const constructorItemCounts: Map<string, number> = new Map();
   constructorItemCounts.set('key', 'value');
-  const previousState = {
+  const previousState: IIngredientsReducerState = {
     ...initialState,
     constructorItems: [1, 2, 3],
     constructorItemCounts: constructorItemCounts,
-    constructorBunId: 10,
+    constructorBunId: '10',
     constructorTotalPrice: 15
   };
 
@@ -81,22 +82,22 @@ test('should handle clear constructor', () => {
 });
 
 test('should handle drag', () => {
-  const resultState = { ...initialState, isDragging: true };
+  const resultState: IIngredientsReducerState = { ...initialState, isDragging: true };
 
   expect(ingredientsReducer(initialState, { type: DRAG })).toEqual(resultState);
 })
 
 test('should handle drop', () => {
-  const previousState = { ...initialState, isDragging: true };
+  const previousState: IIngredientsReducerState = { ...initialState, isDragging: true };
 
   expect(ingredientsReducer(previousState, { type: DROP })).toEqual(initialState);
 });
 
 test('should handle add constructor ingredient bun', () => {
-  const bun = { _id: 1, type: 'bun' };
-  const ingredients = [bun];
-  const previousState = { ...initialState, items: ingredients };
-  const constructorItemCounts = new Map();
+  const bun: any = { _id: '1', type: 'bun' };
+  const ingredients: Array<any> = [bun];
+  const previousState: IIngredientsReducerState = { ...initialState, items: ingredients };
+  const constructorItemCounts: Map<string, number> = new Map();
   constructorItemCounts.set(bun._id, 2);
 
   expect(ingredientsReducer(previousState, {
@@ -106,10 +107,10 @@ test('should handle add constructor ingredient bun', () => {
 });
 
 test('should handle add constructor ingredient only one any ingredient except bun', () => {
-  const ingredient = { _id: 1, type: 'sauce' };
-  const ingredients = [ingredient];
-  const previousState = { ...initialState, items: ingredients };
-  const constructorItemCounts = new Map();
+  const ingredient: any = { _id: 1, type: 'sauce' };
+  const ingredients: Array<any> = [ingredient];
+  const previousState: IIngredientsReducerState = { ...initialState, items: ingredients };
+  const constructorItemCounts: Map<string, number> = new Map();
   constructorItemCounts.set(ingredient._id, 1);
 
   expect(ingredientsReducer(previousState, {
@@ -119,10 +120,10 @@ test('should handle add constructor ingredient only one any ingredient except bu
 });
 
 test('should handle add constructor many ingredient except bun', () => {
-  const ingredient = { _id: 1, type: 'sauce' };
-  const ingredients = [ingredient];
-  let previousState = { ...initialState, items: ingredients };
-  const constructorItemCounts = new Map();
+  const ingredient: any = { _id: 1, type: 'sauce' };
+  const ingredients: Array<any> = [ingredient];
+  let previousState: IIngredientsReducerState = { ...initialState, items: ingredients };
+  const constructorItemCounts: Map<string, number> = new Map();
   constructorItemCounts.set(ingredient._id, 1);
 
   expect(ingredientsReducer(previousState, {
@@ -137,7 +138,7 @@ test('should handle add constructor many ingredient except bun', () => {
     constructorItems: [{ ...ingredient, constructorItemId: 1 }]
   };
 
-  const secondConstructorItemCounts = new Map();
+  const secondConstructorItemCounts: Map<string, number> = new Map();
   secondConstructorItemCounts.set(ingredient._id, 2);
 
   expect(ingredientsReducer(previousState, {
@@ -147,12 +148,12 @@ test('should handle add constructor many ingredient except bun', () => {
 });
 
 test('should handle remove constructor ingredient bun', () => {
-  const bun = { _id: 1, constructorItemId: 123, type: "bun" };
-  const constructorItems = [bun];
-  const constructorItemCounts = new Map();
+  const bun: any = { _id: 1, constructorItemId: 123, type: "bun" };
+  const constructorItems: Array<any> = [bun];
+  const constructorItemCounts: Map<string, number> = new Map();
   constructorItemCounts.set(bun._id, 2);
-  const previousState = { ...initialState, constructorItems: constructorItems };
-  const resultConstructorItemCounts = new Map();
+  const previousState: IIngredientsReducerState = { ...initialState, constructorItems: constructorItems };
+  const resultConstructorItemCounts: Map<string, number> = new Map();
   resultConstructorItemCounts.set(bun._id, 0);
 
   expect(ingredientsReducer(previousState, {
@@ -162,13 +163,13 @@ test('should handle remove constructor ingredient bun', () => {
 });
 
 test('should handle remove constructor ingredient except bun', () => {
-  const firstIngredient = { _id: 1, constructorItemId: 111, type: "sauce" };
-  const secondIngredient = { _id: 1, constructorItemId: 222, type: "sauce" };
-  const constructorItems = [firstIngredient, secondIngredient];
-  const constructorItemCounts = new Map();
+  const firstIngredient: any = { _id: 1, constructorItemId: 111, type: "sauce" };
+  const secondIngredient: any = { _id: 1, constructorItemId: 222, type: "sauce" };
+  const constructorItems: Array<any> = [firstIngredient, secondIngredient];
+  const constructorItemCounts: Map<string, number> = new Map();
   constructorItemCounts.set(firstIngredient._id, 2);
-  const previousState = { ...initialState, constructorItems: constructorItems };
-  const resultConstructorItemCounts = new Map();
+  const previousState: IIngredientsReducerState = { ...initialState, constructorItems: constructorItems };
+  const resultConstructorItemCounts: Map<string, number> = new Map();
   resultConstructorItemCounts.set(firstIngredient._id, 1);
 
   expect(ingredientsReducer(previousState, {
@@ -178,13 +179,13 @@ test('should handle remove constructor ingredient except bun', () => {
 });
 
 test('should handle move constructor ingredient', () => {
-  const firstIngredient = { _id: 1, constructorItemId: 111, type: "sauce" };
-  const secondIngredient = { _id: 2, constructorItemId: 222, type: "sauce" };
-  const thirdIngredient = { _id: 3, constructorItemId: 333, type: "sauce" };
-  const constructorItems = [firstIngredient, secondIngredient, thirdIngredient];
-  const previousState = { ...initialState, constructorItems: constructorItems };
-  const resultConstructorItems = [firstIngredient, thirdIngredient, secondIngredient];
-  const resultState = { ...initialState, constructorItems: resultConstructorItems };
+  const firstIngredient: any = { _id: 1, constructorItemId: 111, type: "sauce" };
+  const secondIngredient: any = { _id: 2, constructorItemId: 222, type: "sauce" };
+  const thirdIngredient: any = { _id: 3, constructorItemId: 333, type: "sauce" };
+  const constructorItems: Array<any> = [firstIngredient, secondIngredient, thirdIngredient];
+  const previousState: IIngredientsReducerState = { ...initialState, constructorItems: constructorItems };
+  const resultConstructorItems: Array<any> = [firstIngredient, thirdIngredient, secondIngredient];
+  const resultState: IIngredientsReducerState = { ...initialState, constructorItems: resultConstructorItems };
 
   expect(ingredientsReducer(previousState, {
     type: MOVE_CONSTRUCTOR_INGREDIENT,

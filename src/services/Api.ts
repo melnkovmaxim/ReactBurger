@@ -1,7 +1,15 @@
-export function fetchByAction(url, method, onSuccess, onFailed, body = null, token = null) {
+export function fetchByAction(url: string, method: string, onSuccess: (json: string) => void, onFailed: (error: string) => void,
+                              body: string | null = null, token: string | null = null) {
+  const requestHeaders: HeadersInit = new Headers();
+  requestHeaders.set('Content-Type', 'application/json');
+
+  if (token) {
+    requestHeaders.set('Authorization', token);
+  }
+
   fetch(url, {
     method: method,
-    headers: { "Content-Type": "application/json", "Authorization": token },
+    headers: requestHeaders,
     body: body,
   })
     .then(async (response) => {

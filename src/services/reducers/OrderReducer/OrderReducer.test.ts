@@ -4,8 +4,9 @@ import {
   CREATE_ORDER_REQUEST_FAILED,
   CREATE_ORDER_REQUEST_SUCCESS
 } from "../../actions/OrderActions";
+import {IOrderReducerState} from "../../../interfaces/services/reducers/OrderReducer/IOrderReducerState";
 
-const initialState = {
+const initialState: IOrderReducerState = {
   orderNumber: '',
   burgerName: '',
   createOrderRequestPending: false,
@@ -14,25 +15,25 @@ const initialState = {
 }
 
 test('should return the initial state order reducer', () => {
-  expect(orderReducer(undefined, {})).toEqual(initialState);
+  expect(orderReducer(undefined, { type: '' })).toEqual(initialState);
 });
 
 test('should handle create order request', () => {
-  const resultState = { ...initialState, createOrderRequestPending: true };
+  const resultState: IOrderReducerState = { ...initialState, createOrderRequestPending: true };
 
   expect(orderReducer(initialState, { type: CREATE_ORDER_REQUEST })).toEqual(resultState);
 });
 
 test('should handle create order request success', () => {
-  const orderNumber = 123456;
-  const burgerName = 'Классический бургер';
-  const previousState = {
+  const orderNumber: string = '123456';
+  const burgerName: string = 'Классический бургер';
+  const previousState: IOrderReducerState = {
     ...initialState,
     createOrderRequestPending: true,
     createOrderRequestFailed: true,
     createOrderRequestError: 'error'
   };
-  const resultState = {
+  const resultState: IOrderReducerState = {
     ...initialState,
     createOrderRequestPending: false,
     createOrderRequestFailed: false,
@@ -49,9 +50,9 @@ test('should handle create order request success', () => {
 });
 
 test('should handle create order request failed', () => {
-  const error = 'error';
-  const previousState = { ...initialState, createOrderRequestPending: true, orderNumber: 123456, burgerName: 'Бургер' };
-  const resultState = {
+  const error: string = 'error';
+  const previousState: IOrderReducerState = { ...initialState, createOrderRequestPending: true, orderNumber: '123456', burgerName: 'Бургер' };
+  const resultState: IOrderReducerState = {
     ...initialState,
     createOrderRequestPending: false,
     createOrderRequestFailed: true,

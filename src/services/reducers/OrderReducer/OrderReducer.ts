@@ -3,8 +3,10 @@ import {
   CREATE_ORDER_REQUEST_SUCCESS,
   CREATE_ORDER_REQUEST_FAILED
 } from "../../actions/OrderActions";
+import {IOrderReducerState} from "../../../interfaces/services/reducers/OrderReducer/IOrderReducerState";
+import {IOrderReducerAction} from "../../../interfaces/services/reducers/OrderReducer/IOrderReducerAction";
 
-const initialState = {
+const initialState: IOrderReducerState = {
   orderNumber: '',
   burgerName: '',
   createOrderRequestPending: false,
@@ -12,7 +14,7 @@ const initialState = {
   createOrderRequestError: '',
 }
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (state: IOrderReducerState = initialState, action: IOrderReducerAction) => {
   switch (action.type) {
     case CREATE_ORDER_REQUEST: {
       return {

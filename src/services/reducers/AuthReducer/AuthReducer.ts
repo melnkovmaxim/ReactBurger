@@ -12,26 +12,28 @@ import {
   REFRESH_TOKEN_REQUEST_SUCCESS,
   REFRESH_TOKEN_REQUEST_FAILED,
 } from "../../actions/AuthActions";
+import { IAuthReducerState } from '../../../interfaces/services/reducers/AuthReducer/IAuthReducerState';
+import {IAuthReducerAction} from "../../../interfaces/services/reducers/AuthReducer/IAuthReducerAction";
 
-const initialState = {
+const initialState: IAuthReducerState = {
   registerRequestPending: false,
   registerRequestFailed: false,
-  registerRequestError: "",
+  registerRequestError: '',
 
   loginRequestPending: false,
   loginRequestFailed: false,
-  loginRequestError: "",
+  loginRequestError: '',
 
   logoutRequestPending: false,
   logoutRequestFailed: false,
-  logoutRequestError: "",
+  logoutRequestError: '',
 
   refreshTokenRequestPending: false,
   refreshTokenRequestFailed: false,
   refreshTokenRequestError: '',
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state: IAuthReducerState = initialState, action: IAuthReducerAction) => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {

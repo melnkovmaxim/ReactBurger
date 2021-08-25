@@ -9,9 +9,11 @@ import {
   DROP,
   CLEAR_CONSTRUCTOR
 } from '../../actions/IngredientActions';
-import uuid from 'react-uuid'
+import { v4 as uuidv4 } from 'uuid'
+import {IIngredientsReducerState} from "../../../interfaces/services/reducers/IngredientsReducer/IIngredientsReducerState";
+import {IIngredientsReducerAction} from "../../../interfaces/services/reducers/IngredientsReducer/IIngredientsReducerAction";
 
-const initialState = {
+const initialState: IIngredientsReducerState = {
   items: [],
   itemsRequestPending: false,
   itemsRequestFailed: false,
@@ -20,12 +22,12 @@ const initialState = {
   isDragging: false,
 
   constructorItems: [],
-  constructorItemCounts: new Map(),
+  constructorItemCounts: new Map<string, number>(),
   constructorBunId: '',
   constructorTotalPrice: 0,
 }
 
-export const ingredientsReducer = (state = initialState, action) => {
+export const ingredientsReducer = (state: IIngredientsReducerState = initialState, action: IIngredientsReducerAction) => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -52,12 +54,12 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case ADD_CONSTRUCTOR_INGREDIENT: {
       const addedItem = state.items.find(item => item._id === action.itemId);
-      const addedCount = 1;
-      const isBun = addedItem.type === "bun";
-      const constructorItems = isBun
+      const addedCount: number = 1;
+      const isBun: boolean = addedItem.type === "bun";
+      const constructorItems: any = isBun
         ? state.constructorItems.filter(item => item.type !== "bun")
         : [...state.constructorItems];
-      const constructorItemCounts = new Map(state.constructorItemCounts);
+      const constructorItemCounts: Map<string, number> = new Map(state.constructorItemCounts);
       let constructorItemCount = state.constructorItems.filter(item => item._id === addedItem._id).length + addedCount;
 
       if (isBun) {
@@ -69,15 +71,15 @@ export const ingredientsReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        constructorItems: [{ constructorItemId: uuid(), ...addedItem }, ...constructorItems],
+        constructorItems: [{ constructorItemId: uuidv4(), ...addedItem }, ...constructorItems],
         constructorItemCounts: constructorItemCounts,
         constructorBunId: isBun ? addedItem._id : state.constructorBunId
       }
     }
     case REMOVE_CONSTRUCTOR_INGREDIENT: {
       const removedIngredient = state.constructorItems.find(item => item.constructorItemId === action.constructorItemId);
-      const removedCount = 1;
-      const constructorItemCounts = new Map(state.constructorItemCounts);
+      const removedCount: number = 1;
+      const constructorItemCounts: Map<string, number> = new Map(state.constructorItemCounts);
       constructorItemCounts.set(removedIngredient._id, removedIngredient.type === "bun"
         ? 0
         : state.constructorItems.filter(item => item._id === removedIngredient._id).length - removedCount);
@@ -91,9 +93,9 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case MOVE_CONSTRUCTOR_INGREDIENT: {
       const draggedItem = state.constructorItems.find(item => item.constructorItemId === action.draggedItemId);
-      const draggedItemIndex = state.constructorItems.indexOf(draggedItem);
+      const draggedItemIndex: number = state.constructorItems.indexOf(draggedItem);
       const targetItem = state.constructorItems.find(item => item.constructorItemId === action.targetItemId);
-      const targetItemIndex = state.constructorItems.indexOf(targetItem);
+      const targetItemIndex: number = state.constructorItems.indexOf(targetItem);
 
       const selectedItemsBeforeDragging = [...state.constructorItems];
       selectedItemsBeforeDragging.splice(draggedItemIndex, 1);
