@@ -8,13 +8,14 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
+import {Dispatch} from "redux";
+import { ILoginState } from "../../interfaces/pages/Login/ILoginState";
 
-const Login = () => {
-  const dispatch = useDispatch();
-  const [state, setState] = useState({ email: "", password: "" });
+const Login = (): JSX.Element => {
+  const dispatch: Dispatch<any> = useDispatch();
+  const [state, setState] = useState<ILoginState>({ email: "", password: "" });
   const { loginRequestFailed, loginRequestError } = useSelector(store => store.auth);
-  const onChange = (e) =>
-    setState({ ...state, [e.target.name]: e.target.value });
+  const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
     dispatch(login(state.email, state.password));
