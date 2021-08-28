@@ -7,8 +7,7 @@ import UserOrdersHistory from "../../components/UserOrdersHistory/UserOrdersHist
 import Modal from "../../components/Modal/Modal";
 import React from "react";
 import OrderTapeCardDetails from "../../components/OrderTapeCardDetails/OrderTapeCardDetails";
-import { History, Location } from "history";
-import LocationState = History.LocationState;
+import { History, Location, LocationState } from "history";
 import { ILocationState } from "../../interfaces/pages/ILocationState";
 
 const Profile = (): JSX.Element => {

@@ -2,7 +2,6 @@ import { DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "../ConstructorIngredientList/ConstructorIngredientList.module.css";
 import clsx from "clsx";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
-import PropTypes from 'prop-types';
 import { useDrop } from "react-dnd";
 import { useDispatch } from "react-redux";
 import { ADD_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
@@ -24,7 +23,8 @@ const ConstructorIngredientList = ({ bun, ingredients }: IConstructorIngredientL
   });
 
   return (
-    <div ref={ dropTarget } className={ `constructor-ingredients  ${ componentStyles.container } ${ isDragging && componentStyles.border }` }>
+    <div ref={ dropTarget }
+         className={ `constructor-ingredients  ${ componentStyles.container } ${ isDragging && componentStyles.border }` }>
       { bun && (
         <div className="mb-4">
           <ConstructorIngredient
@@ -34,6 +34,7 @@ const ConstructorIngredientList = ({ bun, ingredients }: IConstructorIngredientL
             thumbnail={ bun.image }
             text={ bun.name.concat(" (верх)") }
             price={ bun.price }
+            ingredientType={ "bun" }
           />
         </div>
       ) }
@@ -42,7 +43,8 @@ const ConstructorIngredientList = ({ bun, ingredients }: IConstructorIngredientL
           <div key={ item.constructorItemId }
                className={ `${ index !== 0 ? "mt-4" : "" } ${ componentStyles.ingredientWrapper }` }>
             <ConstructorIngredient constructorIngredientId={ item.constructorItemId } id={ item._id } text={ item.name }
-                                   price={ item.price } thumbnail={ item.image } index={ index } ingredientType={item.type}>
+                                   price={ item.price } thumbnail={ item.image } index={ index }
+                                   ingredientType={ item.type }>
               <div className="mr-2">
                 <DragIcon type="primary"/>
               </div>
@@ -54,11 +56,12 @@ const ConstructorIngredientList = ({ bun, ingredients }: IConstructorIngredientL
         <div className="mt-4">
           <ConstructorIngredient
             constructorIngredientId={ bun.constructorItemId }
-            elementType="bottom"
+            type="bottom"
             thumbnail={ bun.image }
             isLocked={ true }
             text={ bun.name.concat(" (низ)") }
             price={ bun.price }
+            ingredientType={ "bun" }
           />
         </div>
       ) }

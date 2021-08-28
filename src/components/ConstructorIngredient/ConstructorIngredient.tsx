@@ -1,6 +1,5 @@
 import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./ConstructorIngredient.module.css";
-import PropTypes from 'prop-types';
 import { useDrag, useDrop } from "react-dnd";
 import { MOVE_CONSTRUCTOR_INGREDIENT, REMOVE_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
 import { useDispatch } from "react-redux";

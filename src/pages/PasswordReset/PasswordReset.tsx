@@ -9,8 +9,7 @@ import { Dispatch, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { confirmResetPassword } from "../../services/actions/ProfileActions";
 import { useHistory } from 'react-router-dom';
-import { History } from "history";
-import LocationState = History.LocationState;
+import { History, LocationState } from "history";
 import { RootState } from "../../services/reducers/RootReducer";
 import { IPasswordResetState } from "../../interfaces/pages/PasswordReset/IPasswordResetState";
 

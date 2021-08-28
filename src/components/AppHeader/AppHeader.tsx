@@ -16,7 +16,7 @@ const AppHeader = (): JSX.Element => {
         <nav className={ componentStyles.stretchedFlexItem }>
           <NavLink exact to="/" activeClassName={ componentStyles.active }>
             <HeaderButton type="secondary" size="medium" text="Конструктор">
-              <BurgerIcon/>
+              <BurgerIcon type={ "primary" }/>
             </HeaderButton>
           </NavLink>
           <NavLink

@@ -59,8 +59,8 @@ const BurgerIngredients = (): JSX.Element => {
       </div>
       <div className={ (clsx(componentStyles.ingredientListWrapper), componentStyles.ingredientListWrapper) }>
         { uniqueIngredientTypes.map((type, index) => (typeDescriptions.get(type) &&
-          (<IngredientList key={ type } handleScroll={ handleScroll } index={ index }
-                           name={ typeDescriptions.get(type) } type={ type } bunId={ type === "bun" ? bun._id : null }
+          (<IngredientList key={ type } handleScroll={ handleScroll }
+                           name={ typeDescriptions.get(type) } type={ type }
                            ingredients={ ingredients.filter((item) => item.type === type) }/>)
         )) }
       </div>

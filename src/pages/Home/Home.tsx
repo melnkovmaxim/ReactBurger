@@ -7,8 +7,7 @@ import { Switch, Route, Redirect, useLocation, useHistory } from "react-router-d
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
-import { History, Location } from "history";
-import LocationState = History.LocationState;
+import { History, Location, LocationState } from "history";
 import { ILocationState } from "../../interfaces/pages/ILocationState";
 
 const Home = (): JSX.Element => {

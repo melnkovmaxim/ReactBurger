@@ -4,8 +4,7 @@ import { ForwardedRef, forwardRef } from "react";
 import { InView } from "react-intersection-observer";
 import { Link, useLocation } from "react-router-dom";
 import { IIngredientListProps } from "../../interfaces/components/IngredientList/IIngredientListProps";
-import { History } from "history";
-import LocationState = History.LocationState;
+import { LocationState } from "history";
 
 const IngredientList = forwardRef(
   ({ ingredients, name, type, handleScroll }: IIngredientListProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
@@ -14,7 +13,7 @@ const IngredientList = forwardRef(
     return (
       <div ref={ ref } id={ type }>
         <InView
-          onChange={ handleScroll(type) }
+          onChange={ (b,e) => handleScroll(type) }
           threshold={ [0, 0.25, 0.5, 0.75, 1] }
         >
           <div className="mt-10">

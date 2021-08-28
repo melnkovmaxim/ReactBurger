@@ -6,15 +6,14 @@ import { Link, useLocation, useHistory } from "react-router-dom";
 import { useCallback } from 'react';
 import { useEffect, useRef } from "react";
 import { IChildren } from "../../interfaces/components/IChildren";
-import { History } from "history";
-import LocationState = History.LocationState;
+import { History, LocationState } from "history";
 import { ILocationState } from "../../interfaces/pages/ILocationState";
 
 const Modal = ({ children }: IChildren): JSX.Element => {
   const location: LocationState & ILocationState = useLocation();
   const history: History<LocationState> = useHistory();
   const keyCodeEsc: number = 27;
-  const overlayRef = useRef<HTMLElement>();
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   const closeOnClick = useCallback(
     (e) => {

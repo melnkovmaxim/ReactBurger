@@ -1,6 +1,6 @@
 import { IConstructorIngredient } from "../../models/IConstructorIngredient";
 
 export interface IConstructorIngredientListProps {
-  bun: IConstructorIngredient;
+  bun?: IConstructorIngredient;
   ingredients: Array<IConstructorIngredient>;
 }

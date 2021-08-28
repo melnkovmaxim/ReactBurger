@@ -10,8 +10,7 @@ import { createOrder } from "../../services/actions/OrderActions";
 import { useHistory } from "react-router-dom";
 import { getAccessToken } from "../../utils/Cookie";
 import { RootState } from "../../services/reducers/RootReducer";
-import { History } from "history";
-import LocationState = History.LocationState;
+import { History, LocationState } from "history";
 import { IConstructorIngredient } from "../../interfaces/models/IConstructorIngredient";
 import { IBurgerConstructorLocationState } from "../../interfaces/components/BurgerConstructor/IBurgerConstructorLocationState";
 

@@ -5,7 +5,7 @@ export interface IConstructorIngredientProps {
   price: number;
   thumbnail: string;
   id?: string;
-  type?: string;
+  type?: "top" | "bottom";
   index?: number;
   children?: JSX.Element;
   isLocked?: boolean;
