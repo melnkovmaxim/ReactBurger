@@ -21,7 +21,7 @@ const initialState: IWsReducerState = {
   totalToday: 0,
 };
 
-export const wsReducer = (state: IWsReducerState = initialState, action: IWsReducerAction) => {
+export const wsReducer = (state: IWsReducerState = initialState, action: IWsReducerAction): IWsReducerState => {
   switch (action.type) {
     case WS_ALL_ORDERS_CONNECTION_SUCCESS:
       return {
@@ -48,9 +48,9 @@ export const wsReducer = (state: IWsReducerState = initialState, action: IWsRedu
 
       return {
         ...state,
-        orders: action.payload.orders,
-        total: action.payload.total,
-        totalToday: action.payload.totalToday
+        allOrders: action.payload.orders,
+        total: action.payload.total ?? 0,
+        totalToday: action.payload.totalToday ?? 0
       };
     case WS_USER_ORDERS_CONNECTION_SUCCESS:
       return {

@@ -9,11 +9,11 @@ import Modal from "../../components/Modal/Modal";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
 import {History, Location} from "history";
 import LocationState = History.LocationState;
-import {IHomeLocationState} from "../../interfaces/pages/Home/IHomeLocationState";
+import {ILocationState} from "../../interfaces/pages/ILocationState";
 
 const Home = (): JSX.Element => {
   const history: History<LocationState>  = useHistory();
-  const location: LocationState & IHomeLocationState  = useLocation();
+  const location: LocationState & ILocationState  = useLocation();
   const background = location.state && location.state.background;
 
   return (

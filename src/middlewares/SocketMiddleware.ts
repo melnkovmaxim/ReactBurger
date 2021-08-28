@@ -1,8 +1,9 @@
 import { getAccessToken } from "../utils/Cookie";
+import { IOrdersWebSocketActions } from "../interfaces/middlewares/IOrdersWebSocketActions";
 
-const socketMiddleware = (wsUrl, wsActions, withToken = false) => {
+const socketMiddleware = (wsUrl: string, wsActions: IOrdersWebSocketActions, withToken: boolean = false) => {
   return store => {
-    let socket = null;
+    let socket: WebSocket | null = null;
 
     return next => action => {
       const { dispatch } = store;
@@ -10,7 +11,7 @@ const socketMiddleware = (wsUrl, wsActions, withToken = false) => {
       const { wsInit, onOpen, onClose, onError, onMessage } = wsActions;
 
       if (type === wsInit) {
-        const url = withToken ? `${wsUrl}?token=${getAccessToken()}` : wsUrl;
+        const url: string = withToken ? `${wsUrl}?token=${getAccessToken()}` : wsUrl;
         socket = new WebSocket(url);
       }
 

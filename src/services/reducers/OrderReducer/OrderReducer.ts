@@ -14,7 +14,7 @@ const initialState: IOrderReducerState = {
   createOrderRequestError: '',
 }
 
-export const orderReducer = (state: IOrderReducerState = initialState, action: IOrderReducerAction) => {
+export const orderReducer = (state: IOrderReducerState = initialState, action: IOrderReducerAction): IOrderReducerState => {
   switch (action.type) {
     case CREATE_ORDER_REQUEST: {
       return {
@@ -25,8 +25,8 @@ export const orderReducer = (state: IOrderReducerState = initialState, action: I
     case CREATE_ORDER_REQUEST_SUCCESS: {
       return {
         ...state,
-        orderNumber: action.orderNumber,
-        burgerName: action.burgerName,
+        orderNumber: action.orderNumber ?? '',
+        burgerName: action.burgerName ?? '',
         createOrderRequestPending: false,
         createOrderRequestFailed: false,
         createOrderRequestError: '',
@@ -39,7 +39,7 @@ export const orderReducer = (state: IOrderReducerState = initialState, action: I
         burgerName: '',
         createOrderRequestPending: false,
         createOrderRequestFailed: true,
-        createOrderRequestError: action.error,
+        createOrderRequestError: action.error ?? '',
       }
     }
     default: {

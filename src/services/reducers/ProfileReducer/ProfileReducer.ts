@@ -39,7 +39,7 @@ const initialState: IProfileReducerState = {
   confirmResetPasswordRequestError: "",
 };
 
-export const profileReducer = (state: IProfileReducerState = initialState, action: IProfileReducerAction) => {
+export const profileReducer = (state: IProfileReducerState = initialState, action: IProfileReducerAction): IProfileReducerState => {
   switch (action.type) {
     case USER_INFO_REQUEST: {
       return {
@@ -53,7 +53,7 @@ export const profileReducer = (state: IProfileReducerState = initialState, actio
         userInfoRequestPending: false,
         userInfoRequestFailed: false,
         userInfoRequestError: '',
-        user: { name: action.name, email: action.email },
+        user: { name: action.name ?? '', email: action.email ?? '' },
       };
     }
     case USER_INFO_REQUEST_FAILED: {
@@ -62,7 +62,7 @@ export const profileReducer = (state: IProfileReducerState = initialState, actio
         user: { name: '', email: '' },
         userInfoRequestPending: false,
         userInfoRequestFailed: true,
-        userInfoRequestError: action.error,
+        userInfoRequestError: action.error ?? '',
       };
     }
     case UPDATE_USER_INFO_REQUEST: {
@@ -84,7 +84,7 @@ export const profileReducer = (state: IProfileReducerState = initialState, actio
         ...state,
         updateUserInfoRequestPending: false,
         updateUserInfoRequestFailed: true,
-        updateUserInfoRequestError: action.error,
+        updateUserInfoRequestError: action.error ?? '',
       }
     }
     case RESET_PASSWORD_REQUEST: {
@@ -112,7 +112,7 @@ export const profileReducer = (state: IProfileReducerState = initialState, actio
         ...state,
         resetPasswordRequestPending: false,
         resetPasswordRequestFailed: true,
-        resetPasswordRequestError: action.error,
+        resetPasswordRequestError: action.error ?? '',
       }
     }
     case CONFIRM_RESET_PASSWORD_REQUEST: {
@@ -138,7 +138,7 @@ export const profileReducer = (state: IProfileReducerState = initialState, actio
         ...state,
         confirmResetPasswordRequestPending: false,
         confirmResetPasswordRequestFailed: true,
-        confirmResetPasswordRequestError: action.error,
+        confirmResetPasswordRequestError: action.error ?? '',
       }
     }
     default: {

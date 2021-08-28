@@ -115,7 +115,7 @@ export function refreshToken(refreshToken: string) {
   };
 }
 
-export function logout(refreshToken: string) {
+export function logout(refreshToken: string | null) {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: LOGOUT_REQUEST });
     removeAccessToken();

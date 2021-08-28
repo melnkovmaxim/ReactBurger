@@ -6,7 +6,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-const IngredientDetails = ({ headerAlign }) => {
+const IngredientDetails = ({ headerAlign = '' }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { items, itemsRequestPending } = useSelector(

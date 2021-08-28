@@ -6,10 +6,12 @@ import { profileReducer } from "./ProfileReducer/ProfileReducer";
 import { wsReducer } from "./WsReducer/WsReducer";
 
 
-export const rootReducer: ReducersMapObject<unknown, any> = combineReducers({
+export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   order: orderReducer,
   auth: authReducer,
   profile: profileReducer,
   ws: wsReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>

@@ -29,7 +29,7 @@ const initialState: IIngredientsReducerState = {
   constructorTotalPrice: 0,
 }
 
-export const ingredientsReducer = (state: IIngredientsReducerState = initialState, action: IIngredientsReducerAction) => {
+export const ingredientsReducer = (state: IIngredientsReducerState = initialState, action: IIngredientsReducerAction): IIngredientsReducerState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {
@@ -40,7 +40,7 @@ export const ingredientsReducer = (state: IIngredientsReducerState = initialStat
     case GET_INGREDIENTS_SUCCESS: {
       return {
         ...state,
-        items: action.ingredients,
+        items: action.ingredients ?? new Array<IIngredient>(),
         itemsRequestPending: false,
         itemsRequestFailed: false,
         itemsRequestError: '',
@@ -51,7 +51,7 @@ export const ingredientsReducer = (state: IIngredientsReducerState = initialStat
         ...state,
         itemsRequestPending: false,
         itemsRequestFailed: true,
-        itemsRequestError: action.error,
+        itemsRequestError: action.error ?? '',
       }
     }
     case ADD_CONSTRUCTOR_INGREDIENT: {

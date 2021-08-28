@@ -33,7 +33,7 @@ const initialState: IAuthReducerState = {
   refreshTokenRequestError: '',
 };
 
-export const authReducer = (state: IAuthReducerState = initialState, action: IAuthReducerAction) => {
+export const authReducer = (state: IAuthReducerState = initialState, action: IAuthReducerAction): IAuthReducerState => {
   switch (action.type) {
     case REGISTER_REQUEST: {
       return {
@@ -54,7 +54,7 @@ export const authReducer = (state: IAuthReducerState = initialState, action: IAu
         ...state,
         registerRequestPending: false,
         registerRequestFailed: true,
-        registerRequestError: action.error,
+        registerRequestError: action.error ?? '',
       };
     }
     case LOGIN_REQUEST: {
@@ -76,7 +76,7 @@ export const authReducer = (state: IAuthReducerState = initialState, action: IAu
         ...state,
         loginRequestPending: false,
         loginRequestFailed: true,
-        loginRequestError: action.error,
+        loginRequestError: action.error ?? '',
       };
     }
     case REFRESH_TOKEN_REQUEST: {
@@ -99,7 +99,7 @@ export const authReducer = (state: IAuthReducerState = initialState, action: IAu
         ...state,
         refreshTokenRequestPending: false,
         refreshTokenRequestFailed: true,
-        refreshTokenRequestError: action.error,
+        refreshTokenRequestError: action.error ?? '',
       }
     }
     case LOGOUT_REQUEST: {
@@ -121,7 +121,7 @@ export const authReducer = (state: IAuthReducerState = initialState, action: IAu
         ...state,
         logoutRequestPending: false,
         logoutRequestFailed: true,
-        logoutRequestError: action.error,
+        logoutRequestError: action.error ?? '',
       };
     }
     default: {

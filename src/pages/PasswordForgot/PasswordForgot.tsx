@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "../../services/actions/ProfileActions";
 import {History, LocationState} from "history";
 import {Dispatch} from "redux";
+import { RootState } from "../../services/reducers/RootReducer";
 
 const PasswordForgot = (): JSX.Element => {
   const history: History<LocationState> = useHistory();
@@ -16,11 +17,11 @@ const PasswordForgot = (): JSX.Element => {
   const [email, setEmail] = useState<string>("");
   const onChangeEmail = (e) => setEmail(e.target.value);
   const { resetPasswordRequestFailed, resetPasswordRequestError } = useSelector(
-    (store) => store.profile
+    (store: RootState) => store.profile
   );
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(resetPassword());
+    dispatch(resetPassword(email));
     history.push("/reset-password");
   };
 

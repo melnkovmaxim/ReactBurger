@@ -7,15 +7,18 @@ import UserOrdersHistory from "../../components/UserOrdersHistory/UserOrdersHist
 import Modal from "../../components/Modal/Modal";
 import React from "react";
 import OrderTapeCardDetails from "../../components/OrderTapeCardDetails/OrderTapeCardDetails";
+import { History, Location } from "history";
+import LocationState = History.LocationState;
+import { ILocationState } from "../../interfaces/pages/ILocationState";
 
-const Profile = () => {
-  const history = useHistory();
-  const location = useLocation();
+const Profile = (): JSX.Element => {
+  const history: History<LocationState> = useHistory();
+  const location: LocationState & ILocationState = useLocation();
   const background = location.state && location.state.background;
 
   return (
     <>
-      <Switch location={ ((history.action === "PUSH" || history.action === "REPLACE") && background) || location }>
+      <Switch location={ ((history.action === "PUSH" || history.action === "REPLACE") && background as Location<unknown>) || location as Location<unknown> }>
         <Route path={ ["/profile", "/profile/orders"] } exact={ true }>
           <div className={ componentStyles.container }>
             <ProfileMenu/>
