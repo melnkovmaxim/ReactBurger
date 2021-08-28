@@ -1,5 +1,7 @@
-export function fetchByAction(url: string, method: string, onSuccess: (json: string) => void, onFailed: (error: string) => void,
-                              body: string | null = null, token: string | null = null) {
+import { IResponse } from "../interfaces/api/IResponse";
+
+export function fetchByAction<TResponse>(url: string, method: string, onSuccess: (response: TResponse) => void, onFailed: (error: string) => void,
+                              body: string | null = null, token: string | null = null): void {
   const requestHeaders: HeadersInit = new Headers();
   requestHeaders.set('Content-Type', 'application/json');
 
@@ -13,24 +15,23 @@ export function fetchByAction(url: string, method: string, onSuccess: (json: str
     body: body,
   })
     .then(async (response) => {
-      if (response.ok) {
-        return await response.json();
-      }
-
       try {
+        if (response.ok) {
+          return await response.json() as IResponse & TResponse;
+        }
         return Promise.reject((await response.json()).message);
       } catch (e) {
         return Promise.reject(`Произошла ошибка. Статус запроса: ${ response.status }`);
       }
     })
-    .then((json) => {
-      if (!json.success) {
-        return Promise.reject(json.message);
+    .then((object: IResponse & TResponse) => {
+      if (!object.success) {
+        return Promise.reject(object.message);
       }
 
-      onSuccess(json);
+      onSuccess(object);
     })
-    .catch((error) => {
+    .catch((error: string) => {
       onFailed(error);
     });
 }

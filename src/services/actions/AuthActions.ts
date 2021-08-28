@@ -11,6 +11,7 @@ import {
 import { removeAccessToken, setAccessToken } from "../../utils/Cookie";
 import { removeRefreshToken, setRefreshToken } from "../../utils/LocalStorage";
 import { fetchByAction } from "../Api";
+import { IAuthResponse } from "../../interfaces/api/IAuthResponse";
 
 export const LOGIN_REQUEST: "LOGIN_REQUEST" = "LOGIN_REQUEST";
 export const LOGIN_REQUEST_SUCCESS: "LOGIN_REQUEST_SUCCESS" = "LOGIN_REQUEST_SUCCESS";
@@ -37,9 +38,9 @@ export function register(email: string, login: string, password: string) {
       password: password,
       name: login,
     });
-    const onSuccess = (json) => {
-      setAccessToken(json.accessToken.replace('Bearer ', ''));
-      setRefreshToken(json.refreshToken);
+    const onSuccess = (response: IAuthResponse) => {
+      setAccessToken(response.accessToken.replace('Bearer ', ''));
+      setRefreshToken(response.refreshToken);
       dispatch({
         type: REGISTER_REQUEST_SUCCESS,
       });
@@ -48,7 +49,7 @@ export function register(email: string, login: string, password: string) {
       dispatch({ type: REGISTER_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<IAuthResponse>(
       REGISTER_REQUEST_URL,
       REGISTER_REQUEST_METHOD,
       onSuccess,
@@ -66,9 +67,9 @@ export function login(email: string, password: string) {
       email: email,
       password: password,
     });
-    const onSuccess = (json) => {
-      setAccessToken(json.accessToken.replace('Bearer ', ''));
-      setRefreshToken(json.refreshToken);
+    const onSuccess = (response: IAuthResponse) => {
+      setAccessToken(response.accessToken.replace('Bearer ', ''));
+      setRefreshToken(response.refreshToken);
       dispatch({
         type: LOGIN_REQUEST_SUCCESS,
       });
@@ -77,7 +78,7 @@ export function login(email: string, password: string) {
       dispatch({ type: LOGIN_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<IAuthResponse>(
       LOGIN_REQUEST_URL,
       LOGIN_REQUEST_METHOD,
       onSuccess,
@@ -91,12 +92,12 @@ export function refreshToken(refreshToken: string) {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
 
-    const body = JSON.stringify({
+    const body: string = JSON.stringify({
       token: refreshToken,
     });
-    const onSuccess = (json) => {
-      setAccessToken(json.accessToken.replace('Bearer ', ''));
-      setRefreshToken(json.refreshToken);
+    const onSuccess = (response: IAuthResponse) => {
+      setAccessToken(response.accessToken.replace('Bearer ', ''));
+      setRefreshToken(response.refreshToken);
       dispatch({ type: REFRESH_TOKEN_REQUEST_SUCCESS });
     };
     const onFailed = (error: string) => {
@@ -105,7 +106,7 @@ export function refreshToken(refreshToken: string) {
       dispatch({ type: REFRESH_TOKEN_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<IAuthResponse>(
       REFRESH_TOKEN_REQUEST_URL,
       REFRESH_TOKEN_REQUEST_METHOD,
       onSuccess,
@@ -124,14 +125,14 @@ export function logout(refreshToken: string | null) {
     const body = JSON.stringify({
       token: refreshToken,
     });
-    const onSuccess = (json) => {
+    const onSuccess = (response: any) => {
       dispatch({ type: LOGOUT_REQUEST_SUCCESS });
     };
     const onFailed = (error: string) => {
       dispatch({ type: LOGOUT_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<any>(
       LOGOUT_REQUEST_URL,
       LOGOUT_REQUEST_METHOD,
       onSuccess,

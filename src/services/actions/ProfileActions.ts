@@ -10,6 +10,7 @@ import {
   CONFIRM_RESET_PASSWORD_REQUEST_METHOD,
 } from "../../resources/Request";
 import { getAccessToken } from "../../utils/Cookie";
+import { IProfileResponse } from "../../interfaces/api/IProfileResponse";
 
 export const USER_INFO_REQUEST: "USER_INFO_REQUEST" = "USER_INFO_REQUEST";
 export const USER_INFO_REQUEST_SUCCESS: "USER_INFO_REQUEST_SUCCESS" = "USER_INFO_REQUEST_SUCCESS";
@@ -36,14 +37,14 @@ export function getUserInfo(accessToken: string) {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: USER_INFO_REQUEST });
 
-    const onSuccess = (json) => {
-      dispatch({ type: USER_INFO_REQUEST_SUCCESS, name: json.user.name, email: json.user.email });
+    const onSuccess = (response: IProfileResponse) => {
+      dispatch({ type: USER_INFO_REQUEST_SUCCESS, name: response.user.name, email: response.user.email });
     };
     const onFailed = (error: string) => {
       dispatch({ type: USER_INFO_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<IProfileResponse>(
       USER_INFO_REQUEST_URL,
       USER_INFO_REQUEST_METHOD,
       onSuccess,
@@ -58,14 +59,14 @@ export function updateUserInfo(user) {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: UPDATE_USER_INFO_REQUEST });
 
-    const onSuccess = (json) => {
+    const onSuccess = (response: any) => {
       dispatch({ type: UPDATE_USER_INFO_REQUEST_SUCCESS });
     };
     const onFailed = (error: string) => {
       dispatch({ type: UPDATE_USER_INFO_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<any>(
       UPDATE_USER_INFO_REQUEST_URL,
       UPDATE_USER_INFO_REQUEST_METHOD,
       onSuccess,
@@ -80,14 +81,14 @@ export function resetPassword(email: string) {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
-    const onSuccess = (json) => {
+    const onSuccess = (response: any) => {
       dispatch({ type: RESET_PASSWORD_REQUEST_SUCCESS });
     };
     const onFailed = (error: string) => {
       dispatch({ type: RESET_PASSWORD_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<any>(
       RESET_PASSWORD_REQUEST_URL,
       RESET_PASSWORD_REQUEST_METHOD,
       onSuccess,
@@ -101,14 +102,14 @@ export function confirmResetPassword(password: string, confirmToken: string) {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST });
 
-    const onSuccess = (json) => {
+    const onSuccess = (response: any) => {
       dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST_SUCCESS });
     };
     const onFailed = (error: string) => {
       dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST_FAILED, error: error });
     };
 
-    fetchByAction(
+    fetchByAction<any>(
       CONFIRM_RESET_PASSWORD_REQUEST_URL,
       CONFIRM_RESET_PASSWORD_REQUEST_METHOD,
       onSuccess,
