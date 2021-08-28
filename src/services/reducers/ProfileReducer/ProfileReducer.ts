@@ -14,9 +14,10 @@ import {
 } from "../../actions/ProfileActions";
 import {IProfileReducerState} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerState";
 import {IProfileReducerAction} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerAction";
+import { IUser } from "../../../interfaces/models/IUser";
 
 const initialState: IProfileReducerState = {
-  user: {},
+  user: { name: '', email: '' },
   isSuccessResetPassword: false,
   isSendedResetPasswordEmail: false,
   isSendedConfirmResetPasswordEmail: false,
@@ -58,7 +59,7 @@ export const profileReducer = (state: IProfileReducerState = initialState, actio
     case USER_INFO_REQUEST_FAILED: {
       return {
         ...state,
-        user: {},
+        user: { name: '', email: '' },
         userInfoRequestPending: false,
         userInfoRequestFailed: true,
         userInfoRequestError: action.error,

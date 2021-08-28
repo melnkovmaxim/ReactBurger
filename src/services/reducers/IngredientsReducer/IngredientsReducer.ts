@@ -12,6 +12,8 @@ import {
 import { v4 as uuidv4 } from 'uuid'
 import {IIngredientsReducerState} from "../../../interfaces/services/reducers/IngredientsReducer/IIngredientsReducerState";
 import {IIngredientsReducerAction} from "../../../interfaces/services/reducers/IngredientsReducer/IIngredientsReducerAction";
+import { IIngredient } from "../../../interfaces/models/IIngredient";
+import { IConstructorIngredient } from "../../../interfaces/models/IConstructorIngredient";
 
 const initialState: IIngredientsReducerState = {
   items: [],
@@ -53,7 +55,7 @@ export const ingredientsReducer = (state: IIngredientsReducerState = initialStat
       }
     }
     case ADD_CONSTRUCTOR_INGREDIENT: {
-      const addedItem = state.items.find(item => item._id === action.itemId);
+      const addedItem: IIngredient = state.items.find(item => item._id === action.itemId) as IIngredient;
       const addedCount: number = 1;
       const isBun: boolean = addedItem.type === "bun";
       const constructorItems: any = isBun
@@ -77,7 +79,7 @@ export const ingredientsReducer = (state: IIngredientsReducerState = initialStat
       }
     }
     case REMOVE_CONSTRUCTOR_INGREDIENT: {
-      const removedIngredient = state.constructorItems.find(item => item.constructorItemId === action.constructorItemId);
+      const removedIngredient: IConstructorIngredient = state.constructorItems.find(item => item.constructorItemId === action.constructorItemId) as IConstructorIngredient;
       const removedCount: number = 1;
       const constructorItemCounts: Map<string, number> = new Map(state.constructorItemCounts);
       constructorItemCounts.set(removedIngredient._id, removedIngredient.type === "bun"
@@ -92,9 +94,9 @@ export const ingredientsReducer = (state: IIngredientsReducerState = initialStat
       }
     }
     case MOVE_CONSTRUCTOR_INGREDIENT: {
-      const draggedItem = state.constructorItems.find(item => item.constructorItemId === action.draggedItemId);
+      const draggedItem: IConstructorIngredient = state.constructorItems.find(item => item.constructorItemId === action.draggedItemId) as IConstructorIngredient;
       const draggedItemIndex: number = state.constructorItems.indexOf(draggedItem);
-      const targetItem = state.constructorItems.find(item => item.constructorItemId === action.targetItemId);
+      const targetItem: IConstructorIngredient = state.constructorItems.find(item => item.constructorItemId === action.targetItemId) as IConstructorIngredient;
       const targetItemIndex: number = state.constructorItems.indexOf(targetItem);
 
       const selectedItemsBeforeDragging = [...state.constructorItems];

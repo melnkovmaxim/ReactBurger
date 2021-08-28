@@ -10,7 +10,7 @@ import {
 import {IProfileReducerState} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerState";
 
 const initialState: IProfileReducerState = {
-  user: {},
+  user: { name: '', email: '' },
   isSuccessResetPassword: false,
   isSendedResetPasswordEmail: false,
   isSendedConfirmResetPasswordEmail: false,
@@ -64,7 +64,7 @@ test('should handle user info request failed', () => {
   const user: any = { name: 'user', email: 'user@gmail.com' };
   const error: string = 'error';
   const previousState: IProfileReducerState = { ...initialState, userInfoRequestPending: true, user: user };
-  const resultState: IProfileReducerState = { ...initialState, user: {}, userInfoRequestFailed: true, userInfoRequestError: error };
+  const resultState: IProfileReducerState = { ...initialState, user: { name: '', email: '' }, userInfoRequestFailed: true, userInfoRequestError: error };
 
   expect(profileReducer(previousState, { type: USER_INFO_REQUEST_FAILED, error: error })).toEqual(resultState);
 });

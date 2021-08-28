@@ -1,5 +1,7 @@
+import { IUser } from "../../../models/IUser";
+
 export interface IProfileReducerState {
-  user: any;
+  user: IUser;
   isSuccessResetPassword: boolean;
   isSendedResetPasswordEmail: boolean;
   isSendedConfirmResetPasswordEmail: boolean;

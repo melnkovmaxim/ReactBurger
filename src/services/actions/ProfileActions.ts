@@ -61,7 +61,7 @@ export function updateUserInfo(user) {
     const onSuccess = (json) => {
       dispatch({ type: UPDATE_USER_INFO_REQUEST_SUCCESS });
     };
-    const onFailed = (error: any) => {
+    const onFailed = (error: string) => {
       dispatch({ type: UPDATE_USER_INFO_REQUEST_FAILED, error: error });
     };
 

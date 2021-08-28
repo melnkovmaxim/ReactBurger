@@ -8,6 +8,7 @@ import {
   WS_USER_ORDERS_CONNECTION_SUCCESS
 } from "../../actions/WsActions";
 import {IWsReducerState} from "../../../interfaces/services/reducers/WsReducer/IWsReducerState";
+import { IOrder } from "../../../interfaces/models/IOrder";
 
 const initialState: IWsReducerState = {
   wsAllOrdersConnected: false,
@@ -42,7 +43,7 @@ test('should handle receive all orders connection close', () => {
 });
 
 test('should handle to receive all orders message', () => {
-  const orders: Array<number> = [1, 2, 3, 4];
+  const orders: Array<IOrder> = [{} as IOrder, {} as IOrder, {} as IOrder];
   const total: number = 250;
   const totalToday: number = 400;
   const resultState = { ...initialState, orders: orders, total: total, totalToday: totalToday };
@@ -76,7 +77,7 @@ test('should handle receive user orders connection close', () => {
 });
 
 test('should handle to receive user orders message', () => {
-  const userOrders: Array<number> = [1, 2, 3, 4, 5];
+  const userOrders: Array<IOrder> = [{} as IOrder, {} as IOrder, {} as IOrder];
   const resultState: any = { ...initialState, userOrders: userOrders };
 
   expect(wsReducer(initialState, {

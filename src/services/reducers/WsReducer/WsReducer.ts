@@ -42,6 +42,10 @@ export const wsReducer = (state: IWsReducerState = initialState, action: IWsRedu
       };
 
     case WS_GET_ALL_ORDERS_MESSAGE:
+      if (!action.payload) {
+        return state;
+      }
+
       return {
         ...state,
         orders: action.payload.orders,
@@ -64,6 +68,10 @@ export const wsReducer = (state: IWsReducerState = initialState, action: IWsRedu
         wsUserOrdersConnected: false
       }
     case WS_GET_USER_ORDERS_MESSAGE:
+      if (!action.payload) {
+        return state;
+      }
+
       return {
         ...state,
         userOrders: action.payload.orders,
