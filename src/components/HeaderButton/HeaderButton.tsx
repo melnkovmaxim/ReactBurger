@@ -1,6 +1,5 @@
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./HeaderButton.module.css";
-import PropTypes from "prop-types";
 import { IHeaderButtonProps } from "../../interfaces/components/HeaderButton/IHeaderButtonProps";
 
 const HeaderButton = (props: IHeaderButtonProps): JSX.Element => {

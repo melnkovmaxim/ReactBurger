@@ -36,7 +36,6 @@ const BurgerIngredients = (): JSX.Element => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const bun: IIngredient | undefined = ingredients.find((item) => item.type === "bun");
   const typeDescriptions = new Map();
   typeDescriptions.set("bun", "Булки");
   typeDescriptions.set("sauce", "Соусы");

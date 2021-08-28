@@ -1,5 +1,4 @@
 import componentStyles from './FeedStatistics.module.css';
-import PropTypes from "prop-types";
 import { IFeedStatisticsProps } from "../../interfaces/components/FeedStatistics/IFeedStatisticsProps";
 
 const FeedStatistics = ({ orders, total, totalToday }: IFeedStatisticsProps): JSX.Element => {

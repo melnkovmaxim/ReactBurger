@@ -1,6 +1,5 @@
 import componentStyles from './IngredientIconList.module.css';
 import IngredientIcon from "../IngredientIcon/IngredientIcon";
-import PropTypes from "prop-types";
 import { IIngredientIconListProps } from "../../interfaces/components/IngredientIconList/IIngredientIconListProps";
 import { IIngredient } from "../../interfaces/models/IIngredient";
 

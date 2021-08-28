@@ -14,7 +14,6 @@ import {
 } from "../../actions/ProfileActions";
 import {IProfileReducerState} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerState";
 import {IProfileReducerAction} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerAction";
-import { IUser } from "../../../interfaces/models/IUser";
 
 const initialState: IProfileReducerState = {
   user: { name: '', email: '' },

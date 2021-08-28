@@ -1,6 +1,6 @@
 import { ingredientsReducer } from "./IngredientsReducer/IngredientsReducer";
 import { orderReducer } from "./OrderReducer/OrderReducer";
-import {combineReducers, ReducersMapObject} from "redux";
+import { combineReducers } from "redux";
 import { authReducer } from "./AuthReducer/AuthReducer";
 import { profileReducer } from "./ProfileReducer/ProfileReducer";
 import { wsReducer } from "./WsReducer/WsReducer";

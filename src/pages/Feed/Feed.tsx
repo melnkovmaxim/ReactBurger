@@ -18,7 +18,7 @@ import { IIngredient } from "../../interfaces/models/IIngredient";
 
 const Feed = (): JSX.Element => {
   const originalIngredients: Array<IIngredient> = useSelector((store: RootState) => store.ingredients.items);
-  const { allOrders: allOrders, total, totalToday } = useSelector((store: RootState) => store.ws);
+  const { allOrders, total, totalToday } = useSelector((store: RootState) => store.ws);
   const dispatch: Dispatch<any> = useDispatch();
   const history: History<LocationState> = useHistory();
   const location: LocationState & ILocationState = useLocation();
