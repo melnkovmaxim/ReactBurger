@@ -1,7 +1,7 @@
 import OrdersTape from "../../components/OrdersTape/OrdersTape";
 import FeedStatistics from "../../components/FeedStatistics/FeedStatistics";
 import componentStyles from './Feed.module.css';
-import React, { useEffect } from "react";
+import React, { Dispatch, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   WS_ALL_ORDERS_CONNECTION_CLOSED,
@@ -11,13 +11,17 @@ import { getIngredients } from "../../services/actions/IngredientActions";
 import { Switch, useHistory, useLocation, Route } from "react-router-dom";
 import Modal from "../../components/Modal/Modal";
 import OrderTapeCardDetails from "../../components/OrderTapeCardDetails/OrderTapeCardDetails";
+import { RootState } from "../../services/reducers/RootReducer";
+import { History, Location, LocationState } from "history";
+import { ILocationState } from "../../interfaces/pages/ILocationState";
+import { IIngredient } from "../../interfaces/models/IIngredient";
 
-const Feed = () => {
-  const originalIngredients = useSelector(store => store.ingredients.items);
-  const { orders, total, totalToday } = useSelector(store => store.ws);
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const location = useLocation();
+const Feed = (): JSX.Element => {
+  const originalIngredients: Array<IIngredient> = useSelector((store: RootState) => store.ingredients.items);
+  const { allOrders: allOrders, total, totalToday } = useSelector((store: RootState) => store.ws);
+  const dispatch: Dispatch<any> = useDispatch();
+  const history: History<LocationState> = useHistory();
+  const location: LocationState & ILocationState = useLocation();
   const background = location.state && location.state.background;
 
   useEffect(() => {
@@ -36,14 +40,15 @@ const Feed = () => {
 
   return (
     <>
-      <Switch location={ ((history.action === "PUSH" || history.action === "REPLACE") && background) || location }>
-        <Route path="/feed" exact={true}>
+      <Switch
+        location={ ((history.action === "PUSH" || history.action === "REPLACE") && background as Location<unknown>) || location as Location<unknown> }>
+        <Route path="/feed" exact={ true }>
           <div className={ `mt-8 ${ componentStyles.container }` }>
             <p className={ "text text_type_main-large" }>Лента заказов</p>
             <div className={ `mt-6 ${ componentStyles.innerContainer }` }>
-              { orders && <OrdersTape orders={ orders } originalIngredients={ originalIngredients }/> }
+              { allOrders && <OrdersTape orders={ allOrders } originalIngredients={ originalIngredients }/> }
               <div className="ml-15"/>
-              { orders && <FeedStatistics orders={ orders } total={ total } totalToday={ totalToday }/> }
+              { allOrders && <FeedStatistics orders={ allOrders } total={ total } totalToday={ totalToday }/> }
             </div>
           </div>
         </Route>

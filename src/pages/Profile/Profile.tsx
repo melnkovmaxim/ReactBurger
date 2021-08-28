@@ -18,7 +18,8 @@ const Profile = (): JSX.Element => {
 
   return (
     <>
-      <Switch location={ ((history.action === "PUSH" || history.action === "REPLACE") && background as Location<unknown>) || location as Location<unknown> }>
+      <Switch
+        location={ ((history.action === "PUSH" || history.action === "REPLACE") && background as Location<unknown>) || location as Location<unknown> }>
         <Route path={ ["/profile", "/profile/orders"] } exact={ true }>
           <div className={ componentStyles.container }>
             <ProfileMenu/>

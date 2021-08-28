@@ -4,11 +4,11 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from "react-router-dom";
-import React, {FormEvent, FormEventHandler, useState} from "react";
+import React, { FormEvent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "../../services/actions/ProfileActions";
-import {History, LocationState} from "history";
-import {Dispatch} from "redux";
+import { History, LocationState } from "history";
+import { Dispatch } from "redux";
 import { RootState } from "../../services/reducers/RootReducer";
 
 const PasswordForgot = (): JSX.Element => {

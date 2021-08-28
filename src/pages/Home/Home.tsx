@@ -7,18 +7,19 @@ import { Switch, Route, Redirect, useLocation, useHistory } from "react-router-d
 import IngredientDetails from "../../components/IngredientDetails/IngredientDetails";
 import Modal from "../../components/Modal/Modal";
 import OrderDetails from "../../components/OrderDetails/OrderDetails";
-import {History, Location} from "history";
+import { History, Location } from "history";
 import LocationState = History.LocationState;
-import {ILocationState} from "../../interfaces/pages/ILocationState";
+import { ILocationState } from "../../interfaces/pages/ILocationState";
 
 const Home = (): JSX.Element => {
-  const history: History<LocationState>  = useHistory();
-  const location: LocationState & ILocationState  = useLocation();
+  const history: History<LocationState> = useHistory();
+  const location: LocationState & ILocationState = useLocation();
   const background = location.state && location.state.background;
 
   return (
     <>
-      <Switch location={ ((history.action === "PUSH" || history.action === "REPLACE") && (background as Location<unknown>)) || (location as Location<unknown>) }>
+      <Switch
+        location={ ((history.action === "PUSH" || history.action === "REPLACE") && (background as Location<unknown>)) || (location as Location<unknown>) }>
         <Route path="/" exact={ true }>
           <DndProvider backend={ HTML5Backend }>
             <BurgerIngredients/>

@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
 import {Dispatch} from "redux";
 import { ILoginState } from "../../interfaces/pages/Login/ILoginState";
+import { RootState } from "../../services/reducers/RootReducer";
 
 const Login = (): JSX.Element => {
   const dispatch: Dispatch<any> = useDispatch();
   const [state, setState] = useState<ILoginState>({ email: "", password: "" });
-  const { loginRequestFailed, loginRequestError } = useSelector(store => store.auth);
+  const { loginRequestFailed, loginRequestError } = useSelector((store: RootState) => store.auth);
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();
