@@ -1,4 +1,3 @@
-import { IOrdersWebSocketActions } from "../../interfaces/middlewares/IOrdersWebSocketActions";
 import { IPublicOrdersWebSocketActions } from "../../interfaces/middlewares/IPublicOrdersWebSocketActions";
 import { IPrivateOrdersWebSocketActions } from "../../interfaces/middlewares/IPrivateOrdersWebSocketActions";
 
