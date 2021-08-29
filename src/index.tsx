@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
-import {Provider} from 'react-redux';
-import {compose, createStore, applyMiddleware} from 'redux';
-import {rootReducer} from './services/reducers/RootReducer';
-import thunk from 'redux-thunk';
-import SocketMiddleware from './middlewares/SocketMiddleware';
-import {allOrdersWsActions, userOrdersWsActions} from './services/actions/WsActions';
+import { Provider, TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { compose, createStore, applyMiddleware, Action, AnyAction } from 'redux';
+import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import { allOrdersWsActions, userOrdersWsActions } from './services/actions/WsActions';
+import createSocketMiddleware from "./middlewares/SocketMiddleware";
+import { rootReducer, RootState } from "./services/reducers/RootReducer";
 
 declare global {
   interface Window {
@@ -16,28 +16,36 @@ declare global {
   }
 }
 
-const wsAllOrdersUrl = 'wss://norma.nomoreparties.space/orders/all';
-const wsUserOrdersUrl = 'wss://norma.nomoreparties.space/orders';
+const wsAllOrdersUrl: string = 'wss://norma.nomoreparties.space/orders/all';
+const wsUserOrdersUrl: string = 'wss://norma.nomoreparties.space/orders';
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const composeEnhancers = typeof window === "object" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  : compose;
+
+const publicOrdersMiddleware = createSocketMiddleware(wsAllOrdersUrl, allOrdersWsActions);
+const privateOrdersMiddleware = createSocketMiddleware(wsUserOrdersUrl, userOrdersWsActions, true);
+
 const enhancer = composeEnhancers(
-  applyMiddleware(thunk),
-  applyMiddleware(SocketMiddleware(wsAllOrdersUrl, { ...allOrdersWsActions })),
-  applyMiddleware(SocketMiddleware(wsUserOrdersUrl, { ...userOrdersWsActions }, true))
+  applyMiddleware(thunk, publicOrdersMiddleware, privateOrdersMiddleware)
 );
 
 const store = createStore(rootReducer, enhancer);
 
+export type AppDispatch = ThunkDispatch<RootState, void, Action>;
+export const useAppDispatch = () => useDispatch<AppDispatch>();
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>
+
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={ store }>
       <App/>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+
+
