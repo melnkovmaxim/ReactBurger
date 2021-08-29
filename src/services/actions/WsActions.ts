@@ -1,4 +1,6 @@
 import { IOrdersWebSocketActions } from "../../interfaces/middlewares/IOrdersWebSocketActions";
+import { IPublicOrdersWebSocketActions } from "../../interfaces/middlewares/IPublicOrdersWebSocketActions";
+import { IPrivateOrdersWebSocketActions } from "../../interfaces/middlewares/IPrivateOrdersWebSocketActions";
 
 export const WS_ALL_ORDERS_CONNECTION_START: 'WS_ALL_ORDERS_CONNECTION_START' = 'WS_ALL_ORDERS_CONNECTION_START';
 export const WS_ALL_ORDERS_CONNECTION_SUCCESS: 'WS_ALL_ORDERS_CONNECTION_SUCCESS' = 'WS_ALL_ORDERS_CONNECTION_SUCCESS';
@@ -12,7 +14,7 @@ export const WS_USER_ORDERS_CONNECTION_ERROR: 'WS_USER_ORDERS_CONNECTION_ERROR' 
 export const WS_GET_USER_ORDERS_MESSAGE: 'WS_GET_USER_ORDERS_MESSAGE' = 'WS_GET_USER_ORDERS_MESSAGE';
 export const WS_USER_ORDERS_CONNECTION_CLOSED: 'WS_USER_ORDERS_CONNECTION_CLOSED' = 'WS_USER_ORDERS_CONNECTION_CLOSED';
 
-export const allOrdersWsActions: IOrdersWebSocketActions = {
+export const allOrdersWsActions: IPublicOrdersWebSocketActions = {
   wsInit: WS_ALL_ORDERS_CONNECTION_START,
   onOpen: WS_ALL_ORDERS_CONNECTION_SUCCESS,
   onClose: WS_ALL_ORDERS_CONNECTION_CLOSED,
@@ -20,7 +22,7 @@ export const allOrdersWsActions: IOrdersWebSocketActions = {
   onMessage: WS_GET_ALL_ORDERS_MESSAGE
 }
 
-export const userOrdersWsActions: IOrdersWebSocketActions = {
+export const userOrdersWsActions: IPrivateOrdersWebSocketActions = {
   wsInit: WS_USER_ORDERS_CONNECTION_START,
   onOpen: WS_USER_ORDERS_CONNECTION_SUCCESS,
   onClose: WS_USER_ORDERS_CONNECTION_CLOSED,
