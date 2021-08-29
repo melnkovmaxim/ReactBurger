@@ -3,7 +3,6 @@ import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components
 import IngredientIconList from "../IngredientIconList/IngredientIconList";
 import getOrderReadableDate from "../../utils/Date";
 import { getOrderTotalCost, getReadableOrderStatus } from "../../utils/Order";
-import PropTypes from "prop-types";
 import { IIngredient } from "../../interfaces/models/IIngredient";
 import { IOrderTapeCardProps } from "../../interfaces/components/OrderTapeCard/IOrderTapeCardProps";
 
@@ -34,27 +33,5 @@ const OrderTapeCard = ({ order, originalIngredients }: IOrderTapeCardProps): JSX
       </div>
   );
 }
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image_mobile: PropTypes.string.isRequired,
-});
-
-const orderPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-});
-
-OrderTapeCard.propTypes = PropTypes.shape({
-  order: PropTypes.objectOf(orderPropTypes.isRequired).isRequired,
-  originalIngredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-}).isRequired;
 
 export default OrderTapeCard;

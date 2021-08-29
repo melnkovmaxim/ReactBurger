@@ -1,7 +1,6 @@
 import componentStyles from './OrdersTape.module.css';
 import OrderTapeCard from "../OrderTapeCard/OrderTapeCard";
 import { Link, useLocation } from "react-router-dom";
-import PropTypes from "prop-types";
 import { IOrdersTapeProps } from "../../interfaces/components/OrdersTape/IOrdersTapeProps";
 
 const OrdersTape = ({ orders, originalIngredients }: IOrdersTapeProps): JSX.Element => {
@@ -23,27 +22,5 @@ const OrdersTape = ({ orders, originalIngredients }: IOrdersTapeProps): JSX.Elem
     </div>
   );
 }
-
-const ingredientPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
-  image_mobile: PropTypes.string.isRequired,
-});
-
-const orderPropTypes = PropTypes.shape({
-  _id: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired,
-});
-
-OrdersTape.propTypes = PropTypes.shape({
-  orders: PropTypes.arrayOf(orderPropTypes.isRequired).isRequired,
-  originalIngredients: PropTypes.arrayOf(ingredientPropTypes.isRequired).isRequired
-}).isRequired;
 
 export default OrdersTape;

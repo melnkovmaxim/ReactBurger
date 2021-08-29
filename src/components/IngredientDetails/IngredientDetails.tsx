@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { getIngredients } from "../../services/actions/IngredientActions";
 import { useEffect } from "react";
 import { useState } from "react";
-import PropTypes from "prop-types";
 import { IIngredientDetailsProps } from "../../interfaces/components/IngredientDetails/IIngredientDetailsProps";
 import { RootState } from "../../services/reducers/RootReducer";
 import { Dispatch } from "redux";
@@ -112,9 +111,5 @@ const IngredientDetails = ({ headerAlign }: IIngredientDetailsProps): JSX.Elemen
     </>
   );
 };
-
-IngredientDetails.propTypes = PropTypes.shape({
-  headerAlign: PropTypes.string,
-}).isRequired;
 
 export default IngredientDetails;
