@@ -13,7 +13,7 @@ const IngredientList = forwardRef(
     return (
       <div ref={ ref } id={ type }>
         <InView
-          onChange={ (b,e) => handleScroll(type) }
+          onChange={ handleScroll(type) }
           threshold={ [0, 0.25, 0.5, 0.75, 1] }
         >
           <div className="mt-10">

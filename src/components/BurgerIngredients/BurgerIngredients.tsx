@@ -15,16 +15,16 @@ const BurgerIngredients = (): JSX.Element => {
   const ingredientTypes: Array<string> = ingredients.map((item) => item.type);
   const uniqueIngredientTypes: Array<string> = Array.from(new Set(ingredientTypes));
   const [currentTabType, setCurrentTabType] = React.useState<string>("bun");
-  const currentViewsRatio = React.useRef<JSX.Element>(<></>);
+  const currentViewsRatio = React.useRef<{}>({});
 
-  const handleScroll = (type) => {
-    return (inView, entry) => {
+  const handleScroll = (type: string) => {
+    return (inView: boolean, entry:  IntersectionObserverEntry) => {
       currentViewsRatio.current[type] = entry.intersectionRatio;
 
-      const ingredientListTypes = Object.keys(currentViewsRatio.current);
-      const allRatio = ingredientListTypes.map(currentType => currentViewsRatio.current[currentType]);
-      const maxRatio = Math.max(...allRatio);
-      const typeWithMaxRatio = ingredientListTypes.find(currentType => currentViewsRatio.current[currentType] === maxRatio);
+      const ingredientListTypes: Array<string> = Object.keys(currentViewsRatio.current);
+      const allRatio: Array<number> = ingredientListTypes.map(currentType => currentViewsRatio.current[currentType]);
+      const maxRatio: number = Math.max(...allRatio);
+      const typeWithMaxRatio: string | undefined = ingredientListTypes.find(currentType => currentViewsRatio.current[currentType] === maxRatio);
 
       if (!typeWithMaxRatio) return;
 
@@ -36,7 +36,7 @@ const BurgerIngredients = (): JSX.Element => {
     dispatch(getIngredients());
   }, [dispatch]);
 
-  const typeDescriptions = new Map();
+  const typeDescriptions = new Map<string, string>();
   typeDescriptions.set("bun", "Булки");
   typeDescriptions.set("sauce", "Соусы");
   typeDescriptions.set("main", "Начинки");
