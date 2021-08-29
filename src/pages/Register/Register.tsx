@@ -5,15 +5,14 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import { Dispatch, useState } from "react";
-import { useDispatch } from 'react-redux';
+import { useState } from "react";
 import { register } from "../../services/actions/AuthActions";
 import { IRegisterState } from "../../interfaces/pages/Register/IRegisterState";
 import { RootState } from "../../services/reducers/RootReducer";
-import { useAppSelector } from "../../index";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const Register = (): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const [state, setState] = useState<IRegisterState>({ name: '', email: '', password: '' });
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const { registerRequestFailed, registerRequestError } = useAppSelector((store: RootState) => store.auth);

@@ -4,7 +4,7 @@ import './index.css';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { Provider, TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
-import { compose, createStore, applyMiddleware, ActionCreator, Action, AnyAction } from 'redux';
+import { compose, createStore, applyMiddleware, Action, AnyAction } from 'redux';
 import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { allOrdersWsActions, userOrdersWsActions } from './services/actions/WsActions';
 import createSocketMiddleware from "./middlewares/SocketMiddleware";

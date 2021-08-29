@@ -12,9 +12,6 @@ import { removeAccessToken, setAccessToken } from "../../utils/Cookie";
 import { removeRefreshToken, setRefreshToken } from "../../utils/LocalStorage";
 import { fetchByAction } from "../Api";
 import { IAuthResponse } from "../../interfaces/api/IAuthResponse";
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../reducers/RootReducer";
-import { AnyAction } from "redux";
 import { AppThunk } from "../../index";
 
 export const LOGIN_REQUEST: "LOGIN_REQUEST" = "LOGIN_REQUEST";
