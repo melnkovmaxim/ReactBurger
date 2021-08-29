@@ -1,5 +1,6 @@
 import { CLEAR_CONSTRUCTOR } from "./IngredientActions";
 import { getAccessToken } from "../../utils/Cookie";
+import { AppThunk } from "../../index";
 
 export const CREATE_ORDER_REQUEST: "CREATE_ORDER" = "CREATE_ORDER";
 export const CREATE_ORDER_REQUEST_SUCCESS: "CREATE_ORDER_SUCCESS" = "CREATE_ORDER_SUCCESS";
@@ -7,7 +8,7 @@ export const CREATE_ORDER_REQUEST_FAILED: "CREATE_ORDER_FAILED" = "CREATE_ORDER_
 
 const URL_CREATE_ORDER: string = "https://norma.nomoreparties.space/api/orders";
 
-export function createOrder(bunId: string, ingredientIdList: Array<string>) {
+export function createOrder(bunId: string, ingredientIdList: Array<string>): AppThunk {
   return function (dispatch: (arg: any) => void) {
     if (!bunId) {
       dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер без булок' });

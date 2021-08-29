@@ -6,16 +6,15 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../services/actions/AuthActions";
-import {Dispatch} from "redux";
 import { ILoginState } from "../../interfaces/pages/Login/ILoginState";
 import { RootState } from "../../services/reducers/RootReducer";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const Login = (): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const [state, setState] = useState<ILoginState>({ email: "", password: "" });
-  const { loginRequestFailed, loginRequestError } = useSelector((store: RootState) => store.auth);
+  const { loginRequestFailed, loginRequestError } = useAppSelector((store: RootState) => store.auth);
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
   const onSubmit = (e) => {
     e.preventDefault();

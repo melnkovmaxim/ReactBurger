@@ -1,16 +1,16 @@
 import { getIngredients } from "../../services/actions/IngredientActions";
-import { Dispatch, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { WS_USER_ORDERS_CONNECTION_START, WS_USER_ORDERS_CONNECTION_CLOSED } from "../../services/actions/WsActions";
 import OrdersTape from "../OrdersTape/OrdersTape";
 import componentStyles from './UserOrdersHistory.module.css';
 import { RootState } from "../../services/reducers/RootReducer";
 import { IIngredient } from "../../interfaces/models/IIngredient";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const UserOrdersHistory = (): JSX.Element => {
-  const originalIngredients: Array<IIngredient> = useSelector((store: RootState) => store.ingredients.items);
-  const { userOrders } = useSelector((store: RootState) => store.ws);
-  const dispatch: Dispatch<any> = useDispatch();
+  const originalIngredients: Array<IIngredient> = useAppSelector((store: RootState) => store.ingredients.items);
+  const { userOrders } = useAppSelector((store: RootState) => store.ws);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch({ type: WS_USER_ORDERS_CONNECTION_START });

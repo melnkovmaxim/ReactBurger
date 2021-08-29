@@ -12,6 +12,10 @@ import { removeAccessToken, setAccessToken } from "../../utils/Cookie";
 import { removeRefreshToken, setRefreshToken } from "../../utils/LocalStorage";
 import { fetchByAction } from "../Api";
 import { IAuthResponse } from "../../interfaces/api/IAuthResponse";
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../reducers/RootReducer";
+import { AnyAction } from "redux";
+import { AppThunk } from "../../index";
 
 export const LOGIN_REQUEST: "LOGIN_REQUEST" = "LOGIN_REQUEST";
 export const LOGIN_REQUEST_SUCCESS: "LOGIN_REQUEST_SUCCESS" = "LOGIN_REQUEST_SUCCESS";
@@ -29,7 +33,7 @@ export const REFRESH_TOKEN_REQUEST: "REFRESH_TOKEN_REQUEST" = "REFRESH_TOKEN_REQ
 export const REFRESH_TOKEN_REQUEST_SUCCESS: "REFRESH_TOKEN_REQUEST_SUCCESS" = "REFRESH_TOKEN_REQUEST_SUCCESS";
 export const REFRESH_TOKEN_REQUEST_FAILED: "REFRESH_TOKEN_REQUEST_FAILED" = "REFRESH_TOKEN_REQUEST_FAILED";
 
-export function register(email: string, login: string, password: string) {
+export function register(email: string, login: string, password: string): AppThunk {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: REGISTER_REQUEST });
 
@@ -59,7 +63,7 @@ export function register(email: string, login: string, password: string) {
   };
 }
 
-export function login(email: string, password: string) {
+export function login(email: string, password: string): AppThunk {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: REGISTER_REQUEST });
 
@@ -88,7 +92,7 @@ export function login(email: string, password: string) {
   };
 }
 
-export function refreshToken(refreshToken: string) {
+export function refreshToken(refreshToken: string): AppThunk {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
 
@@ -116,7 +120,7 @@ export function refreshToken(refreshToken: string) {
   };
 }
 
-export function logout(refreshToken: string | null) {
+export function logout(refreshToken: string | null): AppThunk {
   return function (dispatch: (arg: any) => void) {
     dispatch({ type: LOGOUT_REQUEST });
     removeAccessToken();

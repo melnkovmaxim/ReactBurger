@@ -1,16 +1,16 @@
 import componentStyles from "./ProfileDetails.module.css";
 import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Dispatch, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { useEffect } from "react";
 import { getUserInfo, updateUserInfo } from "../../services/actions/ProfileActions";
 import { getAccessToken } from "../../utils/Cookie";
 import { RootState } from "../../services/reducers/RootReducer";
 import { IProfileDetailsState } from "../../interfaces/components/ProfileDetails/IProfileDetailsState";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const ProfileDetails = (): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
-  const user = useSelector((store: RootState) => store.profile.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((store: RootState) => store.profile.user);
   const [state, setState] = useState<IProfileDetailsState>({ name: '', email: '', password: '' });
   const [previousState, setPreviousState] = useState<IProfileDetailsState>({ name: '', email: '', password: '' });
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });

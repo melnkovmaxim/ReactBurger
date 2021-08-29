@@ -5,23 +5,23 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, Redirect } from "react-router-dom";
-import { Dispatch, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { confirmResetPassword } from "../../services/actions/ProfileActions";
 import { useHistory } from 'react-router-dom';
 import { History, LocationState } from "history";
 import { RootState } from "../../services/reducers/RootReducer";
 import { IPasswordResetState } from "../../interfaces/pages/PasswordReset/IPasswordResetState";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const PasswordReset = (): JSX.Element => {
   const history: History<LocationState> = useHistory();
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const [state, setState] = useState<IPasswordResetState>({ password: '', token: '' });
   const {
     isSuccessResetPassword,
     confirmResetPasswordRequestFailed,
     confirmResetPasswordRequestError
-  } = useSelector((store: RootState) => store.profile);
+  } = useAppSelector((store: RootState) => store.profile);
   const onChange = (e) => setState({ ...state, [e.target.name]: e.target.value });
 
   const onSubmit = (e) => {

@@ -2,10 +2,9 @@ import { ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-comp
 import componentStyles from "./ConstructorIngredient.module.css";
 import { useDrag, useDrop } from "react-dnd";
 import { MOVE_CONSTRUCTOR_INGREDIENT, REMOVE_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
-import { useDispatch } from "react-redux";
 import { IConstructorIngredientProps } from "../../interfaces/components/ConstructorIngredient/IConstructorIngredientProps";
-import { Dispatch } from "react";
 import { IConstructorIngredientDragItem } from "../../interfaces/components/ConstructorIngredient/IConstructorIngredientDragItem";
+import { useAppDispatch } from "../../index";
 
 const ConstructorIngredient = ({
                                  id,
@@ -19,7 +18,7 @@ const ConstructorIngredient = ({
                                  children,
                                  isLocked
                                }: IConstructorIngredientProps): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ isDragging }, dragRef] = useDrag(() => ({
     type: "constructorIngredient",
     item: { draggedItemId: constructorIngredientId, originalIndex: index },

@@ -4,8 +4,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from "./BurgerConstructor.module.css";
-import { Dispatch, useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { createOrder } from "../../services/actions/OrderActions";
 import { useHistory } from "react-router-dom";
 import { getAccessToken } from "../../utils/Cookie";
@@ -13,16 +12,17 @@ import { RootState } from "../../services/reducers/RootReducer";
 import { History, LocationState } from "history";
 import { IConstructorIngredient } from "../../interfaces/models/IConstructorIngredient";
 import { IBurgerConstructorLocationState } from "../../interfaces/components/BurgerConstructor/IBurgerConstructorLocationState";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const BurgerConstructor = (): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const [totalPrice, setTotalPrice] = useState<number>();
-  const ingredients: Array<IConstructorIngredient> = useSelector(
+  const ingredients: Array<IConstructorIngredient> = useAppSelector(
     (store: RootState) => store.ingredients.constructorItems
   );
   const bun: IConstructorIngredient | undefined = ingredients.find((item) => item.type === "bun");
   const history: History<LocationState & IBurgerConstructorLocationState> = useHistory();
-  const createOrderRequestPending = useSelector((store: RootState) => store.order.createOrderRequestPending);
+  const createOrderRequestPending = useAppSelector((store: RootState) => store.order.createOrderRequestPending);
 
   useEffect(() => {
     const bunsPrice: number = bun ? bun.price * 2 : 0;

@@ -5,18 +5,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useHistory } from "react-router-dom";
 import React, { FormEvent, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { resetPassword } from "../../services/actions/ProfileActions";
 import { History, LocationState } from "history";
-import { Dispatch } from "redux";
 import { RootState } from "../../services/reducers/RootReducer";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const PasswordForgot = (): JSX.Element => {
   const history: History<LocationState> = useHistory();
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState<string>("");
   const onChangeEmail = (e) => setEmail(e.target.value);
-  const { resetPasswordRequestFailed, resetPasswordRequestError } = useSelector(
+  const { resetPasswordRequestFailed, resetPasswordRequestError } = useAppSelector(
     (store: RootState) => store.profile
   );
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {

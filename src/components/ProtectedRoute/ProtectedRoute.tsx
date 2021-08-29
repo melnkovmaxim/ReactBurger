@@ -1,17 +1,17 @@
-import { Dispatch, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 import { Route, Redirect } from "react-router-dom";
 import { refreshToken as doRefreshToken } from "../../services/actions/AuthActions";
 import { getAccessToken } from "../../utils/Cookie";
 import { getRefreshToken } from "../../utils/LocalStorage";
 import { RootState } from "../../services/reducers/RootReducer";
 import { IProtectedRouteProps } from "../../interfaces/components/ProtectedRoute/IProtectedRouteProps";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const ProtectedRoute = ({ children, ...props }: IProtectedRouteProps) => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const accessToken: string = getAccessToken();
   const refreshToken: string | null = getRefreshToken();
-  const refreshTokenRequestPending = useSelector((store: RootState) => store.auth.refreshTokenRequestPending);
+  const refreshTokenRequestPending = useAppSelector((store: RootState) => store.auth.refreshTokenRequestPending);
 
   useEffect(() => {
     if (!accessToken && refreshToken && !refreshTokenRequestPending) {

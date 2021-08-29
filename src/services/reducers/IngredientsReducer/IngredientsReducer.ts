@@ -58,7 +58,7 @@ export const ingredientsReducer = (state: IIngredientsReducerState = initialStat
       const addedItem: IIngredient = state.items.find(item => item._id === action.itemId) as IIngredient;
       const addedCount: number = 1;
       const isBun: boolean = addedItem.type === "bun";
-      const constructorItems: any = isBun
+      const constructorItems: Array<IConstructorIngredient> = isBun
         ? state.constructorItems.filter(item => item.type !== "bun")
         : [...state.constructorItems];
       const constructorItemCounts: Map<string, number> = new Map(state.constructorItemCounts);

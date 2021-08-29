@@ -1,20 +1,18 @@
 import componentStyles from "../IngredientDetails/IngredientDetails.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { getIngredients } from "../../services/actions/IngredientActions";
 import { useEffect } from "react";
 import { useState } from "react";
 import { IIngredientDetailsProps } from "../../interfaces/components/IngredientDetails/IIngredientDetailsProps";
-import { RootState } from "../../services/reducers/RootReducer";
-import { Dispatch } from "redux";
 import { IIngredient } from "../../interfaces/models/IIngredient";
 import { IIngredientDetailsParams } from "../../interfaces/components/IngredientDetails/IIngredientDetailsParams";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const IngredientDetails = ({ headerAlign }: IIngredientDetailsProps): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
+  const dispatch = useAppDispatch();
   const { id } = useParams<IIngredientDetailsParams>();
-  const { items, itemsRequestPending } = useSelector(
-    (store: RootState) => store.ingredients
+  const { items, itemsRequestPending } = useAppSelector(
+    (store) => store.ingredients
   );
   const [viewedIngredient, setViewedIngredient] = useState<IIngredient>();
   const [error, setError] = useState<string>();

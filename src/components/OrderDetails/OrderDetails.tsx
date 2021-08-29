@@ -1,11 +1,11 @@
 import componentStyles from './OrderDetails.module.css';
 import accessIcon from '../../images/graphics.png';
-import { useSelector } from 'react-redux';
 import { RootState } from "../../services/reducers/RootReducer";
 import { IOrderReducerState } from "../../interfaces/services/reducers/OrderReducer/IOrderReducerState";
+import { useAppSelector } from "../../index";
 
 const OrderDetails = (): JSX.Element => {
-  const order: IOrderReducerState = useSelector((store: RootState) => store.order);
+  const order: IOrderReducerState = useAppSelector((store: RootState) => store.order);
 
   return (
     <>

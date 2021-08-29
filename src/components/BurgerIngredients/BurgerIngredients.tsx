@@ -1,17 +1,17 @@
-import React, { Dispatch } from "react";
+import React from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientList from "../IngredientList/IngredientList";
 import componentStyles from "./BurgerIngredients.module.css";
 import clsx from "clsx";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from "../../services/actions/IngredientActions";
 import { RootState } from "../../services/reducers/RootReducer";
 import { IIngredient } from "../../interfaces/models/IIngredient";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const BurgerIngredients = (): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
-  const ingredients: Array<IIngredient> = useSelector((store: RootState) => store.ingredients.items);
+  const dispatch = useAppDispatch();
+  const ingredients: Array<IIngredient> = useAppSelector((store: RootState) => store.ingredients.items);
   const ingredientTypes: Array<string> = ingredients.map((item) => item.type);
   const uniqueIngredientTypes: Array<string> = Array.from(new Set(ingredientTypes));
   const [currentTabType, setCurrentTabType] = React.useState<string>("bun");

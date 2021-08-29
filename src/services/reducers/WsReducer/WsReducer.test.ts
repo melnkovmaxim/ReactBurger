@@ -78,7 +78,7 @@ test('should handle receive user orders connection close', () => {
 
 test('should handle to receive user orders message', () => {
   const userOrders: Array<IOrder> = [{} as IOrder, {} as IOrder, {} as IOrder];
-  const resultState: any = { ...initialState, userOrders: userOrders };
+  const resultState: IWsReducerState = { ...initialState, userOrders: userOrders };
 
   expect(wsReducer(initialState, {
     type: WS_GET_USER_ORDERS_MESSAGE,

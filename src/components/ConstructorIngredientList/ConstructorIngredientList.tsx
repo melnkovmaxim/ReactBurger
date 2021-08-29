@@ -3,17 +3,15 @@ import componentStyles from "../ConstructorIngredientList/ConstructorIngredientL
 import clsx from "clsx";
 import ConstructorIngredient from "../ConstructorIngredient/ConstructorIngredient";
 import { useDrop } from "react-dnd";
-import { useDispatch } from "react-redux";
 import { ADD_CONSTRUCTOR_INGREDIENT } from '../../services/actions/IngredientActions';
-import { useSelector } from 'react-redux';
 import { RootState } from "../../services/reducers/RootReducer";
-import { Dispatch } from "react";
 import { IConstructorIngredientListDragItem } from "../../interfaces/components/ConstructorIngredientList/IConstructorIngredientListDragItem";
 import { IConstructorIngredientListProps } from "../../interfaces/components/ConstructorIngredientList/IConstructorIngredientListProps";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const ConstructorIngredientList = ({ bun, ingredients }: IConstructorIngredientListProps): JSX.Element => {
-  const isDragging: boolean = useSelector((store: RootState) => store.ingredients.isDragging);
-  const dispatch: Dispatch<any> = useDispatch();
+  const isDragging: boolean = useAppSelector((store: RootState) => store.ingredients.isDragging);
+  const dispatch = useAppDispatch();
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item) {

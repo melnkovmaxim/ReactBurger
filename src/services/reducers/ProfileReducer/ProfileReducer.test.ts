@@ -8,6 +8,7 @@ import {
   USER_INFO_REQUEST_SUCCESS
 } from "../../actions/ProfileActions";
 import {IProfileReducerState} from "../../../interfaces/services/reducers/ProfileReducer/IProfileReducerState";
+import { IUser } from "../../../interfaces/models/IUser";
 
 const initialState: IProfileReducerState = {
   user: { name: '', email: '' },
@@ -61,7 +62,7 @@ test('should handle user info request success', () => {
 });
 
 test('should handle user info request failed', () => {
-  const user: any = { name: 'user', email: 'user@gmail.com' };
+  const user: IUser = { name: 'user', email: 'user@gmail.com' };
   const error: string = 'error';
   const previousState: IProfileReducerState = { ...initialState, userInfoRequestPending: true, user: user };
   const resultState: IProfileReducerState = { ...initialState, user: { name: '', email: '' }, userInfoRequestFailed: true, userInfoRequestError: error };

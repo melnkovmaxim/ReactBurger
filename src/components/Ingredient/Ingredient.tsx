@@ -1,15 +1,15 @@
 import { Counter, CurrencyIcon, } from "@ya.praktikum/react-developer-burger-ui-components";
 import componentStyles from './Ingredient.module.css';
 import { useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { DRAG, DROP } from "../../services/actions/IngredientActions";
-import { Dispatch, memo } from "react";
+import { memo } from "react";
 import { IIngredientProps } from "../../interfaces/components/Ingredient/IIngredientProps";
 import { RootState } from "../../services/reducers/RootReducer";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const Ingredient = memo(({ id, name, image, price, type, showIngredientDetails }: IIngredientProps): JSX.Element => {
-  const dispatch: Dispatch<any> = useDispatch();
-  const count: number = useSelector((store: RootState) => store.ingredients.constructorItemCounts.get(id)) ?? 0;
+  const dispatch = useAppDispatch();
+  const count: number = useAppSelector((store: RootState) => store.ingredients.constructorItemCounts.get(id)) ?? 0;
 
   const [, dragRef] = useDrag({
     type: 'ingredient',

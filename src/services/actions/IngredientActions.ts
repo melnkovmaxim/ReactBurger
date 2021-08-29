@@ -1,3 +1,5 @@
+import { AppThunk } from "../../index";
+
 export const GET_INGREDIENTS_REQUEST: 'GET_INGREDIENTS_REQUEST' = 'GET_INGREDIENTS_REQUEST';
 export const GET_INGREDIENTS_SUCCESS: 'GET_INGREDIENTS_SUCCESS' = 'GET_INGREDIENTS_SUCCESS';
 export const GET_INGREDIENTS_FAILED: 'GET_INGREDIENTS_FAILED' = 'GET_INGREDIENTS_FAILED';
@@ -13,7 +15,7 @@ export const CLEAR_CONSTRUCTOR: "CLEAR_CONSTRUCTOR" = "CLEAR_CONSTRUCTOR";
 
 const URL_INGREDIENTS: string = "https://norma.nomoreparties.space/api/ingredients";
 
-export function getIngredients() {
+export function getIngredients(): AppThunk {
   return function (dispatch: (arg: any) => void) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST

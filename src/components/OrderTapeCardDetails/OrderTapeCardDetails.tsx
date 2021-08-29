@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getIngredients } from "../../services/actions/IngredientActions";
 import componentStyles from './OrderTapeCardDetails.module.css';
 import getOrderReadableDate from "../../utils/Date";
@@ -12,12 +11,13 @@ import { IOrderTapCardDetailParams } from "../../interfaces/components/OrderTapC
 import { RootState } from "../../services/reducers/RootReducer";
 import { IIngredient } from "../../interfaces/models/IIngredient";
 import { IOrder } from "../../interfaces/models/IOrder";
+import { useAppDispatch, useAppSelector } from "../../index";
 
 const OrderTapeCardDetails = (): JSX.Element => {
   const { id } = useParams<IOrderTapCardDetailParams>();
-  const dispatch: Dispatch<any> = useDispatch();
-  const originalIngredients: Array<IIngredient> = useSelector((store: RootState) => store.ingredients.items);
-  const { allOrders } = useSelector((store: RootState) => store.ws);
+  const dispatch = useAppDispatch();
+  const originalIngredients: Array<IIngredient> = useAppSelector((store: RootState) => store.ingredients.items);
+  const { allOrders } = useAppSelector((store: RootState) => store.ws);
   const [currentOrder, setCurrentOrder] = useState<IOrder | undefined>();
   const [mappedIngredients, setMappedIngredients] = useState<Array<IIngredient> | undefined>();
 
