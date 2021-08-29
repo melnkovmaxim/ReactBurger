@@ -35,7 +35,7 @@ export const CONFIRM_RESET_PASSWORD_REQUEST_FAILED: "CONFIRM_RESET_PASSWORD_REQU
   "CONFIRM_RESET_PASSWORD_REQUEST_FAILED";
 
 export function getUserInfo(accessToken: string): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: USER_INFO_REQUEST });
 
     const onSuccess = (response: IProfileResponse) => {
@@ -57,7 +57,7 @@ export function getUserInfo(accessToken: string): AppThunk {
 }
 
 export function updateUserInfo(user): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: UPDATE_USER_INFO_REQUEST });
 
     const onSuccess = (response: any) => {
@@ -79,7 +79,7 @@ export function updateUserInfo(user): AppThunk {
 }
 
 export function resetPassword(email: string): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: RESET_PASSWORD_REQUEST });
 
     const onSuccess = (response: any) => {
@@ -100,7 +100,7 @@ export function resetPassword(email: string): AppThunk {
 }
 
 export function confirmResetPassword(password: string, confirmToken: string): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: CONFIRM_RESET_PASSWORD_REQUEST });
 
     const onSuccess = (response: any) => {

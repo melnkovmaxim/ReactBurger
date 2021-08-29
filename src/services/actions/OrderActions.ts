@@ -9,7 +9,7 @@ export const CREATE_ORDER_REQUEST_FAILED: "CREATE_ORDER_FAILED" = "CREATE_ORDER_
 const URL_CREATE_ORDER: string = "https://norma.nomoreparties.space/api/orders";
 
 export function createOrder(bunId: string, ingredientIdList: Array<string>): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     if (!bunId) {
       dispatch({ type: CREATE_ORDER_REQUEST_FAILED, error: 'Нельзя заказать бургер без булок' });
       return

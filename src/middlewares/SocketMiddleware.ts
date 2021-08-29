@@ -1,9 +1,10 @@
 import { getAccessToken } from "../utils/Cookie";
-import { IOrdersWebSocketActions } from "../interfaces/middlewares/IOrdersWebSocketActions";
 import { RootState } from "../services/reducers/RootReducer";
 import { Middleware } from "redux";
+import { IPrivateOrdersWebSocketActions } from "../interfaces/middlewares/IPrivateOrdersWebSocketActions";
+import { IPublicOrdersWebSocketActions } from "../interfaces/middlewares/IPublicOrdersWebSocketActions";
 
-const createSocketMiddleware = (wsUrl: string, wsActions: IOrdersWebSocketActions, withToken: boolean = false): Middleware<{}, RootState> => {
+const createSocketMiddleware = (wsUrl: string, wsActions: IPrivateOrdersWebSocketActions | IPublicOrdersWebSocketActions, withToken: boolean = false): Middleware<{}, RootState> => {
   const socketMiddleware: Middleware<{}, RootState> = (store) => {
       let socket: WebSocket | null = null;
 

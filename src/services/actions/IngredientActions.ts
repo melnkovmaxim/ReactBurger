@@ -16,7 +16,7 @@ export const CLEAR_CONSTRUCTOR: "CLEAR_CONSTRUCTOR" = "CLEAR_CONSTRUCTOR";
 const URL_INGREDIENTS: string = "https://norma.nomoreparties.space/api/ingredients";
 
 export function getIngredients(): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({
       type: GET_INGREDIENTS_REQUEST
     });

@@ -31,7 +31,7 @@ export const REFRESH_TOKEN_REQUEST_SUCCESS: "REFRESH_TOKEN_REQUEST_SUCCESS" = "R
 export const REFRESH_TOKEN_REQUEST_FAILED: "REFRESH_TOKEN_REQUEST_FAILED" = "REFRESH_TOKEN_REQUEST_FAILED";
 
 export function register(email: string, login: string, password: string): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: REGISTER_REQUEST });
 
     const body = JSON.stringify({
@@ -61,7 +61,7 @@ export function register(email: string, login: string, password: string): AppThu
 }
 
 export function login(email: string, password: string): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: REGISTER_REQUEST });
 
     const body = JSON.stringify({
@@ -90,7 +90,7 @@ export function login(email: string, password: string): AppThunk {
 }
 
 export function refreshToken(refreshToken: string): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: REFRESH_TOKEN_REQUEST });
 
     const body: string = JSON.stringify({
@@ -118,7 +118,7 @@ export function refreshToken(refreshToken: string): AppThunk {
 }
 
 export function logout(refreshToken: string | null): AppThunk {
-  return function (dispatch: (arg: any) => void) {
+  return function (dispatch) {
     dispatch({ type: LOGOUT_REQUEST });
     removeAccessToken();
     removeRefreshToken();
